@@ -24,6 +24,11 @@
         ></mu-text-field>
       </div>
     </mu-form-item> -->
+
+
+    <!-- <mu-form :model="form" class="mu-demo-form" label-position="left" ref="form">
+
+    </mu-form> -->
   </div>
 </template>
 
@@ -38,17 +43,17 @@ export default {
     return {
       remPwd: false, // 是否记住密码
       form: {
-        username: this.storage.localGet("username") || "", // 用户名
+        loc_info: this.storage.localGet("loc_info") || "",
+        username: "", // 用户名
         password: "", // 密码
       }
     };
   },
   created(){
     // 获取已记住的密码
-    let loc_remPwd = this.storage.localGet("remPwd");
-    if(loc_remPwd){
-      let loc_pwd = this.storage.localGet("password");
-      this.form.password = loc_pwd;
+    this.loc_info = this.storage.localGet("loc_info");
+    if(this.loc_info.remPwd){
+      this.form.password = this.loc_info.remPwd;
     }
   },
   // computed:{
@@ -68,8 +73,10 @@ export default {
         if (result) {
           this.api.login(this.form).then(res => {
             // 记住账号密码
-            this.storage.localSet("username", this.form.username);
-            this.storage.localSet("password", this.form.password);
+            this.loc_info.username = this.form.username;
+            this.loc_info.password = this.form.password;
+
+            this.storage.localSet("loc_info", this.loc_info);
             // 存入登陆信息
           });
         }
@@ -79,7 +86,9 @@ export default {
     // 设置记住密码
     setRemPwd(){
       if(this.remPwd){
-        this.storage.localSet("remPwd",this.form.password)
+        this.loc_info.password = this.form.password
+        this.storage.localSet("loc_info", this.loc_info);
+        // this.storage.localSet("remPwd",this.form.password)
       }
       
     }
