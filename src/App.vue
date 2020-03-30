@@ -19,6 +19,8 @@
 
 <script>
 import BottomNav from "./components/BottomNav";
+import Theme from "muse-ui/lib/theme";
+import myTheme from "../static/json/myTheme.json";
 import VConsole from "vConsole";
 import tool from "../static/js/tool.js";
 import Api from "@api";
@@ -70,6 +72,16 @@ export default {
           }
         });
       // console.log("token_GJ:",token_GJ);
+    }
+
+    let activTheme = this.storage.localGet("theme");
+    if (activTheme) {
+      Theme.add("theme_one", activTheme, "light");
+      Theme.use("theme_one");
+    } else {
+      this.storage.localSet("theme", myTheme[0]);
+      Theme.add("theme_one", myTheme[0], "light");
+      Theme.use("theme_one");
     }
   },
   watch: {
