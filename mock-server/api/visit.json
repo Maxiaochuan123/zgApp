@@ -1,0 +1,480 @@
+{
+    "visit": [
+        {
+            "url": "/visit/queryPageList",
+            "desc": "拜访记录",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "totalRow": 4,
+                    "pageNumber": 1,
+                    "firstPage": true,
+                    "lastPage": true,
+                    "totalPage": 1,
+                    "pageSize": 15,
+                    "list": [
+                        {
+                            "createUserId": 3,
+                            "readUserIds": ",,",
+                            "userImg": "http://192.168.0.92:6080//20190920/audi.png",
+                            "img": [
+                                {
+                                    "createUserId": 3,
+                                    "filePath": "http://192.168.0.92:6080/20191009/Urus.jpg",
+                                    "size": "417KB",
+                                    "createUserName": "卡梅隆",
+                                    "createTime": "2019-10-09 17:36:52",
+                                    "batchId": "75fca1a7757c5827f8c295041e413274",
+                                    "fileType": "img",
+                                    "fileId": 478,
+                                    "name": "Urus.jpg"
+                                }
+                            ],
+                            "visitContactId": 28,
+                            "address": "成都市天府新区华阳街道华府大道1号蓝润置地广场",
+                            "createTime": "2019-10-10 13:40:07",
+                            "visitTime": "2019-10-01 00:00:00",
+                            "batchId": "75fca1a7757c5827f8c295041e413274",
+                            "latitude": "30.532255726574807",
+                            "contactsName": null,
+                            "isRead": 0,
+                            "permission": {
+                                "update": 1,
+                                "delete": 1
+                            },
+                            "replyList": [
+                                {
+                                    "createTime": "2019-10-09 19:20:52",
+                                    "userId": 3,
+                                    "typeId": 17,
+                                    "childCommentList": [],
+                                    "mainId": 0,
+                                    "pid": 0,
+                                    "commentId": 24,
+                                    "type": 1,
+                                    "favour": 0,
+                                    "user": {
+                                        "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                        "userId": 3,
+                                        "realname": "卡梅隆"
+                                    },
+                                    "content": "已查看"
+                                }
+                            ],
+                            "content": "拜访了DDD",
+                            "realname": "卡梅隆",
+                            "updateTime": "2019-10-10 13:47:04",
+                            "file": [
+                                {
+                                    "createUserId": 3,
+                                    "filePath": "http://192.168.0.92:6080/20191009/附件：集团人力、科技、审计条线制度汇编（2019年2.0版）4.docx",
+                                    "size": "933KB",
+                                    "createUserName": "卡梅隆",
+                                    "createTime": "2019-10-09 17:36:56",
+                                    "batchId": "75fca1a7757c5827f8c295041e413274",
+                                    "fileType": "file",
+                                    "fileId": 479,
+                                    "name": "附件：集团人力、科技、审计条线制度汇编（2019年2.0版）4.docx"
+                                }
+                            ],
+                            "sendUserIds": ",4,",
+                            "sendUserList": [
+                                {
+                                    "img": null,
+                                    "userId": 4,
+                                    "realname": "chs"
+                                }
+                            ],
+                            "visitId": 17,
+                            "customerName": "老王买车",
+                            "visitCustomerId": 50,
+                            "longitude": "104.0740394865382"
+                        },
+                        {
+                            "createUserId": 3,
+                            "readUserIds": ",,",
+                            "userImg": "http://192.168.0.92:6080//20190920/audi.png",
+                            "img": [
+                                {
+                                    "createUserId": 3,
+                                    "filePath": "http://192.168.0.92:6080/20191009/old_cars2.png",
+                                    "size": "2444KB",
+                                    "createUserName": "卡梅隆",
+                                    "createTime": "2019-10-09 16:49:42",
+                                    "batchId": "263725843306bff6d1db16686f4a795c",
+                                    "fileType": "img",
+                                    "fileId": 474,
+                                    "name": "old_cars2.png"
+                                }
+                            ],
+                            "visitContactId": 28,
+                            "address": "成都市成华大道理工大学侧(三环路内侧龙潭E线旁)蓝润V客尚东",
+                            "createTime": "2019-10-09 17:30:06",
+                            "visitTime": "2019-10-01 00:00:00",
+                            "batchId": "263725843306bff6d1db16686f4a795c",
+                            "latitude": "30.693114684435443",
+                            "contactsName": null,
+                            "isRead": 0,
+                            "permission": {
+                                "update": 1,
+                                "delete": 1
+                            },
+                            "replyList": [],
+                            "content": "拜访了老王2号",
+                            "realname": "卡梅隆",
+                            "updateTime": "2019-10-09 17:37:03",
+                            "file": [
+                                {
+                                    "createUserId": 3,
+                                    "filePath": "http://192.168.0.92:6080/20191009/附件：集团人力、科技、审计条线制度汇编（2019年2.0版）3.docx",
+                                    "size": "933KB",
+                                    "createUserName": "卡梅隆",
+                                    "createTime": "2019-10-09 16:49:49",
+                                    "batchId": "263725843306bff6d1db16686f4a795c",
+                                    "fileType": "file",
+                                    "fileId": 475,
+                                    "name": "附件：集团人力、科技、审计条线制度汇编（2019年2.0版）3.docx"
+                                }
+                            ],
+                            "sendUserIds": ",4,",
+                            "sendUserList": [
+                                {
+                                    "img": null,
+                                    "userId": 4,
+                                    "realname": "chs"
+                                }
+                            ],
+                            "visitId": 15,
+                            "customerName": null,
+                            "visitCustomerId": null,
+                            "longitude": "104.16646757774863"
+                        },
+                        {
+                            "createUserId": 3,
+                            "readUserIds": ",,",
+                            "userImg": "http://192.168.0.92:6080//20190920/audi.png",
+                            "img": [],
+                            "visitContactId": null,
+                            "address": "成都市天府新区华阳街道华府大道1号蓝润置地广场",
+                            "createTime": "2019-10-10 13:47:13",
+                            "visitTime": "2019-10-01 00:00:00",
+                            "batchId": "247b2eb29db6a515253d70fff3851257",
+                            "latitude": "30.532255726574807",
+                            "contactsName": null,
+                            "isRead": 0,
+                            "permission": {
+                                "update": 1,
+                                "delete": 1
+                            },
+                            "replyList": [],
+                            "content": "拜访了老王",
+                            "realname": "卡梅隆",
+                            "updateTime": "2019-10-10 13:54:10",
+                            "file": [],
+                            "sendUserIds": ",3,",
+                            "sendUserList": [
+                                {
+                                    "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                    "userId": 3,
+                                    "realname": "卡梅隆"
+                                }
+                            ],
+                            "visitId": 14,
+                            "customerName": "线索1",
+                            "visitCustomerId": 48,
+                            "longitude": "104.0740394865382"
+                        },
+                        {
+                            "createUserId": 3,
+                            "readUserIds": ",,",
+                            "userImg": "http://192.168.0.92:6080//20190920/audi.png",
+                            "img": [
+                                {
+                                    "createUserId": 3,
+                                    "filePath": "http://192.168.0.92:6080/20191009/qrcode1.gif",
+                                    "size": "25KB",
+                                    "createUserName": "卡梅隆",
+                                    "createTime": "2019-10-09 16:05:49",
+                                    "batchId": "7d245956817c96ab6c881b18f620f9ff",
+                                    "fileType": "img",
+                                    "fileId": 473,
+                                    "name": "qrcode1.gif"
+                                }
+                            ],
+                            "visitContactId": 28,
+                            "address": "北京市海淀区成府路150号蓝润大厦-地上停车场",
+                            "createTime": "2019-10-09 18:57:07",
+                            "visitTime": "2019-10-01 00:00:00",
+                            "batchId": "7d245956817c96ab6c881b18f620f9ff",
+                            "latitude": "39.997736043070944",
+                            "contactsName": null,
+                            "isRead": 0,
+                            "permission": {
+                                "update": 1,
+                                "delete": 1
+                            },
+                            "replyList": [
+                                {
+                                    "createTime": "2019-10-09 19:20:08",
+                                    "userId": 3,
+                                    "typeId": 13,
+                                    "childCommentList": [
+                                        {
+                                            "replyUser": {
+                                                "userId": 3,
+                                                "realname": "卡梅隆"
+                                            },
+                                            "createTime": "2019-10-09 19:21:09",
+                                            "userId": 3,
+                                            "typeId": 13,
+                                            "mainId": 23,
+                                            "pid": 3,
+                                            "commentId": 25,
+                                            "type": 1,
+                                            "favour": 0,
+                                            "user": {
+                                                "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                                "userId": 3,
+                                                "realname": "卡梅隆"
+                                            },
+                                            "content": "再阅"
+                                        }
+                                    ],
+                                    "mainId": 0,
+                                    "pid": 0,
+                                    "commentId": 23,
+                                    "type": 1,
+                                    "favour": 0,
+                                    "user": {
+                                        "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                        "userId": 3,
+                                        "realname": "卡梅隆"
+                                    },
+                                    "content": "已阅"
+                                }
+                            ],
+                            "content": "拜访了DDD",
+                            "realname": "卡梅隆",
+                            "updateTime": "2019-10-09 19:04:04",
+                            "file": [],
+                            "sendUserIds": ",3,",
+                            "sendUserList": [
+                                {
+                                    "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                    "userId": 3,
+                                    "realname": "卡梅隆"
+                                }
+                            ],
+                            "visitId": 13,
+                            "customerName": null,
+                            "visitCustomerId": null,
+                            "longitude": "116.33668295912025"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "url": "/visit/queryVisitById",
+            "desc": "id查询拜访",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "createUserId": 3,
+                    "ishidden": 0,
+                    "contactsList": [
+                        {
+                            "name": "BBBC",
+                            "contactsId": 27
+                        }
+                    ],
+                    "stopTime": "2019-10-14",
+                    "createTime": "2019-10-14 18:11:35",
+                    "ownerUserId": ",6,",
+                    "batchId": null,
+                    "description": "法德萨法",
+                    "taskId": 38,
+                    "pid": 0,
+                    "archiveTime": null,
+                    "priority": 1,
+                    "ownerUserList": [
+                        {
+                            "img": null,
+                            "userId": 6,
+                            "realname": "卢志鹏"
+                        }
+                    ],
+                    "startTime": "2019-10-09 00:00:00",
+                    "updateTime": "2019-10-14 19:23:19",
+                    "childTask": [
+                        {
+                            "createUserId": 3,
+                            "ishidden": 0,
+                            "contactsList": [],
+                            "stopTime": "2019-10-16",
+                            "createTime": "2019-10-14 18:12:03",
+                            "ownerUserId": ",4,",
+                            "batchId": null,
+                            "description": "凡达四方达",
+                            "taskId": 39,
+                            "pid": 38,
+                            "archiveTime": null,
+                            "priority": 1,
+                            "ownerUserList": [
+                                {
+                                    "img": null,
+                                    "userId": 4,
+                                    "realname": "chs"
+                                }
+                            ],
+                            "startTime": null,
+                            "updateTime": "2019-10-15 16:49:11",
+                            "hiddenTime": null,
+                            "name": "发达省份324",
+                            "isArchive": 0,
+                            "clueList": [],
+                            "createUser": {
+                                "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                "userId": 3,
+                                "realname": "卡梅隆"
+                            },
+                            "customerList": [],
+                            "status": 5
+                        },
+                        {
+                            "createUserId": 3,
+                            "ishidden": 0,
+                            "contactsList": [],
+                            "stopTime": "2019-10-10",
+                            "createTime": "2019-10-14 18:32:10",
+                            "ownerUserId": ",6,",
+                            "batchId": null,
+                            "description": "法德萨法",
+                            "taskId": 40,
+                            "pid": 38,
+                            "archiveTime": null,
+                            "priority": 2,
+                            "ownerUserList": [
+                                {
+                                    "img": null,
+                                    "userId": 6,
+                                    "realname": "卢志鹏"
+                                }
+                            ],
+                            "startTime": null,
+                            "updateTime": "2019-10-14 18:32:10",
+                            "hiddenTime": null,
+                            "name": "vcxz",
+                            "isArchive": 0,
+                            "clueList": [],
+                            "createUser": {
+                                "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                "userId": 3,
+                                "realname": "卡梅隆"
+                            },
+                            "customerList": [],
+                            "status": 2
+                        },
+                        {
+                            "createUserId": 3,
+                            "ishidden": 0,
+                            "contactsList": [],
+                            "stopTime": "2019-10-03",
+                            "createTime": "2019-10-15 16:49:27",
+                            "ownerUserId": ",3,4,5,6,",
+                            "batchId": null,
+                            "description": "的说法额娃儿",
+                            "taskId": 46,
+                            "pid": 38,
+                            "archiveTime": null,
+                            "priority": 2,
+                            "ownerUserList": [
+                                {
+                                    "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                    "userId": 3,
+                                    "realname": "卡梅隆"
+                                },
+                                {
+                                    "img": null,
+                                    "userId": 4,
+                                    "realname": "chs"
+                                },
+                                {
+                                    "img": null,
+                                    "userId": 5,
+                                    "realname": "李四"
+                                },
+                                {
+                                    "img": null,
+                                    "userId": 6,
+                                    "realname": "卢志鹏"
+                                }
+                            ],
+                            "startTime": null,
+                            "updateTime": "2019-10-15 16:49:27",
+                            "hiddenTime": null,
+                            "name": "大法威风",
+                            "isArchive": 0,
+                            "clueList": [],
+                            "createUser": {
+                                "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                "userId": 3,
+                                "realname": "卡梅隆"
+                            },
+                            "customerList": [],
+                            "status": 2
+                        }
+                    ],
+                    "hiddenTime": null,
+                    "name": "太热",
+                    "isArchive": 0,
+                    "clueList": [],
+                    "createUser": {
+                        "img": "http://192.168.0.92:6080//20190920/audi.png",
+                        "userId": 3,
+                        "realname": "卡梅隆"
+                    },
+                    "customerList": [
+                        {
+                            "customerName": "从主页进入决赛",
+                            "customerId": 54
+                        },
+                        {
+                            "customerName": "买车线索A",
+                            "customerId": 57
+                        },
+                        {
+                            "customerName": "车险线索1",
+                            "customerId": 58
+                        }
+                    ],
+                    "status": 2
+                }
+            }
+        },
+        {
+            "url": "/task/addOrUpdate",
+            "desc": "修改任务",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "保存成功",
+                "data": "保存成功"
+            }
+        },
+        {
+            "url": "/task/updateTaskRelation",
+            "desc": "修改关联任务",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "保存成功",
+                "data": "保存成功"
+            }
+        }
+    ]
+}

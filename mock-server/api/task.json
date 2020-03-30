@@ -1,0 +1,257 @@
+{
+    "task": [
+        {
+            "url": "/task/queryPageTask",
+            "desc": "查询任务",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "totalRow": 4,
+                    "pageNumber": 1,
+                    "firstPage": true,
+                    "lastPage": true,
+                    "totalPage": 1,
+                    "pageSize": 15,
+                    "list": [
+                        {
+                            "createUserId": 3,
+                            "childWCCount": 1,
+                            "ishidden": 0,
+                            "stopTime": "2019-10-14 00:00:00",
+                            "createTime": "2019-10-14 18:11:35",
+                            "ownerUserId": ",6,",
+                            "batchId": null,
+                            "description": "法德萨法",
+                            "taskId": 38,
+                            "pid": 0,
+                            "archiveTime": null,
+                            "priority": 1,
+                            "ownerUserList": [
+                                {
+                                    "img": null,
+                                    "userId": 6,
+                                    "realname": "卢志鹏"
+                                }
+                            ],
+                            "startTime": "2019-10-09 00:00:00",
+                            "updateTime": "2019-10-14 19:23:19",
+                            "childAllCount": 3,
+                            "hiddenTime": null,
+                            "name": "太热",
+                            "isArchive": 0,
+                            "createUser": {
+                                "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                "userId": 3,
+                                "realname": "卡梅隆"
+                            },
+                            "relationCount": 4,
+                            "status": 2
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "url": "/task/queryTaskById",
+            "desc": "id查询任务",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "createUserId": 3,
+                    "ishidden": 0,
+                    "contactsList": [
+                        {
+                            "name": "BBBC",
+                            "contactsId": 27
+                        }
+                    ],
+                    "stopTime": "2019-10-14",
+                    "createTime": "2019-10-14 18:11:35",
+                    "ownerUserId": ",6,",
+                    "batchId": null,
+                    "description": "法德萨法",
+                    "taskId": 38,
+                    "pid": 0,
+                    "archiveTime": null,
+                    "priority": 1,
+                    "ownerUserList": [
+                        {
+                            "img": null,
+                            "userId": 6,
+                            "realname": "卢志鹏"
+                        }
+                    ],
+                    "startTime": "2019-10-09 00:00:00",
+                    "updateTime": "2019-10-14 19:23:19",
+                    "childTask": [
+                        {
+                            "createUserId": 3,
+                            "ishidden": 0,
+                            "contactsList": [],
+                            "stopTime": "2019-10-16",
+                            "createTime": "2019-10-14 18:12:03",
+                            "ownerUserId": ",4,",
+                            "batchId": null,
+                            "description": "凡达四方达",
+                            "taskId": 39,
+                            "pid": 38,
+                            "archiveTime": null,
+                            "priority": 1,
+                            "ownerUserList": [
+                                {
+                                    "img": null,
+                                    "userId": 4,
+                                    "realname": "chs"
+                                }
+                            ],
+                            "startTime": null,
+                            "updateTime": "2019-10-15 16:49:11",
+                            "hiddenTime": null,
+                            "name": "发达省份324",
+                            "isArchive": 0,
+                            "clueList": [],
+                            "createUser": {
+                                "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                "userId": 3,
+                                "realname": "卡梅隆"
+                            },
+                            "customerList": [],
+                            "status": 5
+                        },
+                        {
+                            "createUserId": 3,
+                            "ishidden": 0,
+                            "contactsList": [],
+                            "stopTime": "2019-10-10",
+                            "createTime": "2019-10-14 18:32:10",
+                            "ownerUserId": ",6,",
+                            "batchId": null,
+                            "description": "法德萨法",
+                            "taskId": 40,
+                            "pid": 38,
+                            "archiveTime": null,
+                            "priority": 2,
+                            "ownerUserList": [
+                                {
+                                    "img": null,
+                                    "userId": 6,
+                                    "realname": "卢志鹏"
+                                }
+                            ],
+                            "startTime": null,
+                            "updateTime": "2019-10-14 18:32:10",
+                            "hiddenTime": null,
+                            "name": "vcxz",
+                            "isArchive": 0,
+                            "clueList": [],
+                            "createUser": {
+                                "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                "userId": 3,
+                                "realname": "卡梅隆"
+                            },
+                            "customerList": [],
+                            "status": 2
+                        },
+                        {
+                            "createUserId": 3,
+                            "ishidden": 0,
+                            "contactsList": [],
+                            "stopTime": "2019-10-03",
+                            "createTime": "2019-10-15 16:49:27",
+                            "ownerUserId": ",3,4,5,6,",
+                            "batchId": null,
+                            "description": "的说法额娃儿",
+                            "taskId": 46,
+                            "pid": 38,
+                            "archiveTime": null,
+                            "priority": 2,
+                            "ownerUserList": [
+                                {
+                                    "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                    "userId": 3,
+                                    "realname": "卡梅隆"
+                                },
+                                {
+                                    "img": null,
+                                    "userId": 4,
+                                    "realname": "chs"
+                                },
+                                {
+                                    "img": null,
+                                    "userId": 5,
+                                    "realname": "李四"
+                                },
+                                {
+                                    "img": null,
+                                    "userId": 6,
+                                    "realname": "卢志鹏"
+                                }
+                            ],
+                            "startTime": null,
+                            "updateTime": "2019-10-15 16:49:27",
+                            "hiddenTime": null,
+                            "name": "大法威风",
+                            "isArchive": 0,
+                            "clueList": [],
+                            "createUser": {
+                                "img": "http://192.168.0.92:6080//20190920/audi.png",
+                                "userId": 3,
+                                "realname": "卡梅隆"
+                            },
+                            "customerList": [],
+                            "status": 2
+                        }
+                    ],
+                    "hiddenTime": null,
+                    "name": "太热",
+                    "isArchive": 0,
+                    "clueList": [],
+                    "createUser": {
+                        "img": "http://192.168.0.92:6080//20190920/audi.png",
+                        "userId": 3,
+                        "realname": "卡梅隆"
+                    },
+                    "customerList": [
+                        {
+                            "customerName": "从主页进入决赛",
+                            "customerId": 54
+                        },
+                        {
+                            "customerName": "买车线索A",
+                            "customerId": 57
+                        },
+                        {
+                            "customerName": "车险线索1",
+                            "customerId": 58
+                        }
+                    ],
+                    "status": 2
+                }
+            }
+        },
+        {
+            "url": "/task/addOrUpdate",
+            "desc": "修改任务",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "保存成功",
+                "data": "保存成功"
+            }
+        },
+        {
+            "url": "/task/updateTaskRelation",
+            "desc": "修改关联任务",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "保存成功",
+                "data": "保存成功"
+            }
+        }
+    ]
+}

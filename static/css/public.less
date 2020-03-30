@@ -1,0 +1,254 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+// content 内容盒子
+.content {
+  background-color: @auxiliary;
+}
+
+// 列表 右箭头 iconColor
+.icon-rightArrow {
+  color: @regular-text;
+}
+
+// picker 包裹器 防止 input 聚焦时 拉起输入法
+.surround {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+// picker 组件样式
+.zm-picker .picker {
+  height: 250px !important;
+}
+.zm-picker .picker-title span {
+  font-size: @primary-size !important;
+  &.pt-submit {
+    color: @primary !important;
+  }
+}
+/** 表单相关的样式*/
+.mu-demo-form {
+  .block {
+    margin-top: 12px;
+    padding: 0 0 0 12px;
+    .mu-form-item {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      .mu-input {
+        flex: 1;
+        font-weight: 400;
+      }
+      .mu-form-item-label {
+        font-size: 16px;
+        color: @primary-text;
+        font-weight: 400;
+      }
+
+      .mu-input-line {
+        display: none;
+      }
+      .mu-form-item-help {
+        bottom: -8px;
+        z-index: 100;
+      }
+    }
+    .flex-top {
+      align-items: flex-start;
+      .mu-form-item-content {
+        width: 100%;
+      }
+    }
+  }
+}
+/** 没有下边框 */
+.no-border-bottom {
+  border-bottom: none !important;
+}
+
+/** 主要文字包括字体,胖瘦,颜色 */
+.primary-words {
+  font-size: @primary-size;
+  font-weight: @primary-weight;
+  color: @primary-text;
+}
+
+/** 常规文字包括字体,胖瘦,颜色 */
+.regular-words {
+  font-size: @regular-size;
+  font-weight: @regular-weight;
+  color: @regular-text;
+}
+
+/** 基本信息这种格式的 */
+.basic-details-item {
+  width: 100%;
+  padding: 12px 15px 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid @primary-border;
+  .basic-details-item-left {
+    .title {
+      .regular-words();
+    }
+    .sub-title {
+      margin-top: 2px;
+      .primary-words();
+    }
+  }
+  .basic-details-item-right {
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+/** 没有下边框 */
+.no-border-bottom {
+  border-bottom: none !important;
+}
+
+// 禁用 list 项
+.isdisable {
+  color: @regular-text;
+}
+
+/* 常用的距离设置 */
+.mt10 {
+  margin-top: 10px !important;
+}
+.mt20 {
+  margin-top: 20px !important;
+}
+.mr10 {
+  margin-right: 10px !important;
+}
+.mr20 {
+  margin-right: 20px !important;
+}
+.mb10 {
+  margin-bottom: 10px !important;
+}
+.mb20 {
+  margin-bottom: 20px !important;
+}
+.ml10 {
+  margin-left: 10px !important;
+}
+.ml20 {
+  margin-left: 20px !important;
+}
+.pt10 {
+  padding-top: 10px !important;
+}
+.pt20 {
+  padding-top: 20px !important;
+}
+.pr10 {
+  padding-right: 10px !important;
+}
+.pr20 {
+  padding-right: 20px !important;
+}
+.pb10 {
+  padding-bottom: 10px !important;
+}
+.pb20 {
+  padding-bottom: 20px !important;
+}
+.pl10 {
+  padding-left: 10px !important;
+}
+.pl20 {
+  padding-left: 20px !important;
+}
+
+/* 竖着进度条 */
+.progress-column {
+  padding: 30px 15px;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-flow: column;
+  .item {
+    position: relative;
+    display: flex;
+    flex-basis: 50%;
+    flex-shrink: 1;
+    .item-left {
+      flex-grow: 0;
+      width:20;
+      .line {
+        position: absolute;
+        border-color: inherit;
+        background-color: @primary-border;
+        width: 1px;
+        top: 0;
+        bottom: 0;
+        left: 10px;
+      }
+      .circular {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        background: url("../../static/images/time-stamp.png") no-repeat;
+        background-size: 100% 100%;
+        z-index: 100;
+      }
+    }
+    .item-right {
+      overflow: hidden;
+      padding: 0 10px 30px;
+      .time {
+        font-size: @regular-size;
+        color: @regular-text;
+      }
+      .node {
+        margin-top: 24px;
+        display: flex;
+        overflow: hidden;
+        .node-left {
+          width: auto;
+        }
+        .node-right {
+          width: 100%;
+          flex: 1;
+          margin-left: 10px;
+          overflow: hidden;
+          .show-upload {
+            margin: 20px 0 0 0;
+          }
+          .name {
+            font-size: @primary-size;
+            color: @primary-text;
+            font-weight: @primary-weight;
+          }
+          .talk {
+            margin-top: 4px;
+            font-size: @regular-size;
+            color: @primary-text;
+          }
+          .images {
+            margin: 20px 0 8px 0;
+          }
+          .sub-info {
+            margin-top: 4px;
+            font-size: @regular-size;
+            color: @regular-text;
+          }
+        }
+      }
+    }
+  }
+}

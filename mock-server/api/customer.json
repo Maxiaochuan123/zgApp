@@ -1,0 +1,297 @@
+{
+    "customer": [
+        {
+            "url": "/crmClient/queryClientListHtml",
+            "desc": "查询客户",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "C|3": [
+                        {
+                            "customerType|1": [
+                                "经销商",
+                                "供应商",
+                                "厂家",
+                                "保险公司",
+                                "其他"
+                            ],
+                            "ownerUserName": "@cname(2,3)",
+                            "createUserName": "@cname(2,3)",
+                            "batchId": "@string(10)",
+                            "customerLevel|1": [
+                                "H(战略合作商)",
+                                "A(优秀经销商)",
+                                "B(优良经销商)",
+                                "C(潜力经销商)",
+                                "D(一般经销商)"
+                            ],
+                            "remark": "@csentence(10,20)",
+                            "updateTime": "@datetime()",
+                            "nextTime": "@datetime()",
+                            "businessCount|+1": 0,
+                            "customerSource": "@cword(4)",
+                            "lat": "29.563474928495534",
+                            "dealStatus": "未成交",
+                            "createUserId": 3,
+                            "customerTrade|1": [
+                                "IT",
+                                "教师",
+                                "禽兽"
+                            ],
+                            "address": "@county(true)",
+                            "lng": "106.58354071640564",
+                            "createTime": "@datetime()",
+                            "detailAddress": "@county(true)",
+                            "mobile": "@integer(10000000000,99999999999)",
+                            "telephone": "@integer(10000000000,99999999999)",
+                            "location": "@county(true)",
+                            "customerName": "@cname(2,3)",
+                            "customerId|+1": 100
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "url": "/crmClient/queryById",
+            "desc": "客户详情",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "customerType|1": [
+                        "经销商",
+                        "供应商",
+                        "厂家",
+                        "保险公司",
+                        "其他"
+                    ],
+                    "ownerUserName": "@cname(2,3)",
+                    "createUserName": "@cname(2,3)",
+                    "batchId": "@string(10)",
+                    "customerLevel|1": [
+                        "H(战略合作商)",
+                        "A(优秀经销商)",
+                        "B(优良经销商)",
+                        "C(潜力经销商)",
+                        "D(一般经销商)"
+                    ],
+                    "remark": "@csentence(10,20)",
+                    "updateTime": "@datetime()",
+                    "nextTime": "@datetime()",
+                    "businessCount|+1": 0,
+                    "customerSource": "@cword(4)",
+                    "lat": "29.563474928495534",
+                    "dealStatus": "未成交",
+                    "createUserId": 3,
+                    "customerTrade|1": [
+                        "IT",
+                        "教师",
+                        "禽兽"
+                    ],
+                    "address": "@county(true)",
+                    "lng": "106.58354071640564",
+                    "createTime": "@datetime()",
+                    "detailAddress": "@county(true)",
+                    "mobile": "@integer(10000000000,99999999999)",
+                    "telephone": "@integer(10000000000,99999999999)",
+                    "location": "@county(true)",
+                    "customerName": "@cname(2,3)",
+                    "customerId|+1": 100
+                }
+            }
+        },
+        {
+            "url": "/crmClient/queryClientToContacts",
+            "desc": "根据客户id查询联系人",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data|1-3": [
+                    {
+                        "post|1": [
+                            "霸道总裁",
+                            "霸道女郎",
+                            "幼师",
+                            "老牛"
+                        ],
+                        "wechatOrQq": "@string(6)",
+                        "name": "@cname(2,3)",
+                        "mobile": "@integer(10000000000,99999999999)",
+                        "contactsId+2": 15,
+                        "isPolicymaker": "是"
+                    }
+                ]
+            }
+        },
+        {
+            "url": "/crmClient/clientAddOrUpdate",
+            "desc": "新增或者编辑客户",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "保存成功",
+                "data": "保存成功"
+            }
+        },
+        {
+            "url": "/crmClient/deleteByIds",
+            "desc": "删除客户",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "删除成功",
+                "data": "删除成功"
+            }
+        },
+        {
+            "url": "/crmClient/addFollowUpRecord",
+            "desc": "新增根据",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "新增跟进成功",
+                "data": "新增跟进成功"
+            }
+        },
+        {
+            "url": "/crmClient/getFollowUpRecord",
+            "desc": "查询根据",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data|1-5": [
+                    {
+                        "img|2": [
+                            {
+                                "filePath|1": [
+                                    "http://b.hiphotos.baidu.com/image/pic/item/908fa0ec08fa513db777cf78376d55fbb3fbd9b3.jpg",
+                                    "http://f.hiphotos.baidu.com/image/pic/item/0e2442a7d933c8956c0e8eeadb1373f08202002a.jpg",
+                                    "http://f.hiphotos.baidu.com/image/pic/item/b151f8198618367aa7f3cc7424738bd4b31ce525.jpg",
+                                    "http://a.hiphotos.baidu.com/image/pic/item/f603918fa0ec08fa3139e00153ee3d6d55fbda5f.jpg",
+                                    "http://h.hiphotos.baidu.com/image/pic/item/b3b7d0a20cf431ad7427dfad4136acaf2fdd98a9.jpg",
+                                    "http://b.hiphotos.baidu.com/image/pic/item/0eb30f2442a7d9337119f7dba74bd11372f001e0.jpg"
+                                ],
+                                "size": "123KB",
+                                "batchId": "@string(10)",
+                                "fileType": "img",
+                                "fileId|+1": 2,
+                                "name": "@cword(2,5).jpg"
+                            }
+                        ],
+                        "createTime": "@datetime()",
+                        "batchId": "@string(10)",
+                        "userImg|1": [
+                            "http://cdn.duitang.com/uploads/item/201501/08/20150108164231_t432j.thumb.700_0.png",
+                            "http://5b0988e595225.cdn.sohucs.com/q_70,c_zoom,w_640/images/20190103/48eaa59ea8204fce8bccdf13600752da.jpeg",
+                            "http://img3.imgtn.bdimg.com/it/u=3414414030,1436910499&fm=11&gp=0.jpg",
+                            "http://hbimg.b0.upaiyun.com/e9d35b3852716876576dd060d7f83261cfd9d96ee6d0-y4EOMD_fw658"
+                        ],
+                        "content": "@csentence(10,20)",
+                        "realname": "@cname(2,3)",
+                        "recordId|2": 33,
+                        "file": [
+                            {
+                                "createUserId": 3,
+                                "filePath": "http://img3.imgtn.bdimg.com/it/u=3414414030,1436910499&fm=11&gp=0.jpg",
+                                "size": "29KB",
+                                "createUserName": "卡梅隆",
+                                "createTime": "2019-09-27 10:22:47",
+                                "batchId": "4cfa65be4af3c94e0bb81342c2f7c24d",
+                                "fileType": "file",
+                                "fileId": 435,
+                                "name": "柴柴2.jpg"
+                            }
+                        ],
+                        "nextTime": "@datetime()",
+                        "category|1": [
+                            "打电话",
+                            "微信",
+                            "上门拜访",
+                            "不告诉你"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "url": "/crmClient/addClientToMembers",
+            "desc": "把客户分享给用户",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "客户分享给用户成功",
+                "data": "客户分享给用户成功"
+            }
+        },
+        {
+            "url": "/crmClient/updateClientToPublicPool",
+            "desc": "把客户放入公海",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "客户放入公海成功",
+                "data": "客户放入公海成功"
+            }
+        },
+        {
+            "url": "/crmClient/queryHtmlPublicPoolList",
+            "desc": "公海客户查询",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "X|3": [
+                        {
+                            "customerType|1": [
+                                "经销商",
+                                "供应商",
+                                "厂家",
+                                "保险公司",
+                                "其他"
+                            ],
+                            "ownerUserName": "@cname(2,3)",
+                            "createUserName": "@cname(2,3)",
+                            "batchId": "@string(10)",
+                            "customerLevel|1": [
+                                "H(战略合作商)",
+                                "A(优秀经销商)",
+                                "B(优良经销商)",
+                                "C(潜力经销商)",
+                                "D(一般经销商)"
+                            ],
+                            "remark": "@csentence(10,20)",
+                            "updateTime": "@datetime()",
+                            "nextTime": "@datetime()",
+                            "businessCount|+1": 0,
+                            "customerSource": "@cword(4)",
+                            "lat": "29.563474928495534",
+                            "dealStatus": "未成交",
+                            "createUserId": 3,
+                            "customerTrade|1": [
+                                "IT",
+                                "教师",
+                                "禽兽"
+                            ],
+                            "address": "@county(true)",
+                            "lng": "106.58354071640564",
+                            "createTime": "@datetime()",
+                            "detailAddress": "@county(true)",
+                            "mobile": "@integer(10000000000,99999999999)",
+                            "telephone": "@integer(10000000000,99999999999)",
+                            "location": "@county(true)",
+                            "customerName": "@cname(2,3)",
+                            "customerId|+1": 100
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

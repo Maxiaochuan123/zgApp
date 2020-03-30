@@ -1,0 +1,112 @@
+// 菜单
+body{
+  .mu-popover{
+    .mu-list{
+      overflow-y: hidden;
+      .mu-item{
+        height: 34px;
+        .mu-item-title{
+          height: 100%;
+          line-height: 34px;
+          text-align: center;
+          border-bottom: 1px solid @primary-border;
+        }
+      }
+    }
+  }
+}
+
+// AppBar
+.app-bar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000 !important;
+  
+  .mu-appbar {
+    background-color: #FFF;
+    color: @primary-text;
+    height: 44px;
+    padding: 0;
+
+    .mu-appbar-left{
+      img{
+        width: 24px;
+        height: 24px;
+      }
+    }
+    .mu-appbar-title {
+      text-align: center;
+      position: relative;
+      font-weight: 600;
+      
+      .mu-button{
+        position: absolute;
+        right: 0;
+        bottom: 5px;
+      }
+    }
+    .mu-appbar-right{
+      .mu-icon-button{
+        padding: 0;
+        padding-bottom: 5px;
+      }
+    }
+  }
+  .mu-popover {
+    top: 52px !important;
+    right: 2px !important;
+  }
+  .mu-appbar-title{
+    font-size: @primary-size;
+    
+  }
+}
+
+// tabs
+.mu-tabs-center{
+  justify-content: space-around !important;
+  background-color: #fff !important;
+  .mu-tab-wrapper{
+    font-size:@primary-size;
+    font-weight: 400;
+    padding: 10px 0;
+    letter-spacing: 1px;
+  }
+}
+
+
+// 列表
+.mu-list{
+  padding: 0;
+
+  .mu-item{
+    height: 60px;
+
+    .mu-item-action:first{
+      min-width: 44px;
+      margin-right: 12px;
+    }
+    
+  }
+}
+
+// 分割线
+.shallow-inset{
+  background-color: @primary-border;
+}
+
+.mu-drawer{
+  z-index: 9999 !important;
+}
+.mu-overlay{
+  z-index: 100 !important;
+}
+.mu-expansion-panel{
+  border-top: none;
+}
+
+.mu-item-sub-title{
+  white-space: pre-wrap;
+}
+

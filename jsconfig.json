@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@api": ["src/api/index.js"],
+      "@constants/*": ["src/constants/*"],
+      "@static/*": ["static/*"]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
