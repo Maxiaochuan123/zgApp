@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-25 15:40:36
- * @LastEditTime: 2019-12-17 10:22:09
+ * @LastEditTime: 2020-03-30 11:07:58
  * @LastEditors: shenah
  */
 import Vue from "vue";
@@ -36,7 +36,7 @@ Vue.config.productionTip = false;
 import storage from "../static/js/storage";
 Vue.prototype.storage = storage;
 
-import api from "./api/myApi/api";
+import api from "./api/api";
 Vue.prototype.api = api;
 
 import preview from "vue-photo-preview";
@@ -49,8 +49,8 @@ import AlloyFingerPlugin from "alloyfinger/vue/alloy_finger_vue";
 Vue.use(AlloyFingerPlugin, {
   AlloyFinger
 });
-const prefix = `${window.location.protocol}//${window.location.host}/api`;
-// const prefix = `${window.location.protocol}//${window.location.host}/mock`; // mocksever数据
+// const prefix = `${window.location.protocol}//${window.location.host}/api`;
+const prefix = `${window.location.protocol}//${window.location.host}/mock`; // mocksever数据
 window.config = {
   service: prefix
 };

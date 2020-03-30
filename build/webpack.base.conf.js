@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-25 15:40:36
- * @LastEditTime: 2019-08-25 15:52:58
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-03-30 11:02:04
+ * @LastEditors: shenah
  */
 "use strict";
 const path = require("path");
@@ -34,7 +34,7 @@ module.exports = {
       vue$: "vue/dist/vue.esm.js",
       "@": resolve("src"),
       "@components": resolve("src/components"),
-      "@api": resolve("src/api/index.js"),
+      "@api": resolve("src/api/api.js"),
       "@constants": resolve("src/constants"),
       "@static": path.resolve(__dirname, "../static")
     }

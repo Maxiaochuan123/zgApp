@@ -3,14 +3,14 @@
     "vue$": "vue/dist/vue.esm.js",
     "@": "../src",
     "@components": "../src/components",
-    "@api": "../src/api/index.js",
+    "@api": "../src/api/api.js",
     "@constants": "../src/constants",
     "@static": "../my-app/static"
   },
   "path-intellisense.mappings": {
     "@": "${workspaceRoot}/src",
     "@components": "${workspaceRoot}/src/components",
-    "@api": "${workspaceRoot}/src/api/index.js",
+    "@api": "${workspaceRoot}/src/api/api.js",
     "@constants": "${workspaceRoot}/src/constants",
     "@static": "${workspaceRoot}/static"
   }

@@ -7,12 +7,10 @@
     "paths": {
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
-      "@api": ["src/api/index.js"],
+      "@api": ["src/api/api.js"],
       "@constants/*": ["src/constants/*"],
       "@static/*": ["static/*"]
     }
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

@@ -2,12 +2,12 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-25 15:40:36
- * @LastEditors  : shenah
+ * @LastEditors: shenah
  */
 import Vue from "vue";
 import Router from "vue-router";
-import store from '../vuex/store'
-import storage from '../../static/js/storage'
+import store from "../vuex/store";
+import storage from "../../static/js/storage";
 Vue.use(Router);
 
 const router = new Router({
@@ -33,6 +33,13 @@ const router = new Router({
           meta: { zIndex: 0 },
           component: () => import("../views/basics/home.vue")
         },
+        // 其他
+        {
+          path: "/loanCalculate",
+          name: "loanCalculate",
+          meta: { zIndex: 0 },
+          component: () => import("../views/other/loanCalculate.vue")
+        },
         // 我的
         {
           path: "/myInfo",
@@ -45,7 +52,7 @@ const router = new Router({
   ]
 });
 const crmToGroup = store.state.crmToGroup;
-if(!crmToGroup){
+if (!crmToGroup) {
   router.beforeEach((to, from, next) => {
     if (localStorage.getItem("login")) {
       next();
