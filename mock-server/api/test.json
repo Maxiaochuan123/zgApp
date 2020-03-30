@@ -1,0 +1,97 @@
+{
+    "test": [
+        {
+            "url": "/dictionaries",
+            "desc": "字典",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "vehicleType": [
+                        {
+                            "label": "新车",
+                            "value": 1
+                        },
+                        {
+                            "label": "二手车",
+                            "value": 2
+                        }
+                    ],
+                    "loanType": [
+                        {
+                            "label": "全款",
+                            "value": 1
+                        },
+                        {
+                            "label": "按揭",
+                            "value": 2
+                        }
+                    ],
+                    "repayType": [
+                        {
+                            "label": "等额本金",
+                            "value": 1
+                        },
+                        {
+                            "label": "按月归还",
+                            "value": 2
+                        }
+                    ],
+                    "repayCycle": [
+                        {
+                            "label": "3月",
+                            "value": 1
+                        },
+                        {
+                            "label": "6月",
+                            "value": 2
+                        },
+                        {
+                            "label": "9月",
+                            "value": 3
+                        },
+                        {
+                            "label": "12月",
+                            "value": 4
+                        },
+                        {
+                            "label": "24月",
+                            "value": 5
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "url": "/loanPlatform",
+            "desc": "贷款平台",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data|10-20": [
+                    {
+                        "label": "@cword(2,6)银行",
+                        "value|+1": 1
+                    }
+                ]
+            }
+        },
+        {
+            "url": "/product",
+            "desc": "贷款产品",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data|10-20": [
+                    {
+                        "label": "@cword(2,6)产品",
+                        "value|+1": 1
+                    }
+                ]
+            }
+        }
+    ]
+}

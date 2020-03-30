@@ -2,8 +2,8 @@
  * @Description: 弹窗式的单选或者多选框
  * @Author: shenah
  * @Date: 2019-10-21 13:50:16
- * @LastEditors  : shenah
- * @LastEditTime : 2020-01-19 15:58:52
+ * @LastEditors: shenah
+ * @LastEditTime: 2020-03-30 11:11:41
  -->
 
 <template>
@@ -84,12 +84,12 @@
                   />
                 </div>
                 <div class="index-users-right">
-                  <mu-avatar
+                  <!-- <mu-avatar
                     class="user-header"
                     size="40"
                   >
                     <img :src="changeImg(item)" />
-                  </mu-avatar>
+                  </mu-avatar> -->
                   <div class="user-info">
                     <div class="name">{{item[textField]}}</div>
                     <div class="job">{{item.post}}</div>

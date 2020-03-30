@@ -86,12 +86,12 @@
               <i class="iconfont icon-rightArrow"></i>
             </div>
             <!-- 地图类型 -->
-            <SelectAddress
+            <!-- <SelectAddress
               :defaultValue="form[item.fieldName]"
               :fieldName="item.fieldName"
               @addressChange="addressChange"
               v-else-if="mapArr.indexOf(item.type) > -1"
-            ></SelectAddress>
+            ></SelectAddress> -->
             <!-- 多选 -->
             <PopSingleOrMultiple
               :apiName="item.apiName"
@@ -168,7 +168,7 @@
 <script>
 import Qs from "qs";
 import Picker from "dm-vue-picker-h5";
-import SelectAddress from "@components/SelectAddress.vue";
+// import SelectAddress from "@components/SelectAddress.vue";
 import PopSingleOrMultiple from "@components/PopSingleOrMultiple.vue";
 import UploadList from "@components/upLoad/uploadList.vue";
 import { mapState } from 'vuex'
@@ -179,7 +179,6 @@ export default {
   name: "GeneralForm",
   components: {
     Picker,
-    SelectAddress,
     UploadList,
     PopSingleOrMultiple
   },

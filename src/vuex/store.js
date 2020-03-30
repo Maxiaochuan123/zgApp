@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-27 14:09:01
- * @LastEditTime: 2019-12-16 10:23:45
+ * @LastEditTime: 2020-03-30 11:44:21
  * @LastEditors: shenah
  */
 import Vue from "vue";
@@ -11,10 +11,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    dictionaries: {}, // 字典
     crmToGroup: false, // 是否嵌入 集团 APP
-    token_GJ:"", //管家跳转crm所需 token
-    otherApp:"", //是否第三方 app 用于顶级路由返回判断
-
+    token_GJ: "", //管家跳转crm所需 token
+    otherApp: "", //是否第三方 app 用于顶级路由返回判断
     accessToken: "", // token
     authorities: {
       crm: {
@@ -31,6 +31,10 @@ export default new Vuex.Store({
     bottomNav: "home" // 当前点击的底部页签
   },
   mutations: {
+    // 设置字典
+    setDic: (state, data) => {
+      state.dictionaries = data;
+    },
     // 改变 是否第三方APP 跳转 状态
     setCrmToGroup: (state, data) => {
       state.crmToGroup = data;
@@ -43,7 +47,6 @@ export default new Vuex.Store({
     setOtherApp: (state, data) => {
       state.otherApp = data;
     },
-    
 
     // 基础方法
     setBottomNav: (state, data) => (state.bottomNav = data),
