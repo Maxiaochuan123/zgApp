@@ -85,7 +85,7 @@ export default {
   background-color: @auxiliary;
   .header-bc {
     height: 130px;
-    background: url("../../../static/images/my-user-bc.png") no-repeat;
+    // background: url("../../../static/images/my-user-bc.png") no-repeat;
     background-size: 100% 100%;
     .title {
       width: 100%;
