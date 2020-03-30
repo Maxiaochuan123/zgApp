@@ -28,6 +28,16 @@
                             "value": 2
                         }
                     ],
+                    "repayStatus": [
+                        {
+                            "label": "未还款",
+                            "value": 0
+                        },
+                        {
+                            "label": "已还款",
+                            "value": 1
+                        }
+                    ],
                     "repayType": [
                         {
                             "label": "等额本金",
@@ -79,6 +89,21 @@
             }
         },
         {
+            "url": "/lendPlatform",
+            "desc": "放款平台",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data|10-20": [
+                    {
+                        "label": "@cword(2,6)平台",
+                        "value|+1": 1
+                    }
+                ]
+            }
+        },
+        {
             "url": "/product",
             "desc": "贷款产品",
             "mock": true,
@@ -91,6 +116,50 @@
                         "value|+1": 1
                     }
                 ]
+            }
+        },
+        {
+            "url": "/repayList",
+            "desc": "还款列表",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "list|10-15": [
+                        {
+                            "customerName": "@cname(2,3)",
+                            "customerId": "XH@integer(100000000000, 999999999999)",
+                            "updateTime": "@datetime('yyyy-MM-dd')",
+                            "repayStatus|1": [
+                                0,
+                                1
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "url": "/repayPlan",
+            "desc": "还款计划",
+            "mock": true,
+            "res": {
+                "code": 0,
+                "msg": "success",
+                "data": {
+                    "list|10-15": [
+                        {
+                            "customerName": "@cname(2,3)",
+                            "customerId": "XH@integer(100000000000, 999999999999)",
+                            "updateTime": "@datetime('yyyy-MM-dd')",
+                            "repayStatus|1": [
+                                0,
+                                1
+                            ]
+                        }
+                    ]
+                }
             }
         }
     ]

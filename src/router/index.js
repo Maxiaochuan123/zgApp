@@ -33,6 +33,20 @@ const router = new Router({
           meta: { zIndex: 0 },
           component: () => import("../views/basics/home.vue")
         },
+        // 还款管理
+        {
+          path: "/repayManage",
+          name: "repayManage",
+          meta: { zIndex: 0 },
+          component: () => import("../views/repayment/repayManage.vue")
+        },
+        // 还款明细
+        {
+          path: "/repayPlan/:id",
+          name: "repayPlan",
+          meta: { zIndex: 0 },
+          component: () => import("../views/repayment/repayPlan.vue")
+        },
         // 其他
         {
           path: "/loanCalculate",
@@ -54,16 +68,17 @@ const router = new Router({
 const crmToGroup = store.state.crmToGroup;
 if (!crmToGroup) {
   router.beforeEach((to, from, next) => {
-    if (localStorage.getItem("login")) {
-      next();
-    } else {
-      if (to.path == "/login") {
-        next();
-      } else {
-        storage.localRemove("login");
-        next("/login");
-      }
-    }
+    // if (localStorage.getItem("login")) {
+    //   next();
+    // } else {
+    //   if (to.path == "/login") {
+    //     next();
+    //   } else {
+    //     storage.localRemove("login");
+    //     next("/login");
+    //   }
+    // }
+    next();
   });
 }
 export default router;
