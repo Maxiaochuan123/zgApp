@@ -8,7 +8,7 @@
 <template>
   <div class="bottom-nav">
     <mu-bottom-nav :value.sync="bottomNav" color="primary" @change="navChange">
-      <mu-bottom-nav-item value="home" title="首页" icon=":iconfont icon-shouye" to="/home"></mu-bottom-nav-item>
+      <mu-bottom-nav-item value="home" title="首页" icon=":iconfont iconshouye" to="/home"></mu-bottom-nav-item>
       <mu-bottom-nav-item value="myInfo" title="我的" icon=":iconfont icon-wode" to="/myInfo"></mu-bottom-nav-item>
     </mu-bottom-nav>
   </div>
@@ -48,5 +48,9 @@ export default {
     position: fixed;
     bottom: 0;
     box-shadow:0px 16px 23px 0px rgba(159,159,159,1);
+
+    .iconfont{
+      font-size: 30px;
+    }
   }
 </style>

@@ -28,6 +28,12 @@ const router = new Router({
           component: () => import("../views/basics/login.vue")
         },
         {
+          path: "/retrievePassword",
+          name: "retrievePassword",
+          meta: { zIndex: 0 },
+          component: () => import("../views/basics/retrievePassword.vue")
+        },
+        {
           path: "/home",
           name: "home",
           meta: { zIndex: 0 },
@@ -66,6 +72,7 @@ const router = new Router({
   ]
 });
 const crmToGroup = store.state.crmToGroup;
+console.log(localStorage.getItem("login"))
 if (!crmToGroup) {
   router.beforeEach((to, from, next) => {
     // if (localStorage.getItem("login")) {

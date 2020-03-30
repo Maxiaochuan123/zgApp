@@ -37,7 +37,7 @@
         <img :src="remPwd ? '../../../static/images/remember.png' : '../../../static/images/forget.png'">
         <span>记住密码</span>
       </div>
-      <div class="forgetPassword">
+      <div class="forgetPassword" @click="retrievePassword">
         <span>忘记密码</span>
       </div>
     </div>
@@ -53,7 +53,6 @@ import Rules from "@static/js/rules";
 import axios from "axios";
 import storage from '../../../../crm/my-app/dist/static/js/storage';
 export default {
-  name: "login",
   components: {},
   data() {
     return {
@@ -84,6 +83,8 @@ export default {
             this.loc_loginInfo.password = this.form.password;
             this.storage.localSet("loc_loginInfo",tool.encAse192(JSON.stringify(this.loc_loginInfo),"loc_loginInfo"));
             // 存入登陆信息
+            this.storage.localSet("login",{});
+            this.goPage("home");
           // });
         }
       });
@@ -94,7 +95,14 @@ export default {
       if(this.form.password){
         this.remPwd = !this.remPwd;
         this.storage.localSet("remPwd", this.remPwd);
+      }else{
+        this.$toast.warning("请先输入密码, 再勾选!")
       }
+    },
+
+    // 找回密码
+    retrievePassword(){
+      this.goPage("retrievePassword");
     }
   }
 };
