@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-25 15:40:36
- * @LastEditTime: 2020-03-30 11:46:32
+ * @LastEditTime: 2020-03-30 15:09:25
  * @LastEditors: shenah
  -->
 <template>
@@ -26,6 +26,7 @@ import tool from "../static/js/tool.js";
 import Api from "@api";
 import Cookies from "js-cookie";
 import { mapState, mapMutations } from "vuex";
+import { promise } from "ora";
 export default {
   components: {
     BottomNav
@@ -38,6 +39,9 @@ export default {
   created() {
     // 查询字典
     this.queryDic();
+    // 查询放款平台
+    this.queryLendPlatform();
+
     // new VConsole();
 
     let otherApp = tool.getUrlKey("otherApp");
@@ -103,6 +107,15 @@ export default {
     queryDic() {
       return Api.queryDictionaries().then(res => {
         this.$store.commit("setDic", res.data);
+      });
+    },
+    // 查询放款平台
+    queryLendPlatform() {
+      return Api.queryLendPlatform().then(res => {
+        this.$store.commit("setList", {
+          type: "lendPlatform",
+          data: res.data
+        });
       });
     },
     queryLoginRight() {

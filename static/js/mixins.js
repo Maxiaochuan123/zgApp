@@ -236,7 +236,7 @@ export default {
       if (value !== null) {
         const array = list.filter(item => item.value === value)[0];
         if (array) {
-          return array.text;
+          return array.label;
         }
         return "";
       }
