@@ -1,6 +1,6 @@
 <template>
   <div class="retrievePassword">
-    <AppBar pageTitle="找回密码" custom customTitle="保存" @customFnc="save"></AppBar>
+    <AppBar pageTitle="找回密码" custom customTitle="保存" :customFnc="save"></AppBar>
 
     <div class="inputBox">
       <mu-form :model="form" class="mu-demo-form" ref="form">
@@ -78,7 +78,11 @@ export default {
   methods: {
     // 保存
     save(){
-      
+      this.$refs.form.validate().then(result => {
+        if (result) {
+          
+        }
+      });
     },
     // 倒计时
     getCode(){

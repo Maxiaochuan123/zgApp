@@ -39,6 +39,32 @@ const router = new Router({
           meta: { zIndex: 0 },
           component: () => import("../views/basics/home.vue")
         },
+        {
+          path: "/mailList",
+          name: "mailList",
+          meta: {
+            zIndex: 0
+          },
+          component: () => import("../views/basics/mailList.vue")
+        },
+        {
+          path: "/todoList",
+          name: "todoList",
+          meta: {
+            zIndex: 0
+          },
+          component: () => import("../views/basics/todoList.vue")
+        },
+        {
+          path: "/myInfo",
+          name: "myInfo",
+          meta: {
+            zIndex: 0
+          },
+          component: () => import("../views/basics/myInfo.vue")
+        },
+
+
         // 还款管理
         {
           path: "/repayManage",
@@ -59,20 +85,12 @@ const router = new Router({
           name: "loanCalculate",
           meta: { zIndex: 0 },
           component: () => import("../views/other/loanCalculate.vue")
-        },
-        // 我的
-        {
-          path: "/myInfo",
-          name: "myInfo",
-          meta: { zIndex: 0 },
-          component: () => import("../views/basics/myInfo.vue")
         }
       ]
     }
   ]
 });
 const crmToGroup = store.state.crmToGroup;
-console.log(localStorage.getItem("login"))
 if (!crmToGroup) {
   router.beforeEach((to, from, next) => {
     // if (localStorage.getItem("login")) {

@@ -44,7 +44,8 @@ export default {
       if(to.path == '/home'){
         this.storage.sessionSet('tabsActive',0);
       }
-      if((to.path == '/home' || to.path == '/myInfo') && (from.path == '/home' || from.path == '/myInfo')){
+      if((to.path == '/home' || to.path == '/mailList' || to.path == '/todoList' || to.path == '/myInfo') && 
+        (from.path == '/home' || from.path == '/mailList' || from.path == '/todoList' || from.path == '/myInfo')){
         this.isHome = false;
       }else{
         this.isHome = true;

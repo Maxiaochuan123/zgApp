@@ -90,7 +90,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if (to.path == "/home" || to.path == "/myInfo") {
+      if (to.path == "/home" || to.path == "/mailList" || to.path == "/todoList" || to.path == "/myInfo") {
         this.$store.commit("setBottomNav", to.path.split("/")[1]);
         this.showBotNav = true;
       } else {
@@ -133,7 +133,6 @@ export default {
 </script>
 
 <style lang="less">
-@import url("../static/css/resetAmap.less");
 @import url("../static/css/resetMuseUI.less");
 @import url("../static/css/public.less");
 @import url("../static/css/loading.less");

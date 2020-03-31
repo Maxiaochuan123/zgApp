@@ -56,7 +56,7 @@ export default {
   components: {},
   data() {
     return {
-      loc_loginInfo: JSON.parse(tool.decAse192(localStorage.getItem("loc_loginInfo"),"loc_loginInfo")) || {}, // 本地登陆信息
+      loc_loginInfo:{},
       remPwd: this.storage.localGet("remPwd") || false, // 是否记住密码
       visibility: false, // 密码可见度
       form: {
@@ -66,10 +66,22 @@ export default {
     };
   },
   created(){
+    if(localStorage.getItem("loc_loginInfo")){
+      this.loc_loginInfo = JSON.parse(tool.decAse192(localStorage.getItem("loc_loginInfo"),"loc_loginInfo"));
+    }
+
     // 获取已记住的账号密码
     if(this.loc_loginInfo.username) this.form.username = this.loc_loginInfo.username;
     if(this.remPwd && this.loc_loginInfo.password){
       this.form.password = this.loc_loginInfo.password;
+    }
+  },
+  watch: {
+    "form.username":{
+      handler(newVal,oldVal){
+        if(!newVal) this.form.password = "";
+      },
+      deep: true
     }
   },
   methods: {
