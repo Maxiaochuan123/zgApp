@@ -3,7 +3,7 @@
  * @Author: shenah
  * @Date: 2020-03-30 15:55:23
  * @LastEditors: shenah
- * @LastEditTime: 2020-03-30 18:01:23
+ * @LastEditTime: 2020-03-31 15:09:06
  -->
 
 <template>
@@ -19,87 +19,90 @@
     <div class="content">
       <div class="content-wrap">
         <!-- 基本信息 -->
-        <div class="basic">
-          <div class="title">
-            <div>杜斯</div>
-            <div class="no-repay">未还款</div>
-          </div>
-          <div class="title-line">
-            <mu-divider></mu-divider>
-          </div>
-          <!-- 默认展示内容 -->
-          <div class="default-show">
-            <div class="item">
-              <div class="item-flex">
+        <OpenShrink>
+          <template slot="title">
+            <div>{{details.info.name}}</div>
+            <div class="over">未还款</div>
+          </template>
+          <div slot="default-show">
+            <div class="two-rank">
+              <div class="two-rank-flex">
                 <label>身份证号</label>
-                <div class="item-flex-text">510923198802250021</div>
+                <div class="two-rank-flex-text">510923198802250021</div>
               </div>
-              <div class="item-flex">
+              <div class="two-rank-flex">
                 <label>手机号码</label>
-                <div class="item-flex-text">18980521145</div>
+                <div class="two-rank-flex-text">18980521145</div>
               </div>
             </div>
           </div>
-          <!-- 点击按钮展示 -->
-          <div class="click-show">
-            <div class="item">
-              <div class="item-flex">
+          <div slot="click-show">
+            <div class="two-rank">
+              <div class="two-rank-flex">
                 <label>贷款金额</label>
-                <div class="item-flex-text">8.5万元</div>
+                <div class="two-rank-flex-text">{{details.info.a |formatThousandBit}}万元</div>
               </div>
-              <div class="item-flex">
+              <div class="two-rank-flex">
                 <label>应还总金额</label>
-                <div class="item-flex-text">9095472元</div>
+                <div class="two-rank-flex-text">{{details.info.b |formatThousandBit}}元</div>
               </div>
             </div>
-            <div class="item">
-              <div class="item-flex">
+            <div class="two-rank">
+              <div class="two-rank-flex">
                 <label>已还总金额</label>
-                <div class="item-flex-text">1095472元</div>
+                <div class="two-rank-flex-text">{{details.info.c |formatThousandBit}}元</div>
               </div>
-              <div class="item-flex">
+              <div class="two-rank-flex">
                 <label>剩余应还金额</label>
-                <div class="item-flex-text">80,000.00元</div>
+                <div class="two-rank-flex-text">{{details.info.d |formatThousandBit}}元</div>
               </div>
             </div>
-            <div class="item">
-              <div class="item-flex">
+            <div class="two-rank">
+              <div class="two-rank-flex">
                 <label>总利息</label>
-                <div class="item-flex-text">1954.72元</div>
+                <div class="two-rank-flex-text">{{details.info.e |formatThousandBit}}元</div>
               </div>
-              <div class="item-flex">
+              <div class="two-rank-flex">
                 <label>贷款周期</label>
-                <div class="item-flex-text">36期</div>
+                <div class="two-rank-flex-text">36期</div>
               </div>
             </div>
-            <div class="item">
-              <div class="item-flex">
+            <div class="two-rank">
+              <div class="two-rank-flex">
                 <label>每月还款日</label>
-                <div class="item-flex-text">5号</div>
+                <div class="two-rank-flex-text">5号</div>
               </div>
-              <div class="item-flex">
+              <div class="two-rank-flex">
                 <label>贷款日期</label>
-                <div class="item-flex-text">2020.1.1-2022.2.3</div>
+                <div class="two-rank-flex-text">2020.1.1-2022.2.3</div>
               </div>
             </div>
-            <div class="item">
-              <div class="item-flex">
+            <div class="two-rank">
+              <div class="two-rank-flex">
                 <label>放款日期</label>
-                <div class="item-flex-text">2020.02.06</div>
+                <div class="two-rank-flex-text">2020.02.06</div>
               </div>
-              <div class="item-flex">
+              <div class="two-rank-flex">
                 <label>还款卡号</label>
-                <div class="item-flex-text">6222330073982084</div>
+                <div class="two-rank-flex-text">6222330073982084</div>
               </div>
             </div>
-            <div class="item">
-              <div class="item-flex">
+            <div class="two-rank">
+              <div class="two-rank-flex">
                 <label>放款平台</label>
-                <div class="item-flex-text">工商-海南分行</div>
+                <div class="two-rank-flex-text">工商-海南分行</div>
               </div>
             </div>
           </div>
-        </div>
+        </OpenShrink>
+        <!-- 还款期数 -->
+        <Basic
+          :key="index"
+          :row="item"
+          :show="index === 0"
+          style="margin-top:12px;"
+          v-for="(item,index) in details.list"
+        ></Basic>
       </div>
     </div>
   </div>
@@ -108,13 +111,21 @@
 <script>
 import Api from "@api";
 import AppBar from "@components/AppBar";
+import OpenShrink from "@components/OpenShrink";
+import Basic from "./components/Basic";
+
 export default {
   name: "repayPlan",
-  components: { AppBar },
+  components: { AppBar, OpenShrink, Basic },
+
   data() {
     return {
       rightIcon: "icon-gengduo1",
       rightIconFlag: true,
+      details: {
+        info: {},
+        list: []
+      },
       menuList: [
         {
           title: "结清代偿申请",
@@ -156,11 +167,15 @@ export default {
     };
   },
   props: {},
-  mounted() {},
+  mounted() {
+    this.queryInfo();
+  },
   methods: {
     menuChange() {},
     queryInfo() {
-      Api.queryRepayPlan(this.id).then(res => {});
+      Api.queryRepayPlan(this.id).then(res => {
+        this.details = res.data;
+      });
     }
   }
 };
@@ -179,56 +194,8 @@ export default {
       width: 100%;
       height: 100%;
       overflow: auto;
-      .basic {
-        background-color: #fff;
-        width: 100%;
-        .title {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 12px 10px;
-          color: @primary-text;
-          .no-repay {
-            color: @primary;
-          }
-        }
-        .title-line {
-          padding: 0 0 12px 10px;
-        }
-        .default-show,
-        .click-show {
-          padding: 0 10px;
-          width: 100%;
-          .item {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px 12px 0;
-            .item-flex {
-              min-width: 50%;
-              max-width: 50%;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              font-size: 12px;
-              &:nth-child(even) {
-                margin-left: 10px;
-              }
-              label {
-                min-width: 60px;
-                max-width: 60px;
-                color: @regular-text;
-              }
-              .item-flex-text {
-                flex-grow: 1;
-                color: @primary-text;
-                margin-left: 6px;
-                word-break: break-word;
-              }
-            }
-          }
-        }
+      .over {
+        color: @primary !important;
       }
     }
   }

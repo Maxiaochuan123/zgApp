@@ -9,9 +9,9 @@ import tool from "./tool";
 import storage from "./storage";
 
 // 原生通讯
-import bridge from "./JSbridge"
+import bridge from "./JSbridge";
 
-import store from '../../src/vuex/store'
+import store from "../../src/vuex/store";
 
 export default {
   data() {
@@ -46,7 +46,7 @@ export default {
         loadedAll: false
       },
 
-      screenData:{}, //筛选数据
+      screenData: {}, //筛选数据
 
       // 验证
       myRules: {
@@ -125,10 +125,10 @@ export default {
     },
     // 打电话
     dial(phoneNumber) {
-      if(!store.state.crmToGroup){
+      if (!store.state.crmToGroup) {
         window.location.href = `tel:${phoneNumber}`;
-      }else{
-        bridge.callHandler('callPhone', {phone:phoneNumber});
+      } else {
+        bridge.callHandler("callPhone", { phone: phoneNumber });
       }
     },
 
@@ -208,6 +208,17 @@ export default {
     }
   },
   filters: {
+    formatThousandBit(num) {
+      if (!/^(\+|-)?(\d+)(\.\d+)?$/.test(num)) {
+        return num;
+      }
+      const a = RegExp.$1;
+      let b = RegExp.$2;
+      const c = RegExp.$3;
+      const re = new RegExp().compile("(\\d)(\\d{3})(,|$)");
+      while (re.test(b)) b = b.replace(re, "$1,$2$3");
+      return `${a}${b}${c}`;
+    },
     formatDate(timeStamp, type) {
       if (type === "date") {
         return dayjs(timeStamp).format("YYYY-MM-DD");
