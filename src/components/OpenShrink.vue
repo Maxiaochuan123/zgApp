@@ -3,7 +3,7 @@
  * @Author: shenah
  * @Date: 2020-03-31 10:32:28
  * @LastEditors: shenah
- * @LastEditTime: 2020-03-31 11:05:36
+ * @LastEditTime: 2020-03-31 15:34:39
  -->
 <template>
   <div class="open-shrink">
@@ -27,8 +27,10 @@
       </div>
     </transition>
     <div
+      :class="{'rotate-rignth180':isShow}"
       @click="changeArrow"
       class="open-btn"
+      v-if="showOpen"
     ></div>
   </div>
 </template>
@@ -46,6 +48,10 @@ export default {
     defaultValue: {
       type: Boolean,
       default: false
+    },
+    showOpen: {
+      type: Boolean,
+      default: true
     }
   },
   mounted() {
@@ -53,61 +59,10 @@ export default {
   },
   methods: {
     changeArrow() {
-      let el = document.querySelector(".open-shrink .open-btn");
-      if ([...el.classList].indexOf("rotate-rignth180") > -1) {
-        el.classList.remove("rotate-rignth180");
-        this.isShow = false;
-      } else {
-        el.classList.add("rotate-rignth180");
-        this.isShow = true;
-      }
+      this.isShow = !this.isShow;
     }
   }
 };
 </script>
 <style lang='less' scoped>
-.open-shrink {
-  position: relative;
-  background-color: #fff;
-  width: 100%;
-  padding-bottom: 20px;
-  .title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 10px;
-    color: @primary-text;
-  }
-  .default-show,
-  .click-show {
-    padding: 0 10px;
-    width: 100%;
-    height: auto;
-  }
-  .title-line {
-    padding: 0 0 12px 10px;
-  }
-  .open-btn {
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    margin-left: -9px;
-    width: 18px;
-    height: 18px;
-    background: url("../../static/images/arrow.png") no-repeat;
-    background-size: 100%;
-    transform: rotate(0deg);
-    transition: transform 0.3s;
-    transform-origin: center center;
-  }
-  .open-enter-active,
-  .open-leave-active {
-    height: auto;
-    transition: all 0.3s ease;
-  }
-  .open-enter,
-  .open-leave-to {
-    height: 0;
-  }
-}
 </style>

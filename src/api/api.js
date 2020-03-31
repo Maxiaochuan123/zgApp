@@ -13,6 +13,8 @@ export default {
   queryProduct: params => get({ params, url: "/product" }),
   // 查询还款管理
   queryRepayList: params => get({ params, url: "/repayList" }),
+  // 查询还款计划
+  queryRepayPlan: params => get({ params, url: "/repayPlan" }),
   // 查询还款明细
-  queryRepayPlan: params => get({ params, url: "/repayPlan" })
+  queryRepayInfo: params => get({ params, url: "/repayInfo" })
 };

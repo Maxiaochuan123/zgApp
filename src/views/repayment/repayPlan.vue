@@ -3,7 +3,7 @@
  * @Author: shenah
  * @Date: 2020-03-30 15:55:23
  * @LastEditors: shenah
- * @LastEditTime: 2020-03-31 10:54:53
+ * @LastEditTime: 2020-03-31 15:09:06
  -->
 
 <template>
@@ -18,10 +18,11 @@
     ></AppBar>
     <div class="content">
       <div class="content-wrap">
+        <!-- 基本信息 -->
         <OpenShrink>
           <template slot="title">
-            <div>杜斯</div>
-            <div class="no-repay">未还款</div>
+            <div>{{details.info.name}}</div>
+            <div class="over">未还款</div>
           </template>
           <div slot="default-show">
             <div class="two-rank">
@@ -39,27 +40,27 @@
             <div class="two-rank">
               <div class="two-rank-flex">
                 <label>贷款金额</label>
-                <div class="two-rank-flex-text">8.5万元</div>
+                <div class="two-rank-flex-text">{{details.info.a |formatThousandBit}}万元</div>
               </div>
               <div class="two-rank-flex">
                 <label>应还总金额</label>
-                <div class="two-rank-flex-text">9095472元</div>
+                <div class="two-rank-flex-text">{{details.info.b |formatThousandBit}}元</div>
               </div>
             </div>
             <div class="two-rank">
               <div class="two-rank-flex">
                 <label>已还总金额</label>
-                <div class="two-rank-flex-text">1095472元</div>
+                <div class="two-rank-flex-text">{{details.info.c |formatThousandBit}}元</div>
               </div>
               <div class="two-rank-flex">
                 <label>剩余应还金额</label>
-                <div class="two-rank-flex-text">80,000.00元</div>
+                <div class="two-rank-flex-text">{{details.info.d |formatThousandBit}}元</div>
               </div>
             </div>
             <div class="two-rank">
               <div class="two-rank-flex">
                 <label>总利息</label>
-                <div class="two-rank-flex-text">1954.72元</div>
+                <div class="two-rank-flex-text">{{details.info.e |formatThousandBit}}元</div>
               </div>
               <div class="two-rank-flex">
                 <label>贷款周期</label>
@@ -94,6 +95,14 @@
             </div>
           </div>
         </OpenShrink>
+        <!-- 还款期数 -->
+        <Basic
+          :key="index"
+          :row="item"
+          :show="index === 0"
+          style="margin-top:12px;"
+          v-for="(item,index) in details.list"
+        ></Basic>
       </div>
     </div>
   </div>
@@ -103,13 +112,20 @@
 import Api from "@api";
 import AppBar from "@components/AppBar";
 import OpenShrink from "@components/OpenShrink";
+import Basic from "./components/Basic";
+
 export default {
   name: "repayPlan",
-  components: { AppBar, OpenShrink },
+  components: { AppBar, OpenShrink, Basic },
+
   data() {
     return {
       rightIcon: "icon-gengduo1",
       rightIconFlag: true,
+      details: {
+        info: {},
+        list: []
+      },
       menuList: [
         {
           title: "结清代偿申请",
@@ -151,11 +167,15 @@ export default {
     };
   },
   props: {},
-  mounted() {},
+  mounted() {
+    this.queryInfo();
+  },
   methods: {
     menuChange() {},
     queryInfo() {
-      Api.queryRepayPlan(this.id).then(res => {});
+      Api.queryRepayPlan(this.id).then(res => {
+        this.details = res.data;
+      });
     }
   }
 };
@@ -174,8 +194,8 @@ export default {
       width: 100%;
       height: 100%;
       overflow: auto;
-      .no-repay {
-        color: @primary;
+      .over {
+        color: @primary !important;
       }
     }
   }

@@ -46,12 +46,19 @@ const router = new Router({
           meta: { zIndex: 0 },
           component: () => import("../views/repayment/repayManage.vue")
         },
-        // 还款明细
+        // 还款计划
         {
           path: "/repayPlan/:id",
           name: "repayPlan",
           meta: { zIndex: 0 },
           component: () => import("../views/repayment/repayPlan.vue")
+        },
+        // 还款明细
+        {
+          path: "/repayInfo/:id",
+          name: "repayInfo",
+          meta: { zIndex: 0 },
+          component: () => import("../views/repayment/repayInfo.vue")
         },
         // 其他
         {

@@ -261,7 +261,6 @@ body,
   transform-origin: center center; //旋转中心要是正中间 才行
 }
 
-
 /* 两栏排列 */
 .two-rank {
   width: 100%;
@@ -290,5 +289,50 @@ body,
       margin-left: 6px;
       word-break: break-word;
     }
+  }
+}
+
+.open-shrink {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  padding-bottom: 20px;
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 10px;
+    color: @primary-text;
+  }
+  .default-show,
+  .click-show {
+    padding: 0 10px;
+    width: 100%;
+    height: auto;
+  }
+  .title-line {
+    padding: 0 12px 12px 10px;
+  }
+  .open-btn {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    margin-left: -9px;
+    width: 18px;
+    height: 18px;
+    background: url("../../static/images/arrow.png") no-repeat;
+    background-size: 100%;
+    transform: rotate(0deg);
+    transition: transform 0.3s;
+    transform-origin: center center;
+  }
+  .open-enter-active,
+  .open-leave-active {
+    height: auto;
+    transition: all 0.3s ease;
+  }
+  .open-enter,
+  .open-leave-to {
+    height: 0;
   }
 }
