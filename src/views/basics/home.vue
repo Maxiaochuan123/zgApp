@@ -12,7 +12,7 @@
       <div class="block" v-for="(block,index) in blockList" :key="index">
         <p class="title">{{block.title}}</p>
         <div :class="['itemBox', block.itemList.length>4?'moreBox':'']">
-          <div :class="['item',item.haveInHandlink?'':'plan']" v-for="(item,index2) in block.itemList" :key="index2">
+          <div :class="['item',item.haveInHandlink?'':'plan']" v-for="(item,index2) in block.itemList" :key="index2" @click="goPage('repayManage')">
             <img :src="item.src">
             <span>{{item.describe}}</span>
           </div>
@@ -36,7 +36,7 @@ export default {
         {
           title:"还款跟踪",
           itemList:[
-            {src:"../../../static/images/repayment.png",describe:"还款管理",haveInHandlink:true,link:""},
+            {src:"../../../static/images/repayment.png",describe:"还款管理",haveInHandlink:true,link:"/repayManage"},
             {src:"../../../static/images/dataArchiving.png",describe:"资料归档",haveInHandlink:true,link:""},
             {src:"../../../static/images/litigation.png",describe:"法律诉讼",haveInHandlink:false,link:""},
             {src:"../../../static/images/settle.png",describe:"结清管理",haveInHandlink:false,link:""},
