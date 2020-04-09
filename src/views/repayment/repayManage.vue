@@ -3,7 +3,7 @@
  * @Author: shenah
  * @Date: 2020-03-30 14:17:46
  * @LastEditors: shenah
- * @LastEditTime: 2020-03-30 15:55:05
+ * @LastEditTime: 2020-04-09 15:08:57
  -->
 <template>
   <div class="repay-manage">
@@ -26,7 +26,6 @@
     <div class="content">
       <div class="content-wrap">
         <mu-load-more
-          :class="{'bg-class':listObj.list.length > 0}"
           :loading="loading"
           @load="load"
           class="list-wrap"
@@ -34,23 +33,57 @@
           <div v-if="listObj.list.length">
             <div
               :key="index"
-              @click="toDetails(row)"
               class="repay-list"
               v-for="(row,index) in listObj.list"
             >
-              <div class="repay-list-wrap">
-                <div class="one title">
-                  <div class>{{row.customerId}}</div>
+              <CardList>
+                <template slot="title">
+                  <div>{{row.customerId}} ></div>
                   <div
                     :class="{'no-repay':!row.repayStatus}"
                   >{{row.repayStatus | codeInToName(dictionaries.repayStatus)}}</div>
-                </div>
-                <div class="two sub-title">
-                  <div class>客户：{{row.customerName}}</div>
-                  <div class>{{row.updateTime}}更新</div>
-                </div>
-              </div>
-              <mu-divider></mu-divider>
+                </template>
+                <template>
+                  <div class="two-rank">
+                    <div class="two-rank-flex">
+                      <label>姓名</label>
+                      <div class="two-rank-flex-text">{{row.customerName}}</div>
+                    </div>
+                    <div class="two-rank-flex">
+                      <label>还款卡号</label>
+                      <div class="two-rank-flex-text">6211365998523</div>
+                    </div>
+                  </div>
+                  <div class="two-rank">
+                    <div class="two-rank-flex">
+                      <label>应还总金额</label>
+                      <div class="two-rank-flex-text">90954.72</div>
+                    </div>
+                    <div class="two-rank-flex">
+                      <label>到期还款日</label>
+                      <div class="two-rank-flex-text">2019-02-03</div>
+                    </div>
+                  </div>
+                  <div class="two-rank">
+                    <div class="two-rank-flex">
+                      <label>还款期数</label>
+                      <div class="two-rank-flex-text">第13/36期</div>
+                    </div>
+                    <div class="two-rank-flex">
+                      <label>本期应还</label>
+                      <div class="two-rank-flex-text">2526.52</div>
+                    </div>
+                  </div>
+                </template>
+                <template slot="footer">
+                  <div>{{row.updateTime}}</div>
+                  <mu-button
+                    @click="toDetails(row)"
+                    color="primary"
+                    small
+                  >还款计划</mu-button>
+                </template>
+              </CardList>
             </div>
           </div>
           <Nothing
@@ -70,9 +103,10 @@ import SearchInputBar from "@components/SearchInputBar.vue";
 import AppBar from "@components/AppBar";
 import Screen from "@components/Screen.vue";
 import Nothing from "@components/Nothing.vue";
+import CardList from "@components/CardList.vue";
 export default {
   name: "repayManage",
-  components: { AppBar, SearchInputBar, Screen, Nothing },
+  components: { AppBar, SearchInputBar, Screen, Nothing, CardList },
   computed: {
     ...mapState(["dictionaries", "dataSet"])
   },
@@ -176,7 +210,7 @@ export default {
   overflow: hidden;
   .content {
     width: 100%;
-    padding-top: 120px;
+    padding-top: 110px;
     height: 100%;
     overflow: hidden;
     .content-wrap {
@@ -186,9 +220,9 @@ export default {
       .list-wrap {
         width: 100%;
         padding: 0 15px;
-      }
-      .bg-class {
-        background-color: #fff;
+        .no-repay {
+          color: @primary;
+        }
       }
     }
   }
@@ -201,25 +235,6 @@ export default {
     width: 100%;
     height: 100%;
     padding: 0 24px 6px 0;
-    .one {
-      display: flex;
-      font-size: @primary-size;
-      font-weight: @primary-weight;
-      color: @primary-text;
-      justify-content: space-between;
-      align-items: center;
-      .no-repay {
-        color: @primary;
-      }
-    }
-    .two {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: @regular-size;
-      color: @regular-text;
-    }
   }
 }
 </style>
