@@ -1,17 +1,6 @@
-<!--
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-25 15:40:36
- * @LastEditTime: 2020-03-30 15:09:25
- * @LastEditors: shenah
- -->
 <template>
   <div id="app">
-    <!-- <keep-alive v-if="$route.meta.keepAlive"> -->
     <router-view />
-    <!-- </keep-alive> -->
-
-    <!-- <router-view v-if="!$route.meta.keepAlive"/> -->
 
     <BottomNav v-if="showBotNav && !crmToGroup" />
   </div>
@@ -42,56 +31,22 @@ export default {
     // 查询放款平台
     this.queryLendPlatform();
 
-    // new VConsole();
+    // 设置当前选中 TAB 项
+    if(!this.storage.sessionGet('tabsActive')) this.storage.sessionSet('tabsActive',0);
 
-    let otherApp = tool.getUrlKey("otherApp");
-    const userObj = tool.decUserInfo();
-
-    if (otherApp) {
-      this.$store.commit("setCrmToGroup", true);
-      this.$store.commit("setOtherApp", true);
-    } else {
-      this.$store.commit("setCrmToGroup", false);
-      this.$store.commit("setOtherApp", false);
-    }
-
-    if (this.crmToGroup) {
-      console.log("yes");
-      let systemt = tool.getSystem();
-      // let token_GJ = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsaWNlbnNlIjoidXNlcmNlbnRyZV8iLCJ1c2VyX25hbWUiOiI3MDEiLCJzY29wZSI6WyJzZXJ2ZXIiXSwiZXhwIjoxNTg4NTUyMTA5LCJ1c2VySWQiOjcwMSwiYXV0aG9yaXRpZXMiOlsiVVNFUkNFTlRSRUFQUExJQ0FUSU9OVFlQRTpTIiwiUk9MRV9VU0VSIl0sImp0aSI6IjkwMGYyOWVkLTk2ZWMtNGJhZS1hNTI2LTExMzNkZmExNDE3ZCIsImNsaWVudF9pZCI6Indzb3JkZXIiLCJ1c2VybmFtZSI6IjcwMSJ9.SIzCXj9tbzaO8cCJHOijU2_fRH7v9AkA92hGRTtAACQ";
-      let token_GJ = Cookies.get("token");
-      this.$store.commit("setToken_GJ", token_GJ);
-      this.api
-        .onlyLogin({ accessToken: token_GJ, source: systemt })
-        .then(res => {
-          // 接受原生传递的 参数 区分 是否 第三方 APP 跳转
-
-          // console.log("otherApp:",otherApp);
-
-          // console.log("crmToGroup:",this.crmToGroup);
-          if (userObj.accessToken || otherApp) {
-            this.$store.commit("setToken", userObj);
-            // this.queryLoginRight();
-            // this.queryUser();
-          }
-        });
-      // console.log("token_GJ:",token_GJ);
-    }
-
-    let activTheme = this.storage.localGet("theme");
-    if (activTheme) {
-      Theme.add("theme_one", activTheme, "light");
-      Theme.use("theme_one");
-    } else {
-      this.storage.localSet("theme", myTheme[0]);
-      Theme.add("theme_one", myTheme[0], "light");
-      Theme.use("theme_one");
-    }
+    // 设置主题色
+    Theme.add("theme_one", {primary: "#EC191F"}, "light");
+    Theme.use("theme_one");
   },
   watch: {
     $route(to, from) {
+      // 恢复 TAB 默认项
+      if(to.path == '/home'){
+        this.storage.sessionSet('tabsActive',0);
+      }
+      
       if (to.path == "/home" || to.path == "/mailList" || to.path == "/todoList" || to.path == "/myInfo") {
-        this.$store.commit("setBottomNav", to.path.split("/")[1]);
+        this.$store.commit("setBottomNav", to.path.split("/")[1]); // 设置 bottomNav 选中项
         this.showBotNav = true;
       } else {
         this.showBotNav = false;

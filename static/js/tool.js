@@ -55,6 +55,29 @@ export default {
     }
   },
 
+  // 防抖
+  debounce(fn, wait = 600) {
+    let timeout;
+    return () => {
+      clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        fn.call(this, arguments);
+      }, wait)
+    }
+  },
+  // 节流
+  throttle(fn, wait = 600) {
+    let canRun = true;
+    return () => {
+      if (!canRun) return;
+      canRun = false;
+      setTimeout(() => {
+        fn.apply(this, arguments);
+        canRun = true;
+      }, wait);
+    };
+  },
+
   // 获取地址栏参数
   getUrlKey(key) {
     return decodeURIComponent((new RegExp('[?|&]' + key + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
@@ -101,21 +124,6 @@ export default {
     } else {
       return {};
     }
-  },
-  judgeModel() {
-    // 检测是ios还是安卓
-    let equipmentType = "Web";
-    let agent = navigator.userAgent.toLowerCase();
-    let android = agent.indexOf("android");
-    let iphone = agent.indexOf("iphone");
-    let ipad = agent.indexOf("ipad");
-    if (android != -1) {
-      equipmentType = "Android";
-    }
-    if (iphone != -1 || ipad != -1) {
-      equipmentType = "iOS";
-    }
-    return equipmentType;
   },
   guid() {
     // 用于文件多张上传需要传入的randow

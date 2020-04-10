@@ -5,14 +5,20 @@
       <p class="title_2">您好, 马总</p>
       <div class="serchInputBox">
         <mu-icon value=":iconfont icon-sousuo"></mu-icon>
-        <span>项目编号, 客户姓名, 手机号码</span>
+        <input type="text" placeholder="项目编号, 客户姓名, 手机号码" @focus="isShow = true" @blur="searchBlur" @input="searchInputCallback">
+        <div class="alternativeList" v-show="isShow">
+          <ul>
+            <li @click="searchCallback('还款管理')"><span>还款管理</span><span>1条</span></li>
+            <li @click="searchCallback('垫款管理')"><span>垫款管理</span><span>1条</span></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="content">
       <div class="block" v-for="(block,index) in blockList" :key="index">
         <p class="title">{{block.title}}</p>
         <div :class="['itemBox', block.itemList.length>4?'moreBox':'']">
-          <div :class="['item',item.haveInHandlink?'':'plan']" v-for="(item,index2) in block.itemList" :key="index2" @click="goPage('repayManage')">
+          <div :class="['item',item.haveInHandlink?'':'plan']" v-for="(item,index2) in block.itemList" :key="index2" @click="goPage(item.linkName)">
             <img :src="item.src">
             <span>{{item.describe}}</span>
           </div>
@@ -32,32 +38,33 @@ export default {
   },
   data() {
     return {
+      isShow:false,
       blockList:[
         {
           title:"还款跟踪",
           itemList:[
-            {src:"../../../static/images/repayment.png",describe:"还款管理",haveInHandlink:true,link:"/repayManage"},
-            {src:"../../../static/images/dataArchiving.png",describe:"资料归档",haveInHandlink:true,link:""},
-            {src:"../../../static/images/litigation.png",describe:"法律诉讼",haveInHandlink:false,link:""},
-            {src:"../../../static/images/settle.png",describe:"结清管理",haveInHandlink:false,link:""},
+            {src:"../../../static/images/repayment.png",describe:"还款管理",haveInHandlink:true,linkName:"repayManage"},
+            {src:"../../../static/images/dataArchiving.png",describe:"资料归档",haveInHandlink:true,linkName:""},
+            {src:"../../../static/images/litigation.png",describe:"法律诉讼",haveInHandlink:false,linkName:""},
+            {src:"../../../static/images/settle.png",describe:"结清管理",haveInHandlink:false,linkName:""},
           ]
         },
         {
           title:"逾期回收",
           itemList:[
-            {src:"../../../static/images/overdue.png",describe:"逾期催收",haveInHandlink:true,link:""},
-            {src:"../../../static/images/endowment.png",describe:"代偿催收",haveInHandlink:true,link:""},
-            {src:"../../../static/images/business.png",describe:"业务催收",haveInHandlink:true,link:""},
-            {src:"../../../static/images/collection.png",describe:"上门催收",haveInHandlink:false,link:""},
+            {src:"../../../static/images/overdue.png",describe:"逾期催收",haveInHandlink:true,linkName:""},
+            {src:"../../../static/images/endowment.png",describe:"代偿催收",haveInHandlink:true,linkName:""},
+            {src:"../../../static/images/business.png",describe:"业务催收",haveInHandlink:true,linkName:""},
+            {src:"../../../static/images/collection.png",describe:"上门催收",haveInHandlink:false,linkName:""},
           ]
         },
         {
           title:"其他",
           itemList:[
-            {src:"../../../static/images/loanCalculation.png",describe:"贷款计算",haveInHandlink:true,link:""},
-            {src:"../../../static/images/reportForm.png",describe:"统计报表",haveInHandlink:false,link:""},
-            {src:"../../../static/images/customer.png",describe:"客户信息",haveInHandlink:false,link:""},
-            {src:"../../../static/images/bond.png",describe:"保证金",haveInHandlink:false,link:""},
+            {src:"../../../static/images/loanCalculation.png",describe:"贷款计算",haveInHandlink:true,linkName:""},
+            {src:"../../../static/images/reportForm.png",describe:"统计报表",haveInHandlink:false,linkName:""},
+            {src:"../../../static/images/customer.png",describe:"客户信息",haveInHandlink:false,linkName:""},
+            {src:"../../../static/images/bond.png",describe:"保证金",haveInHandlink:false,linkName:""},
           ]
         }
       ]
@@ -70,7 +77,24 @@ export default {
     
   },
   methods: {
-    
+    // 搜索
+    searchInputCallback:tool.debounce(()=>{
+      console.log('sss')
+    }),
+    searchBlur(){
+      setTimeout(()=>this.isShow = false)
+    },
+    // 点击列表跳转
+    searchCallback(text){
+      switch (text) {
+        case "还款管理":
+            console.log(1)
+          break;
+        case "垫款管理":
+            console.log(2)
+          break;
+      }
+    }
   }
 };
 </script>
@@ -105,8 +129,51 @@ export default {
       margin-top: 16px;
       padding-left: 10px;
       color: @regular-text;
-      span{
-        padding-left: 8px;
+      position: relative;
+      input{
+        width: 90%;
+        margin-left: 8px;
+        font-size: 15px;
+        &:hover+.alternativeList{
+          animation: searchAnimation .3s ease;
+          animation-fill-mode: forwards;
+        }
+      }
+      .alternativeList{
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        opacity: 0;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+        backface-visibility: hidden; //解决 动画闪烁 抖动 bug
+        ul>li{
+          list-style: none;
+          padding: 0 14px;
+          color: @primary-text;
+          position: relative;
+          display: flex;
+          justify-content: space-between;
+          &::before{
+            content:'';
+            width: 91%;
+            height: 1px;
+            background-color: @primary-border;
+            bottom: 0;
+            position: absolute;
+          }
+          &:last-child::before{
+            content: none;
+          }
+        }
+      }
+      @keyframes searchAnimation {
+        to {
+          top: 46px;
+          opacity: 1;
+        }
       }
     }
   }

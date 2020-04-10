@@ -19,19 +19,6 @@ export default new Vuex.Store({
     crmToGroup: false, // 是否嵌入 集团 APP
     token_GJ: "", //管家跳转crm所需 token
     otherApp: "", //是否第三方 app 用于顶级路由返回判断
-    accessToken: "", // token
-    authorities: {
-      crm: {
-        customer: {}, // 客户
-        pool: {}, // 公海
-        contacts: {}, // 联系人
-        leads: {} //线索
-      },
-      work: {
-        task: {} // 任务
-      }
-    }, // 作者的权限
-    loginUser: {}, // 登录者的信息
     bottomNav: "home" // 当前点击的底部页签
   },
   mutations: {
@@ -59,11 +46,7 @@ export default new Vuex.Store({
 
     // 基础方法
     setBottomNav: (state, data) => (state.bottomNav = data),
-    // 登录的token
-    setToken: (state, data) => {
-      const { accessToken } = data;
-      state.accessToken = accessToken;
-    },
+    
     // 根据token获取当前的登录信息
     setUser: (state, data) => {
       state.loginUser = data;
