@@ -13,7 +13,7 @@
 
     <div class="inputBox">
       <mu-form :model="form" class="mu-demo-form" label-position="left" ref="form">
-        <mu-form-item :rules="myRules.must('用户名')" class="username" prop="username" >
+        <mu-form-item :rules="rules.username" class="username" prop="username" >
           <img src="../../../static/images/phone.png">
           <mu-text-field
               placeholder="请输入用户名"
@@ -21,7 +21,7 @@
               v-model.trim="form.username"
             ></mu-text-field>
         </mu-form-item>
-        <mu-form-item :rules="myRules.must('密码')" class="password" prop="password" >
+        <mu-form-item :rules="rules.password" class="password" prop="password" >
           <img src="../../../static/images/pwd.png">
           <mu-text-field
               :action-icon="visibility ? 'visibility_off' : 'visibility'" :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'"
@@ -62,6 +62,10 @@ export default {
       form: {
         username: "", // 用户名
         password: "", // 密码
+      },
+      rules:{
+        username:[{ validate: val => !!val, message: "请填写账号" }],
+        password:[{ validate: val => !!val, message: "请填写密码" }]
       }
     };
   },
