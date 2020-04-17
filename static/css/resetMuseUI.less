@@ -9,9 +9,16 @@ body{
           height: 100%;
           line-height: 34px;
           text-align: center;
-          border-bottom: 1px solid @primary-border;
         }
       }
+      li{
+        &:not(:last-child) {
+          .mu-item-title{
+            border-bottom: 1px solid @primary-border;
+          }
+        }
+      }
+      
     }
   }
 }
@@ -48,8 +55,8 @@ body{
     }
     .mu-appbar-right{
       .mu-icon-button{
-        padding: 0;
         padding-bottom: 5px;
+        font-weight: bold;
       }
     }
   }
@@ -75,6 +82,9 @@ body{
   }
 }
 
+.mu-option.is-selected .mu-item{
+  color: #EC191F;
+}
 
 // 列表
 .mu-list{
@@ -89,6 +99,13 @@ body{
     }
     
   }
+}
+
+.mu-popover.transition-bottom{
+  border-radius: 6px;
+}
+.mu-popover .mu-list{
+  padding: 8px 0;
 }
 
 // 分割线

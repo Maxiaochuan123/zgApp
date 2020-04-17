@@ -14,82 +14,64 @@ const router = new Router({
     {
       path: "/login",
       name: "login",
-      meta: {
-        zIndex: 0
-      },
       component: () => import("../views/basics/login.vue")
     }, {
       path: "/retrievePassword",
       name: "retrievePassword",
-      meta: {
-        zIndex: 0
-      },
       component: () => import("../views/basics/retrievePassword.vue")
     }, {
       path: "/home",
       name: "home",
-      meta: {
-        zIndex: 0
-      },
       component: () => import("../views/basics/home.vue")
     }, {
       path: "/mailList",
       name: "mailList",
-      meta: {
-        zIndex: 0
-      },
       component: () => import("../views/basics/mailList.vue")
     }, {
       path: "/todoList",
       name: "todoList",
-      meta: {
-        zIndex: 0
-      },
       component: () => import("../views/basics/todoList.vue")
     }, {
       path: "/myInfo",
       name: "myInfo",
-      meta: {
-        zIndex: 0
-      },
       component: () => import("../views/basics/myInfo.vue")
     },
 
+    /************************************** 公共页面组件 **************************************/
 
-    // 还款管理
-    {
-      path: "/repayManage",
-      name: "repayManage",
-      meta: {
-        zIndex: 0
-      },
-      component: () => import("../views/repayment/repayManage.vue")
-    },
-    // 还款计划
-    {
-      path: "/repayPlan/:id",
-      name: "repayPlan",
-      meta: {
-        zIndex: 0
-      },
-      component: () => import("../views/repayment/repayPlan.vue")
-    },
     // 还款明细
     {
-      path: "/repayInfo/:id",
-      name: "repayInfo",
-      meta: {
-        zIndex: 0
-      },
-      component: () => import("../views/repayment/repayInfo.vue")
+      path: "/DetailedCard.vue",
+      name: "detailedCard",
+      component: () => import("../components/template/DetailedCard.vue")
     },
+
+
+    /************************************** 还款跟踪 **************************************/
+
+    // 还款列表
+    {
+      path: "/repayment/repaymentList",
+      name: "repaymentList",
+      component: () => import("../views/repayment/repaymentList.vue")
+    },
+    {
+      path: "/repayment/plan/:id",
+      name: "plan",
+      component: () => import("../views/repayment/plan.vue")
+    },
+    
+
+    // 逾期列表
+    // 代偿列表
+    // 资料归档
+
+
     // 其他
     {
       path: "/loanCalculate",
       name: "loanCalculate",
-      meta: {
-        zIndex: 0
-      },
+      
       component: () => import("../views/other/loanCalculate.vue")
     }
   ]

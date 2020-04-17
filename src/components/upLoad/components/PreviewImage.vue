@@ -12,8 +12,8 @@
       <img ref="actionMgr" :src="currentPreviewSrc" :style="transform.template()" v-finger:pinch="pinchHandler" @touchstart="onmousedown($event)">
       <div class="imgThumbnail">
         <div v-for="(item,index) in imagesList" :key="index">
-          <div :id="`tag-${index}`" :class="[currentPreviewIndex === index ? 'activeBorder' : '']" v-if="item.progress.progressState === 1">
-            <img :src="item.src" @click="setActiveImg(index)">
+          <div :id="`tag-${index}`" :class="[currentPreviewIndex === index ? 'activeBorder' : '']" v-if="!testImgState || item.progress.progressState === 1">
+            <img :src="item.src || item" @click="setActiveImg(index)">
           </div>
         </div>
       </div>
@@ -43,6 +43,10 @@ export default {
     previewIndex:{ //预览图 下标
       type:Number,
       default:0
+    },
+    testImgState:{ //是否检测图片上传状态
+      type:Boolean,
+      default:true
     }
   },
   data(){
@@ -87,7 +91,7 @@ export default {
     },
     setActiveImg(index){
       this.resetPosition();
-      this.currentPreviewSrc = this.imagesList[index].src;
+      this.currentPreviewSrc = this.imagesList[index].src || this.imagesList[index];
       this.currentPreviewIndex = index;
     },
     resetPosition(){

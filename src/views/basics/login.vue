@@ -51,7 +51,7 @@
 import tool from "@static/js/tool.js";
 import Rules from "@static/js/rules";
 import axios from "axios";
-import storage from '../../../../crm/my-app/dist/static/js/storage';
+import storage from '../../../static/js/storage';
 export default {
   components: {},
   data() {

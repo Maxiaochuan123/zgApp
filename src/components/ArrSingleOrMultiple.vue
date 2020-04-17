@@ -140,17 +140,19 @@ export default {
   }
   .multipleSelection {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-items: center;
     align-content: space-between;
+    
     div {
+      margin-left: 3%;
       height: 36px;
       text-align: center;
       font-size: @regular-size;
       color: @regular-text;
       background-color: #ededed;
       border-radius: 6px;
-      padding: 8px 12px;
+      padding: 8px 16px;
       margin-bottom: 6px;
     }
     .activeSelect {

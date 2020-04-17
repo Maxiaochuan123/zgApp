@@ -11,10 +11,11 @@
         class="query-input"
         type="text"
         v-model="inputValue"
+        @input="searchInput"
       />
-      <img
+      <img v-show="inputValue"
         :src="loadingImg('delete.png')"
-        @click.stop="clearAll()"
+        @click.stop=" inputValue = '' "
         class="close"
       />
       <br />
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+import tool from '@static/js/tool'
 export default {
   name: "SearchInputBar",
   components: {},
@@ -35,22 +37,12 @@ export default {
     placeholderText: {
       type: String,
       default: "搜索"
-    },
-    type: {
-      type: String,
-      default: ""
     }
   },
-  watch: {
-    inputValue(val) {
-      this.$emit("searchInputBarChange", { type: this.type, value: val });
-    }
-  },
-  mounted() {},
   methods: {
-    clearAll() {
-      this.inputValue = "";
-    }
+    searchInput:tool.debounce(function(){
+      this.$emit("searchInputBarChange", this.inputValue);
+    })
   }
 };
 </script>
@@ -67,13 +59,13 @@ export default {
   top: 44px;
   z-index: 99;
   width: 100%;
-  //   height: 60px;
-  padding: 12px 15px;
+  height: 60px;
+  padding: 8px 15px;
   background-color: #fff;
   .serch-input {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 44px;
     border-radius: 10px;
     padding: 7px 10px;
     color: @regular-text;

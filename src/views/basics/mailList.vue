@@ -1,6 +1,6 @@
 <template>
   <div class="mailList">
-    <AppBar pageTitle="公司部门"/>
+    <AppBar :isGoBack="false" pageTitle="公司部门"/>
 
     <div class="content">
       <SearchBar :list="serchUserList" placeholderText="搜索联系人" :isGoPage="true" pageLinkName="personalInfo"></SearchBar>

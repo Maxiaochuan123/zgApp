@@ -58,17 +58,17 @@ export default {
   // 防抖
   debounce(fn, wait = 600) {
     let timeout;
-    return () => {
+    return function() {
       clearTimeout(timeout)
       timeout = setTimeout(() => {
-        fn.call(this, arguments);
+        fn.apply(this, arguments);
       }, wait)
     }
   },
   // 节流
   throttle(fn, wait = 600) {
     let canRun = true;
-    return () => {
+    return function() {
       if (!canRun) return;
       canRun = false;
       setTimeout(() => {

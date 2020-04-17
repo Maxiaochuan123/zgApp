@@ -1,31 +1,15 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-27 14:09:01
- * @LastEditTime: 2020-03-30 15:08:54
- * @LastEditors: shenah
- */
 import Vue from "vue";
 import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    dictionaries: {}, // 字典
-    dataSet: {
-      // 数据的结合
-      lendPlatform: [] // 放款平台
-    },
     crmToGroup: false, // 是否嵌入 集团 APP
     token_GJ: "", //管家跳转crm所需 token
     otherApp: "", //是否第三方 app 用于顶级路由返回判断
     bottomNav: "home" // 当前点击的底部页签
   },
   mutations: {
-    // 设置字典
-    setDic: (state, data) => {
-      state.dictionaries = data;
-    },
     // 设置数据
     setList: (state, obj) => {
       let { type, data } = obj;
@@ -46,14 +30,5 @@ export default new Vuex.Store({
 
     // 基础方法
     setBottomNav: (state, data) => (state.bottomNav = data),
-    
-    // 根据token获取当前的登录信息
-    setUser: (state, data) => {
-      state.loginUser = data;
-    },
-    // 根据token获取当前用户的权限
-    setAuthor: (state, data) => {
-      state.authorities = data;
-    }
   }
 });

@@ -26,13 +26,9 @@ export default {
     };
   },
   created() {
-    // 查询字典
-    this.queryDic();
-    // 查询放款平台
-    this.queryLendPlatform();
 
     // 设置当前选中 TAB 项
-    if(!this.storage.sessionGet('tabsActive')) this.storage.sessionSet('tabsActive',0);
+    if(!this.storage.sessionGet('tabsActive')) this.storage.sessionSet('tabsActive',1);
 
     // 设置主题色
     Theme.add("theme_one", {primary: "#EC191F"}, "light");
@@ -41,9 +37,9 @@ export default {
   watch: {
     $route(to, from) {
       // 恢复 TAB 默认项
-      if(to.path == '/home'){
-        this.storage.sessionSet('tabsActive',0);
-      }
+      // if(to.path == '/home'){
+      //   this.storage.sessionSet('tabsActive',1);
+      // }
       
       if (to.path == "/home" || to.path == "/mailList" || to.path == "/todoList" || to.path == "/myInfo") {
         this.$store.commit("setBottomNav", to.path.split("/")[1]); // 设置 bottomNav 选中项
@@ -57,32 +53,7 @@ export default {
     ...mapState(["crmToGroup"])
   },
   methods: {
-    ...mapMutations(["setToken_GJ", "setCrmToGroup", "setOtherApp"]),
-    // 查询字典
-    queryDic() {
-      return Api.queryDictionaries().then(res => {
-        this.$store.commit("setDic", res.data);
-      });
-    },
-    // 查询放款平台
-    queryLendPlatform() {
-      return Api.queryLendPlatform().then(res => {
-        this.$store.commit("setList", {
-          type: "lendPlatform",
-          data: res.data
-        });
-      });
-    },
-    queryLoginRight() {
-      return Api.getAuthorByToken().then(res => {
-        this.$store.commit("setAuthor", res.data);
-      });
-    },
-    queryUser() {
-      return Api.getCurrentUserByToken().then(res => {
-        this.$store.commit("setUser", res.data);
-      });
-    }
+    
   }
 };
 </script>

@@ -1,14 +1,12 @@
 {
-  "name": "myapp",
+  "name": "zgapp",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "",
   "private": true,
   "scripts": {
-    "mock": "node ./mock-server/server.js 9000",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "run-p dev",
-    "mockserver": "run-p start mock",
     "build": "node build/build.js"
   },
   "dependencies": {
@@ -52,8 +50,6 @@
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "lodash": "^4.17.15",
-    "mock": "^0.1.1",
-    "mockjs": "^1.0.1-beta3",
     "muse-ui-message": "^0.2.1",
     "muse-ui-toast": "^0.3.0",
     "node-notifier": "^5.1.2",

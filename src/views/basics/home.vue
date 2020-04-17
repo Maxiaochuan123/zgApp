@@ -43,19 +43,19 @@ export default {
         {
           title:"还款跟踪",
           itemList:[
-            {src:"../../../static/images/repayment.png",describe:"还款管理",haveInHandlink:true,linkName:"repayManage"},
+            {src:"../../../static/images/repayment.png",describe:"还款列表",haveInHandlink:true,linkName:"repaymentList"},
+            {src:"../../../static/images/overdue.png",describe:"逾期列表",haveInHandlink:true,linkName:""},
+            {src:"../../../static/images/endowment.png",describe:"代偿列表",haveInHandlink:true,linkName:""},
             {src:"../../../static/images/dataArchiving.png",describe:"资料归档",haveInHandlink:true,linkName:""},
-            {src:"../../../static/images/litigation.png",describe:"法律诉讼",haveInHandlink:false,linkName:""},
-            {src:"../../../static/images/settle.png",describe:"结清管理",haveInHandlink:false,linkName:""},
           ]
         },
         {
           title:"逾期回收",
           itemList:[
-            {src:"../../../static/images/overdue.png",describe:"逾期催收",haveInHandlink:true,linkName:""},
-            {src:"../../../static/images/endowment.png",describe:"代偿催收",haveInHandlink:true,linkName:""},
+            {src:"../../../static/images/phoneCollection.png",describe:"电话催收",haveInHandlink:true,linkName:""},
             {src:"../../../static/images/business.png",describe:"业务催收",haveInHandlink:true,linkName:""},
-            {src:"../../../static/images/collection.png",describe:"上门催收",haveInHandlink:false,linkName:""},
+            {src:"../../../static/images/collection.png",describe:"外勤催收",haveInHandlink:true,linkName:""},
+            {src:"../../../static/images/settle.png",describe:"全员催收",haveInHandlink:true,linkName:""},
           ]
         },
         {

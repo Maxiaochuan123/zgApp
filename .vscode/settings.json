@@ -5,7 +5,7 @@
     "@components": "../src/components",
     "@api": "../src/api/api.js",
     "@constants": "../src/constants",
-    "@static": "../my-app/static"
+    "@static": "../zg-app/static"
   },
   "path-intellisense.mappings": {
     "@": "${workspaceRoot}/src",

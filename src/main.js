@@ -39,6 +39,9 @@ Vue.prototype.storage = storage;
 import api from "./api/api";
 Vue.prototype.api = api;
 
+import apiMethods from './api/apiMethod';
+Vue.prototype.apiMethods = apiMethods;
+
 import preview from "vue-photo-preview";
 import "vue-photo-preview/dist/skin.css";
 Vue.use(preview);
