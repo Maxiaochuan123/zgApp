@@ -1,3 +1,11 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-18 11:03:44
+ * @LastEditTime: 2020-04-19 10:34:13
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \zgApp\src\App.vue
+ -->
 <template>
   <div id="app">
     <router-view />
@@ -28,7 +36,7 @@ export default {
   created() {
 
     // 设置当前选中 TAB 项
-    if(!this.storage.sessionGet('tabsActive')) this.storage.sessionSet('tabsActive',1);
+    if(!this.storage.sessionGet('tabsActive')) this.storage.sessionSet('tabsActive',0);
 
     // 设置主题色
     Theme.add("theme_one", {primary: "#EC191F"}, "light");

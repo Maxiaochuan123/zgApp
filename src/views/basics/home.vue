@@ -46,7 +46,7 @@ export default {
             {src:"../../../static/images/repayment.png",describe:"还款列表",haveInHandlink:true,linkName:"repaymentList"},
             {src:"../../../static/images/overdue.png",describe:"逾期列表",haveInHandlink:true,linkName:""},
             {src:"../../../static/images/endowment.png",describe:"代偿列表",haveInHandlink:true,linkName:""},
-            {src:"../../../static/images/dataArchiving.png",describe:"资料归档",haveInHandlink:true,linkName:""},
+            {src:"../../../static/images/dataArchiving.png",describe:"资料归档",haveInHandlink:true,linkName:"dataArchivingList"},
           ]
         },
         {

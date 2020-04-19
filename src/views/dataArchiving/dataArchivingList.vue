@@ -1,7 +1,7 @@
 <template>
-  <!-- 还款列表 -->
-  <div class="repaymentList">
-    <List pageTitle="还款列表" :drawerList="drawerList" listType="0" pageSource="repaymentList"></List>
+  <!-- 资料归档 -->
+  <div class="dataArchivingList">
+    <List pageTitle="资料归档" :drawerList="drawerList" listType="1" pageSource="dataArchivingList"></List>
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
       drawerList:{
         dateSwitch:{
           fileTitle:'更新日期',
-          type:'date',
+          type:'month',
           placeholder:'请选择日期',
           val:[]
         },
@@ -24,13 +24,6 @@ export default {
           fileTitle:'放款平台',
           type:'select',
           placeholder:'请选择放款平台',
-          options:['四川公司', '四川公司', '四川公司', '四川公司'],
-          val:''
-        },
-        select2:{
-          fileTitle:'所属公司',
-          type:'select',
-          placeholder:'请选择所属公司',
           options:['四川公司', '四川公司', '四川公司', '四川公司'],
           val:''
         },
@@ -44,10 +37,22 @@ export default {
             title:'不限',
             state:false
           },{
-            title:'还款中',
+            title:'待移交',
             state:false
           },{
-            title:'已完成',
+            title:'移交驳回',
+            state:false
+          },{
+            title:'待归档',
+            state:false
+          },{
+            title:'已归档',
+            state:false
+          },{
+            title:'已借阅',
+            state:false
+          },{
+            title:'已销毁',
             state:false
           }]
         },
@@ -55,7 +60,7 @@ export default {
     }
   },
   created(){
-    this.$store.commit('setPageParams',{id:111});
+    this.$store.commit('setPageParams',{id:222});
   },
   methods: {
     
@@ -64,7 +69,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .repaymentList{
+  .dataArchivingList{
 
   }
 </style>

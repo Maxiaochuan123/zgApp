@@ -12,15 +12,15 @@
             <mu-text-field class="input" v-model="item.val" :placeholder="item.placeholder"></mu-text-field>
           </div>
 
-          <div class="dateInput" v-else-if="item.type === 'date'">
+          <div class="dateInput" v-else-if="item.type === 'date' || item.type === 'month'">
             <div class="screenInput">
               <span v-show="!item.val[0]">{{item.placeholder}}</span>
-              <mu-date-input class="timeInput" icon="today" v-model="item.val[0]" type="date" label-float full-width container="bottomSheet" value-format="YYYY-MM-DD"></mu-date-input>
+              <mu-date-input class="timeInput" icon="today" v-model="item.val[0]" :type="item.type" label-float full-width container="bottomSheet" :value-format="item.type === 'date' ? 'YYYY-MM-DD' : 'YYYY-MM'"></mu-date-input>
             </div>
             <span>至</span>
             <div class="screenInput">
               <span v-show="!item.val[1]">{{item.placeholder}}</span>
-              <mu-date-input class="timeInput" icon="today" v-model="item.val[1]" type="date" label-float full-width container="bottomSheet" value-format="YYYY-MM-DD"></mu-date-input>
+              <mu-date-input class="timeInput" icon="today" v-model="item.val[1]" :type="item.type" label-float full-width container="bottomSheet" :value-format="item.type === 'date' ? 'YYYY-MM-DD' : 'YYYY-MM'"></mu-date-input>
             </div>
           </div>
 
@@ -192,7 +192,7 @@ export default {
           font-size: @regular-size;
           color: @primary-text;
         }
-        /deep/ .mu-select-action,
+        // /deep/ .mu-select-action,
         /deep/ .mu-input-line,
         /deep/ .mu-input-focus-line {
           display: none;

@@ -32,15 +32,12 @@ export default {
       // 侧边栏
       drawerState: false,
 
-      // 跳转页面参数
-      goPageParams:{},
-
       // tabs 当前选中项
       tabsActive: storage.sessionGet("tabsActive"),
 
       // paging 分页
       paging: {
-        pageSize: 7,
+        pageSize: 10,
         pageIndex: 1
       },
 

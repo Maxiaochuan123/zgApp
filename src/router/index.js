@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-04-18 11:03:44
+ * @LastEditTime: 2020-04-18 16:02:10
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \zgApp\src\router\index.js
+ */
 import Vue from "vue";
 import Router from "vue-router";
 import store from "../vuex/store";
@@ -41,9 +49,21 @@ const router = new Router({
 
     // 还款明细
     {
-      path: "/DetailedCard.vue",
+      path: "/repayment/detailedCard/:id",
       name: "detailedCard",
-      component: () => import("../components/template/DetailedCard.vue")
+      component: () => import("../components/template/repayment/DetailedCard.vue")
+    },
+    // 还款计划
+    {
+      path: "/repayment/plan/:id",
+      name: "plan",
+      component: () => import("../components/template/repayment/Plan.vue")
+    },
+    // 资料归档
+    {
+      path: "/dataArchiving/archiving/:id",
+      name: "archiving",
+      component: () => import("../components/template/dataArchiving/Archiving.vue")
     },
 
 
@@ -55,17 +75,17 @@ const router = new Router({
       name: "repaymentList",
       component: () => import("../views/repayment/repaymentList.vue")
     },
-    {
-      path: "/repayment/plan/:id",
-      name: "plan",
-      component: () => import("../views/repayment/plan.vue")
-    },
+    
     
 
     // 逾期列表
     // 代偿列表
     // 资料归档
-
+    {
+      path: "/dataArchiving/dataArchivingList",
+      name: "dataArchivingList",
+      component: () => import("../views/dataArchiving/dataArchivingList.vue")
+    },
 
     // 其他
     {

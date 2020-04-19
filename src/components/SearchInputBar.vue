@@ -1,23 +1,9 @@
-<!--
- * @Description: 搜索框input类型
- * @Author: shenah
- -->
 <template>
   <div class="search-input-bar">
     <div class="serch-input">
       <mu-icon value=":iconfont icon-sousuo"></mu-icon>
-      <input
-        :placeholder="placeholderText"
-        class="query-input"
-        type="text"
-        v-model="inputValue"
-        @input="searchInput"
-      />
-      <img v-show="inputValue"
-        :src="loadingImg('delete.png')"
-        @click.stop=" inputValue = '' "
-        class="close"
-      />
+      <input :placeholder="placeholderText" class="query-input" type="text" v-model="value" @input="searchInput" />
+      <img v-show="value" :src="loadingImg('delete.png')" @click.stop=" value = '' " class="close" />
       <br />
     </div>
   </div>
@@ -30,7 +16,7 @@ export default {
   components: {},
   data() {
     return {
-      inputValue: ""
+      value: ""
     };
   },
   props: {
@@ -41,7 +27,9 @@ export default {
   },
   methods: {
     searchInput:tool.debounce(function(){
-      this.$emit("searchInputBarChange", this.inputValue);
+      // this.resetListHandle();
+      this.$store.commit('setSearchInputVal',this.value);
+      this.$emit("searchInputBarChange", this.value);
     })
   }
 };

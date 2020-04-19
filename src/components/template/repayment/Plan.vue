@@ -5,16 +5,16 @@
     <div class="contentBox">
       <div class="content">
         <mu-tabs :value.sync="tabsActive" inverse color="primary" indicator-color="primary" center>
-          <mu-tab>跟进记录</mu-tab>
           <mu-tab>基本信息</mu-tab>
+          <mu-tab>跟进记录</mu-tab>
         </mu-tabs>
         <div class="body">
-          <div class="followUp" v-if="tabsActive==0">
-            <h1>followUp</h1>
-          </div>
-          <div class="basicInfo" v-if="tabsActive==1">
+          <div class="basicInfo" v-if="tabsActive==0">
             <InfoCard></InfoCard>
             <LoanCard></LoanCard>
+          </div>
+          <div class="followUp" v-if="tabsActive==1">
+            <h1>followUp</h1>
           </div>
         </div>
       </div>
@@ -25,8 +25,8 @@
 
 <script>
 import AppBar from '@components/AppBar'
-import InfoCard from '@components/template/InfoCard'
-import LoanCard from '@components/template/LoanCard'
+import InfoCard from '@components/template/repayment/InfoCard'
+import LoanCard from '@components/template/repayment/LoanCard'
 
 export default {
   components: {
@@ -34,12 +34,6 @@ export default {
   },
   data() {
     return {
-      status:true,
-    }
-  },
-  methods: {
-    checkStatus(){
-      this.status = !this.status
     }
   }
 }

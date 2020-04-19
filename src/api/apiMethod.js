@@ -1,22 +1,29 @@
 import apiCallback from './api'
-
+import store from '../vuex/store'
 export default{
-  getSource(pageSource){
+  getSource(_this,pageSource){
     let api, params, msg
     switch(pageSource) {
       case "repaymentList":
           api = apiCallback.onlyLogin;
-          params = {id:'123'};
+          params = {id:'123',..._this.paging};
           msg = "还款列表";
         break;
     }
     return { api, params, msg }
   },
 
-  getListCallback(_this,pageSource,tag=false){
-    let { api, params, msg } = this.getSource(pageSource);
-    params = !tag ? params : { ...params, ..._this.screenData}
-    console.log(params)
+  getListCallback(_this,pageSource,type="default"){
+    let { api, params, msg } = this.getSource(_this,pageSource);
+    if(type == "default"){
+      params = params;
+    }else if(type == "screen"){
+      params = { ...params, ..._this.screenData};
+    }else if(type == "search"){
+      params = { ...params, search:store.state.searchInputValue};
+    }
+    // console.log(params)
+
     // api(params).then(res => {
     //   if (res.msg !== 'success') _this.$toast.warning(`${msg}获取失败!`);
     //   if (_this.loadUpdate.loadingState === 'default' || _this.loadUpdate.loadingState === 'refresh') {
