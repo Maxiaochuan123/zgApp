@@ -13,7 +13,7 @@ import store from "./vuex/store";
 import MuseUI from "muse-ui";
 import "muse-ui/dist/muse-ui.css";
 import Toast from "muse-ui-toast";
-import options from "../static/js/options";
+import options from "@static/js/options";
 import Message from "muse-ui-message";
 import "muse-ui-loading/dist/muse-ui-loading.css"; // load css
 import Loading from "muse-ui-loading";
@@ -26,14 +26,14 @@ Message.config(options.message);
 Vue.use(Loading);
 // fastclick.attach(document.body);
 
-import mixins from "../static/js/mixins";
+import mixins from "@static/js/mixins";
 Vue.mixin(mixins);
 
 import dayjs from "dayjs";
 Vue.prototype.dayjs = dayjs;
 
 Vue.config.productionTip = false;
-import storage from "../static/js/storage";
+import storage from "@static/js/storage";
 Vue.prototype.storage = storage;
 
 import api from "./api/api";

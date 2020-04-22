@@ -10,7 +10,7 @@ import Qs from "qs";
 import tool from "@static/js/tool";
 import axios from "axios";
 import Toast from "muse-ui-toast";
-import bridge from '../../static/js/JSbridge'
+import bridge from '@static/js/JSbridge'
 import store from '../vuex/store'
 import storage from "@static/js/storage";
 const CODE_SUCCESS = 0;

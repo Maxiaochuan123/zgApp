@@ -4,28 +4,28 @@
     <div class="functionalArea">
         <div class="fncBlock">
           <div>
-            <img src="../../../static/images/archived.png">
+            <img src="@static/images/archived.png">
             <span>待归档</span>
           </div>
           <i class="iconfont icon-rightArrow"></i>
         </div>
         <div class="fncBlock">
           <div>
-            <img src="../../../static/images/toBeAudited.png">
+            <img src="@static/images/toBeAudited.png">
             <span>垫款待审核</span>
           </div>
           <i class="iconfont icon-rightArrow"></i>
         </div>
         <div class="fncBlock">
           <div>
-            <img src="../../../static/images/toBeCollected.png">
+            <img src="@static/images/toBeCollected.png">
             <span>待派单</span>
           </div>
           <i class="iconfont icon-rightArrow"></i>
         </div>
         <div class="fncBlock">
           <div>
-            <img src="../../../static/images/waitingList.png">
+            <img src="@static/images/waitingList.png">
             <span>待催收</span>
           </div>
           <i class="iconfont icon-rightArrow"></i>

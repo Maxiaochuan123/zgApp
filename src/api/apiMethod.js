@@ -35,7 +35,9 @@ export default{
     // })
   },
 
-  // confirmCallback(_this){
-    
-  // }
+  // this.$confirm("是否分享此线索 ?", "提示").then(res => {
+  //   if (res.result) {
+
+  //   }
+  // });
 }

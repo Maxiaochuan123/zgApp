@@ -1,5 +1,5 @@
 <template>
-  <div class="BasicCard">
+  <div class="LoanCard">
     <div class="header">
       <div class="phase">1期</div>
       <div class="repaymentState">
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="foot" @click="status = !status">
-      <img :src="status ? '../static/images/arrowUpper.png' : '../static/images/arrowLower.png' ">
+      <img :src="status ? '../../../../static/images/arrowUpper.png' : '../../../../static/images/arrowLower.png' ">
     </div>
   </div>
 </template>
@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .BasicCard{
+  .LoanCard{
     background-color: #fff;
     padding: 12px 20px 0;
     &:not(:first-child){
@@ -60,16 +60,9 @@ export default {
       color: @primary !important;
     }
     .header{
-      // display: flex;
-      // justify-content: space-between;
-      // font-weight:400;
-      // padding-bottom: 12px;
-      // border-bottom: 1px solid @primary-border;
-      // span:nth-child(2){
-      //   font-weight:500;
-      // }
       .phase{
         font-weight:400;
+        padding-bottom: 12px;
       }
       .repaymentState{
         padding: 12px 0;
@@ -121,7 +114,7 @@ export default {
       
       .itemBox{
         display: flex;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         .item{
           width: 50%;
           display: flex;

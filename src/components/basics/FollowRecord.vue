@@ -1,7 +1,4 @@
-<!--
- * @Description: 跟进记录通用
- * @Author: shenah
- -->
+<!-- 跟进记录 -->
 <template>
   <div class="progress-column">
     <div v-if="record.length > 0">
@@ -55,10 +52,10 @@
 
 <script>
 import UploadList from "@components/upLoad/uploadList.vue";
-import Nothing from "@components/Nothing.vue";
+import Nothing from "@components/basics/Nothing.vue";
 import PreviewImageBase from "@components/upLoad/components/PreviewImageBase.vue";
 export default {
-  name: "Record",
+  name: "FollowRecord",
   components: { Nothing, PreviewImageBase, UploadList },
   data() {
     return {};
@@ -86,4 +83,81 @@ export default {
 };
 </script>
 <style lang='less' scoped>
+  .progress-column {
+    padding: 30px 15px;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    flex-flow: column;
+    .item {
+      position: relative;
+      display: flex;
+      flex-basis: 50%;
+      flex-shrink: 1;
+      .item-left {
+        flex-grow: 0;
+        width: 20;
+        .line {
+          position: absolute;
+          border-color: inherit;
+          background-color: @primary-border;
+          width: 1px;
+          top: 0;
+          bottom: 0;
+          left: 10px;
+        }
+        .circular {
+          position: relative;
+          width: 20px;
+          height: 20px;
+          // background: url("../../static/images/time-stamp.png") no-repeat;
+          background-size: 100% 100%;
+          z-index: 100;
+        }
+      }
+      .item-right {
+        overflow: hidden;
+        padding: 0 10px 30px;
+        .time {
+          font-size: @regular-size;
+          color: @regular-text;
+        }
+        .node {
+          margin-top: 24px;
+          display: flex;
+          overflow: hidden;
+          .node-left {
+            width: auto;
+          }
+          .node-right {
+            width: 100%;
+            flex: 1;
+            margin-left: 10px;
+            overflow: hidden;
+            .show-upload {
+              margin: 20px 0 0 0;
+            }
+            .name {
+              font-size: @primary-size;
+              color: @primary-text;
+              font-weight: @primary-weight;
+            }
+            .talk {
+              margin-top: 4px;
+              font-size: @regular-size;
+              color: @primary-text;
+            }
+            .images {
+              margin: 20px 0 8px 0;
+            }
+            .sub-info {
+              margin-top: 4px;
+              font-size: @regular-size;
+              color: @regular-text;
+            }
+          }
+        }
+      }
+    }
+  }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="BasicCard">
+  <div class="infoCard">
     <div class="header">
-      <span>肚丝</span> <span class="status primaryColor">未还款</span>
+      <span>肚丝</span> <mu-button flat @click="goPage('customerInfo',{id:333})" v-if="$route.params.customerInfoBtn">客户信息</mu-button>
     </div>
     <div :class="['middle', status ? 'foldAnimation' : '']">
       <div class="itemBox">
@@ -23,11 +23,23 @@
         <div class="item"><span>还款卡号</span> <span>6211365998523</span></div><div class="item"><span>放款平台</span> <span>工商-海南分行</span></div>
       </div>
       <div class="itemBox">
-        <div class="item"><span>公司</span> <span>贵州公司</span></div>
+        <div class="item"><span>公司</span> <span>贵州公司</span></div><div class="item" v-if="type == '逾期' || type == '代偿' || type == '催收'"><span>逾期阶段</span> <span>{{num | paramsError}}</span></div>
       </div>
+      <div v-if="type == '逾期' || type == '代偿' || type == '催收'">
+        <div class="itemBox">
+          <div class="item"><span>当前到期还款日</span> <span>{{num | paramsError}}</span></div><div class="item"><span>连续逾期天数</span> <span>{{num | paramsError('天')}}</span></div>
+        </div>
+        <div class="itemBox">
+          <div class="item"><span>累计逾期次数</span> <span>{{num | paramsError('次')}}</span></div><div class="item" v-if="type == '代偿'"><span>当前代偿金额</span> <span>{{num | paramsError('元')}}</span></div>
+        </div>
+        <div class="itemBox" v-if="type == '代偿'">
+          <div class="item"><span>累计代偿金额</span> <span>{{num | paramsError('元')}}</span></div><div class="item"><span>累计代偿次数</span> <span>{{num | paramsError('次')}}</span></div>
+        </div>
+      </div>
+      
     </div>
     <div class="foot" @click="status = !status">
-      <img :src="status ? '../static/images/arrowUpper.png' : '../static/images/arrowLower.png' ">
+      <img :src="status ? '../../../../static/images/arrowUpper.png' : '../../../../static/images/arrowLower.png' ">
     </div>
   </div>
 </template>
@@ -36,14 +48,21 @@
 export default {
   data() {
     return {
-      status: true
+      status: true,
+      type: '催收',
+      num: '',
     }
   },
+  filters: {
+    paramsError(val,unit){
+      return val ? `${val}${unit ? unit : ''}` : '一一  一一'
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
-  .BasicCard{
+  .infoCard{
     background-color: #fff;
     padding: 12px 20px 0;
     &:not(:first-child){
@@ -59,8 +78,14 @@ export default {
       font-weight:400;
       padding-bottom: 12px;
       border-bottom: 1px solid @primary-border;
-      span:nth-child(2){
-        font-weight:500;
+      span{
+        line-height: 2;
+      }
+      .mu-button{
+        border-radius: 6px;
+        color: @primary-text;
+        border: 1px solid #9F9F9F;
+        height: 30px;
       }
     }
     .foldAnimation{
@@ -74,7 +99,7 @@ export default {
       color: @regular-text;
       .itemBox{
         display: flex;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         .item{
           width: 50%;
           display: flex;

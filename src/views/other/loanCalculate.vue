@@ -12,11 +12,11 @@
   <div class="loan-calculate">
     <AppBar pageTitle="贷款计算器"></AppBar>
     <div class="content">
-      <GeneralForm
+      <!-- <GeneralForm
         :fieldList="fieldList"
         class="form"
         ref="generalForm"
-      ></GeneralForm>
+      ></GeneralForm> -->
     </div>
     <div class="foot-btn">
       <div class="clear btn-common">清空</div>
@@ -27,8 +27,8 @@
 
 <script>
 import { mapState } from "vuex";
-import AppBar from "@components/AppBar";
-import GeneralForm from "@components/GeneralForm.vue";
+import AppBar from "@components/basics/AppBar";
+// import GeneralForm from "@components/basics/GeneralForm.vue";
 export default {
   name: "loanCalculate",
   computed: {

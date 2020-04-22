@@ -1,6 +1,7 @@
 <template>
   <div class="listBox">
-    <div class="listItem" v-for="(item,index) in listData" :key="index" @click="$emit('goPage')">
+    <!-- waitTransfer:待移交  reject:移交驳回  waitFile:待归档  alreadyFile:已归档  alreadyBorrowing:已借阅  alreadyDestruction:已销毁  -->
+    <div class="listItem" v-for="(item,index) in listData" :key="index" @click="goPage('archiving',{id:222,state:item.state})">
       <div class="header">
         <span>{{item.num}}</span> <span class="status primaryColor">{{item.status}}</span>
       </div>
@@ -20,12 +21,7 @@ export default {
       type: Array,
       default: []
     }
-  },
-  data() {
-    return {
-      
-    }
-  },
+  }
 }
 </script>
 

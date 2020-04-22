@@ -1,6 +1,6 @@
 <template>
   <div class="retrievePassword">
-    <AppBar pageTitle="找回密码" custom customTitle="保存" :customFnc="save"></AppBar>
+    <AppBar pageTitle="找回密码" customIconBtn customTitle="保存" :customFnc="save"></AppBar>
 
     <div class="inputBox">
       <mu-form :model="form" class="mu-demo-form" ref="form">
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import AppBar from "@components/AppBar";
+import AppBar from "@components/basics/AppBar";
 export default {
   components: { AppBar },
   data() {

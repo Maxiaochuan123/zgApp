@@ -1,9 +1,9 @@
 <template>
   <div class="app-bar">
-    <mu-appbar z-depth="0">
+    <mu-appbar z-depth="0" :class="shadow ? 'bottomShadow' : ''">
 
       <!-- 左侧按钮 -->
-      <mu-button @click="$router.go(-1)" icon slot="left" v-if="isGoBack">
+      <mu-button @click="leftClick" icon slot="left" v-if="isGoBack">
         <mu-icon size="24" value=":iconfont icon-fanhui"></mu-icon>
       </mu-button>
 
@@ -17,7 +17,7 @@
       
 
       <!-- 右侧菜单按钮 -->
-      <mu-menu :open.sync="menuStatus" placement="bottom-end" slot="right" v-if="menuList.length > 0 && !custom">
+      <mu-menu :open.sync="menuStatus" placement="bottom-end" slot="right" v-if="menuList.length > 0 && !customIconBtn && !customIconBtn && !customTextBtn">
         <mu-button icon>
           <mu-icon size="18" value=":iconfont icon-gengduo1"></mu-icon>
         </mu-button>
@@ -34,10 +34,14 @@
       </mu-menu>
 
       <!-- 自定义右侧按钮 -->
-      <mu-button icon slot="right" @click="customCallback" v-if="custom" >
-        <mu-icon size="18" :value="`:iconfont ${customIcon}`"></mu-icon> 
-        {{ customIcon ? '' : customText }}
+
+      <!-- icon 按钮 -->
+      <mu-button icon slot="right" class="rightIconBox" @click="customCallback" v-if="customIconBtn || occupyBtn" >
+        <mu-icon size="24" :value="`:iconfont ${customIcon}`"></mu-icon> 
       </mu-button>
+
+      <!-- 文字按钮 -->
+      <div slot="right" class="textBtn" @click="customCallback" v-if="customTextBtn" > {{ customText }} </div>
 
     </mu-appbar>
     <mu-drawer :docked="false" :open.sync="drawerState" right>
@@ -48,8 +52,7 @@
 
 <script>
 import { mapState } from "vuex";
-import bridge from "../../static/js/JSbridge";
-import Screen from "@components/Screen";
+import Screen from "@components/basics/Screen";
 export default {
   name: "app-bar",
   components: {
@@ -80,8 +83,20 @@ export default {
       default: () => []
     },
 
-    //是否自定义 右侧按钮
-    custom: {
+    // 占位按钮
+    occupyBtn: {
+      type: Boolean,
+      default: false
+    },
+
+    //自定义 右侧图标按钮
+    customIconBtn: {
+      type: Boolean,
+      default: false
+    },
+
+    //自定义 右侧文字按钮
+    customTextBtn: {
       type: Boolean,
       default: false
     },
@@ -97,6 +112,12 @@ export default {
     customCallback: {
       type: Function,
       default: () => {}
+    },
+
+    // 是否显示阴影
+    shadow: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -138,6 +159,16 @@ export default {
     font-size: 20px;
     font-weight: @primary-weight;
     color: @primary-text;
+  }
+  .rightIconBox{
+    i{
+      margin-bottom: 5px;
+    }
+  }
+  .textBtn{
+    font-size: 16px;
+    padding-right: 15px;
+    color: @primary;
   }
 }
 </style>

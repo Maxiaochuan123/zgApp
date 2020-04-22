@@ -17,7 +17,7 @@
       </div>
       <div class="bottom">
         <span class="updateTime">{{item.updateTime}}更新</span>
-        <mu-button flat @click="$emit('goPage')">还款计划</mu-button>
+        <mu-button flat @click="goPage('plan',{id:111,customerInfoBtn:$store.state.customerInfoBtn})">还款计划</mu-button>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
     return {
       
     }
-  },
+  }
 }
 </script>
 

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Api from '@api'
+// import Api from '@api'
 import tool from './js/tool';
 import { Promise, reject } from 'q';
 export default {
@@ -68,29 +68,29 @@ export default {
         fd.append('type', 'img');
         fd.append('batchId', this.$parent.batchId?this.$parent.batchId:this.$parent.guid);
         this.changeImgList.push(item);
-        Api.uploadFilesOrImgs(fd,item).then(res => {
-          item.progress.progressNum = 100; item.progress.progressState = 1; item.progress.isNew = false;
-          item.progress.isProgress=false;
-          Object.keys(res).forEach(one=> item[one] = res[one])
-          resolve(item);
-        }).catch( err => {
-          item.progress.progressState = 2;
-          item.progress.isProgress=false;
-          reject(err)
-        })
+        // Api.uploadFilesOrImgs(fd,item).then(res => {
+        //   item.progress.progressNum = 100; item.progress.progressState = 1; item.progress.isNew = false;
+        //   item.progress.isProgress=false;
+        //   Object.keys(res).forEach(one=> item[one] = res[one])
+        //   resolve(item);
+        // }).catch( err => {
+        //   item.progress.progressState = 2;
+        //   item.progress.isProgress=false;
+        //   reject(err)
+        // })
       }
     },
 
     // 删除图片
     deleteImageItem(item){
-      Api.deleteFilesOrImgs({
-        id:item.fileId
-      }).then(res => {
-        this.imagesList = this.imagesList.filter(imgItem => imgItem.fileId !== item.fileId);
-        this.imgSuccessList = this.imgSuccessList.filter(imgItem => imgItem.fileId !== item.fileId);
-        this.$emit('parentImgLoad',this.imagesList);
-        this.$refs.fileInput.value = '';
-      })
+      // Api.deleteFilesOrImgs({
+      //   id:item.fileId
+      // }).then(res => {
+      //   this.imagesList = this.imagesList.filter(imgItem => imgItem.fileId !== item.fileId);
+      //   this.imgSuccessList = this.imgSuccessList.filter(imgItem => imgItem.fileId !== item.fileId);
+      //   this.$emit('parentImgLoad',this.imagesList);
+      //   this.$refs.fileInput.value = '';
+      // })
     },
     onChange(){
       

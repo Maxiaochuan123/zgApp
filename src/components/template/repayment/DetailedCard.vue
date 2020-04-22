@@ -1,8 +1,37 @@
 <template>
   <div class="DetailedCard">
-    <AppBar pageTitle="还款明细" custom></AppBar>
+    <AppBar pageTitle="还款明细" shadow occupyBtn></AppBar>
     <div class="contentBox">
-      <div class="content">
+      <div class="content-appBar basic-info">
+
+        <div class="header"> <span>肚丝(1期)</span> </div>
+        <div class="middle">
+          <div class="itemBox">
+            <div class="item"><span>身份证号</span> <span>510923198802250021</span></div><div class="item"><span>手机号</span> <span>13111866951</span></div>
+          </div>
+          <div v-if="carTitle == '还款明细'">
+            <div class="itemBox">
+              <div class="item"><span>本期还款金额</span> <span>90,234,76元</span></div><div class="item"><span>应还款日期</span> <span>2020.01.21</span></div>
+            </div>
+            <div class="itemBox">
+              <div class="item"><span>放款平台</span> <span>工商-海南分行</span></div><div class="item"><span>还款方式</span> <span>保证金扣除</span></div>
+            </div>
+          </div>
+          <div v-else-if="carTitle == '回款明细'">
+            <div class="itemBox">
+              <div class="item"><span>贷款金额</span> <span>90,234,76元</span></div><div class="item"><span>应还总金额</span> <span>90,234,76元</span></div>
+            </div>
+            <div class="itemBox">
+              <div class="item"><span>拟代偿金额</span> <span>90,234,76元</span></div><div class="item"><span>代偿类型</span> <span>逾期代偿</span></div>
+            </div>
+            <div class="itemBox">
+              <div class="item"><span>代偿分类</span> <span>银行要垫资</span></div><div class="item"><span>已还总金额</span> <span>90,234,76元</span></div>
+            </div>
+            <div class="itemBox">
+              <div class="item"><span>剩余应还金额</span> <span>90,234,76元</span></div><div class="item"><span>所属公司</span> <span>贵州公司</span></div>
+            </div>
+          </div>
+        </div>
 
         <div class="header"> <span>肚丝(1期)</span> </div>
         <div class="middle">
@@ -107,14 +136,16 @@
             </div>
           </div>
         </div>
+
         <PreviewImage :previewView="previewView" :imagesList="imagesList" :previewSrc="previewSrc" :previewIndex="previewIndex" :testImgState="false" @closePreview="closePreview"></PreviewImage>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import AppBar from '@components/AppBar'
+import AppBar from '@components/basics/AppBar'
 import PreviewImage from '@components/upLoad/components/PreviewImage'
 export default {
   components: {
@@ -123,11 +154,11 @@ export default {
   data() {
     return {
       carTitle:'还款明细',
-      detailedType:'还款',
+      detailedType:'回款',
       previewView:false,
       previewSrc:'',
       previewIndex:0,
-      imagesList:['../../../static/images2/dog.jpg','../../../static/images2/github.jpg','../../../static/images2/吹泡泡.jpg']
+      imagesList:['../../../../static/images2/dog.jpg','../../../../static/images2/github.jpg','../../../../static/images2/吹泡泡.jpg']
     }
   },
   methods: {
@@ -144,74 +175,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less" scoped>
-  .DetailedCard{
-    .contentBox{
-      height: 100vh;
-      overflow: hidden;
-
-    }
-    .content{
-      height: 100vh;
-      overflow-y: scroll;
-      padding-bottom: 12px;
-      padding-top: 56px;
-
-    .header{
-      padding: 12px 20px;
-      background-color: #fff;
-      font-weight:400;
-      padding-bottom: 12px;
-      border-bottom: 1px solid @primary-border;
-    }
-    
-    .middle{
-      background-color: #fff;
-      padding: 12px 20px;
-      color: @regular-text;
-      &:not(:last-child){
-        margin-bottom: 12px;
-      }
-      .itemBox{
-        display: flex;
-        &:not(:last-child){
-          margin-bottom: 12px;
-        }
-        .item{
-          width: 50%;
-          display: flex;
-          span{
-            display: inline-block;
-          }
-          span:nth-child(1){
-            width: 40%;
-            text-align: right;
-            margin-right: 10px;
-          }
-          span:nth-child(2){
-            width: 56%;
-            color: @primary-text;
-            text-align: left;
-            word-wrap:break-word;
-            white-space:normal;
-          }
-        }
-        .voucher{
-          width: 100%;
-          span{
-            width: 20% !important;
-          }
-        }
-        .imgList{
-          width: 80%;
-          img{
-            width: 80px;
-            height: 80px;
-          }
-        }
-      }
-    }
-    }
-  }
-</style>

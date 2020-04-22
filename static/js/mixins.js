@@ -95,14 +95,6 @@ export default {
         query
       });
     },
-    // 打电话
-    dial(phoneNumber) {
-      if (!store.state.crmToGroup) {
-        window.location.href = `tel:${phoneNumber}`;
-      } else {
-        bridge.callHandler("callPhone", { phone: phoneNumber });
-      }
-    },
 
     // Dialog
     openDialog() {

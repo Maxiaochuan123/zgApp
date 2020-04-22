@@ -17,8 +17,8 @@ export default new Vuex.Store({
     otherApp: "", //是否第三方 app 用于顶级路由返回判断
     bottomNav: "home", // 当前点击的底部页签
     
-    searchInputValue:"", //搜索框数据
-    goPageParams:{}, // 跳转页面参数
+    searchInputValue: "", //搜索框数据
+    customerInfoBtn: "", //用于显示客户信息按钮
   },
   mutations: {
     // 设置数据
@@ -41,7 +41,7 @@ export default new Vuex.Store({
 
     // 基础方法
     setBottomNav: (state, data) => {state.bottomNav = data},
-    setSearchInputVal: (state,data) => {state.searchInputValue = data},
-    setPageParams: (state,data) => {state.goPageParams = data}
+    setSearchInputVal: (state, data) => { state.searchInputValue = data },
+    setCustomerInfoBtn: (state, data) => { state.customerInfoBtn = data },
   }
 });

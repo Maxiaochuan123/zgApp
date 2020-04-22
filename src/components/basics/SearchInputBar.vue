@@ -1,5 +1,5 @@
 <template>
-  <div class="search-input-bar">
+  <div class="search-input-bar bottomShadow">
     <div class="serch-input">
       <mu-icon value=":iconfont icon-sousuo"></mu-icon>
       <input :placeholder="placeholderText" class="query-input" type="text" v-model="value" @input="searchInput" />

@@ -2,20 +2,20 @@
   <div class="myInfo">
     <div class="back"></div>
     <div class="content">
-      <div class="header">
+      <div class="header" @click="goPage('userDetails')">
         <p>我的</p>
         <div class="userInfo">
           <div class="describe">
             <p>罗普蓝</p>
             <p>众汇车服/资管专员</p>
           </div>
-          <img src="../../../static/images/defaultHeadPortrait.png">
+          <img src="@static/images/defaultHeadPortrait.png">
         </div>
       </div>
       <div class="functionalArea">
         <div class="fncBlock">
           <div>
-            <img src="../../../static/images/aboutUs.png">
+            <img src="@static/images/aboutUs.png">
             <span>关于我们</span>
           </div>
           <i class="iconfont icon-rightArrow"></i>
@@ -23,7 +23,7 @@
         <div class="underline"></div>
         <div class="fncBlock">
           <div>
-            <img src="../../../static/images/helpExplain.png">
+            <img src="@static/images/helpExplain.png">
             <span>帮助说明</span>
           </div>
           <i class="iconfont icon-rightArrow"></i>
@@ -31,7 +31,7 @@
         <div class="underline"></div>
         <div class="fncBlock">
           <div>
-            <img src="../../../static/images/setting.png">
+            <img src="@static/images/setting.png">
             <span>我的设置</span>
           </div>
           <i class="iconfont icon-rightArrow"></i>

@@ -1,11 +1,3 @@
-<!--
- * @Author: your name
- * @Date: 2020-04-18 11:03:44
- * @LastEditTime: 2020-04-19 10:34:13
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \zgApp\src\App.vue
- -->
 <template>
   <div id="app">
     <router-view />
@@ -15,12 +7,11 @@
 </template>
 
 <script>
-import BottomNav from "./components/BottomNav";
+import BottomNav from "./components/basics/BottomNav";
 import Theme from "muse-ui/lib/theme";
-import myTheme from "../static/json/myTheme.json";
+import myTheme from "@static/json/myTheme.json";
 import VConsole from "vConsole";
-import tool from "../static/js/tool.js";
-import Api from "@api";
+import tool from "@static/js/tool.js";
 import Cookies from "js-cookie";
 import { mapState, mapMutations } from "vuex";
 import { promise } from "ora";
@@ -48,6 +39,7 @@ export default {
       // if(to.path == '/home'){
       //   this.storage.sessionSet('tabsActive',1);
       // }
+      // console.log('to:',to.name,'from:',from.name)
       
       if (to.path == "/home" || to.path == "/mailList" || to.path == "/todoList" || to.path == "/myInfo") {
         this.$store.commit("setBottomNav", to.path.split("/")[1]); // 设置 bottomNav 选中项

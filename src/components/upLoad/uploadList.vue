@@ -148,7 +148,7 @@ import UpLoadImages from "./components/uploadListImages";
 import UpLoadEnclosure from "./components/uploadListEnclosure";
 import PreviewImage from "./components/PreviewImage";
 import tool from "./components/js/tool";
-import tools from "../../../static/js/tool";
+import tools from "@static/js/tool";
 import Axios from "axios"
 export default {
   name: "upLoad",
@@ -319,7 +319,8 @@ export default {
 .upLoad {
   background-color: #fff;
   // padding: 0 16px;
-  padding: 0 16px 0 0;
+  padding: 0 10px;
+  margin-top: 12px;
 
   .mu-divider.shallow-inset{
     margin-left: 0;

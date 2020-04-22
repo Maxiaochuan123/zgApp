@@ -6,7 +6,7 @@
   <div class="login">
     <div class="headPortrait">
       <div class="photo">
-        <img src="../../../static/images/defaultHeadPortrait.png">
+        <img src="@static/images/defaultHeadPortrait.png">
       </div>
       <span>欢迎回来!</span>
     </div>
@@ -14,7 +14,7 @@
     <div class="inputBox">
       <mu-form :model="form" class="mu-demo-form" label-position="left" ref="form">
         <mu-form-item :rules="rules.username" class="username" prop="username" >
-          <img src="../../../static/images/phone.png">
+          <img src="@static/images/phone.png">
           <mu-text-field
               placeholder="请输入用户名"
               prop="username"
@@ -22,7 +22,7 @@
             ></mu-text-field>
         </mu-form-item>
         <mu-form-item :rules="rules.password" class="password" prop="password" >
-          <img src="../../../static/images/pwd.png">
+          <img src="@static/images/pwd.png">
           <mu-text-field
               :action-icon="visibility ? 'visibility_off' : 'visibility'" :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'"
               placeholder="请输入密码"
@@ -34,7 +34,7 @@
     </div>
     <div class="otherOperations">
       <div class="rememberPassword" @click="setRemPwd">
-        <img :src="remPwd ? '../../../static/images/remember.png' : '../../../static/images/forget.png'">
+        <img :src="remPwd ? '../../../../static/images/remember.png' : '../../../../static/images/forget.png'">
         <span>记住密码</span>
       </div>
       <div class="forgetPassword" @click="retrievePassword">
@@ -51,7 +51,7 @@
 import tool from "@static/js/tool.js";
 import Rules from "@static/js/rules";
 import axios from "axios";
-import storage from '../../../static/js/storage';
+import storage from '@static/js/storage';
 export default {
   components: {},
   data() {

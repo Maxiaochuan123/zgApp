@@ -1,20 +1,12 @@
-<!--
- * @Author: your name
- * @Date: 2020-04-18 11:03:44
- * @LastEditTime: 2020-04-19 10:42:24
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \zgApp\src\components\template\List.vue
- -->
 <template>
   <div class="list">
     <AppBar v-bind="$attrs" v-on="$listeners" guolv @getScreenParams="getScreenParams"></AppBar>
     <SearchInputBar placeholderText="搜索项目编号/客户姓名/手机号码" @searchInputBarChange="searchInputBarChange"></SearchInputBar>
     <div class="contentBox">
-      <div class="content">
+      <div class="content-list">
         <mu-load-more :refreshing="loadUpdate.refreshing" @refresh="refresh" :loading="loadUpdate.loading" @load="load" :loaded-all="loadUpdate.loadedAll">
-          <ListItem_0 v-if="listType == '0'" v-on="$listeners" :listData="listData" @goPage="goPage('plan',$store.state.goPageParams)"></ListItem_0>
-          <ListItem_1 v-if="listType == '1'" v-on="$listeners" :listData="listData_1" @goPage="goPage('archiving',$store.state.goPageParams)"></ListItem_1>
+          <ListItem_0 v-if="listType == '0'" v-on="$listeners" :listData="listData_0"></ListItem_0>
+          <ListItem_1 v-if="listType == '1'" v-on="$listeners" :listData="listData_1"></ListItem_1>
         </mu-load-more>
       </div>
     </div>
@@ -22,8 +14,8 @@
 </template>
 
 <script>
-import AppBar from '@components/AppBar'
-import SearchInputBar from "@components/SearchInputBar";
+import AppBar from '@components/basics/AppBar'
+import SearchInputBar from "@components/basics/SearchInputBar";
 import ListItem_0 from "@components/template/repayment/ListItem_0";
 import ListItem_1 from "@components/template/dataArchiving/ListItem_1";
 export default {
@@ -42,7 +34,7 @@ export default {
   },
   data() {
     return {
-      listData:[
+      listData_0:[
         {
           num:'Z190215000049877',
           status:'还款中',
@@ -54,55 +46,90 @@ export default {
           qishu:'13/36',
           yinhuan:'2526.52',
           updateTime:'2019/9/6'
-        }
+        },{
+          num:'Z190215000049877',
+          status:'还款中',
+          name:'杜斯',
+          phone:'13695872546',
+          carId:'6211365998523',
+          money:'90954.72',
+          dateTime:'2020/04/03',
+          qishu:'13/36',
+          yinhuan:'2526.52',
+          updateTime:'2019/9/6'
+        },{
+          num:'Z190215000049877',
+          status:'还款中',
+          name:'杜斯',
+          phone:'13695872546',
+          carId:'6211365998523',
+          money:'90954.72',
+          dateTime:'2020/04/03',
+          qishu:'13/36',
+          yinhuan:'2526.52',
+          updateTime:'2019/9/6'
+        },{
+          num:'Z190215000049877',
+          status:'还款中',
+          name:'杜斯',
+          phone:'13695872546',
+          carId:'6211365998523',
+          money:'90954.72',
+          dateTime:'2020/04/03',
+          qishu:'13/36',
+          yinhuan:'2526.52',
+          updateTime:'2019/9/6'
+        },{
+          num:'Z190215000049877',
+          status:'还款中',
+          name:'杜斯',
+          phone:'13695872546',
+          carId:'6211365998523',
+          money:'90954.72',
+          dateTime:'2020/04/03',
+          qishu:'13/36',
+          yinhuan:'2526.52',
+          updateTime:'2019/9/6'
+        },
       ],
       listData_1:[
         {
+          state:'waitTransfer',
           num:'Z190215000049876',
-          status:'还款中',
+          status:'待移交',
           name:'杜斯',
           dateTime:'2020/04/03',
         },{
+          state:'reject',
           num:'Z190215000049877',
-          status:'还款中',
+          status:'移交驳回',
           name:'杜斯',
           dateTime:'2020/04/03',
         },{
+          state:'waitFile',
           num:'Z190215000049877',
-          status:'还款中',
+          status:'待归档',
           name:'杜斯',
           dateTime:'2020/04/03',
         },{
+          state:'alreadyFile',
           num:'Z190215000049877',
-          status:'还款中',
+          status:'已归档',
           name:'杜斯',
           dateTime:'2020/04/03',
         },{
+          state:'alreadyBorrowing',
           num:'Z190215000049877',
-          status:'还款中',
+          status:'已借阅',
           name:'杜斯',
           dateTime:'2020/04/03',
         },{
+          state:'alreadyDestruction',
           num:'Z190215000049877',
-          status:'还款中',
+          status:'已销毁',
           name:'杜斯',
           dateTime:'2020/04/03',
-        },{
-          num:'Z190215000049877',
-          status:'还款中',
-          name:'杜斯',
-          dateTime:'2020/04/03',
-        },{
-          num:'Z190215000049877',
-          status:'还款中',
-          name:'杜斯',
-          dateTime:'2020/04/03',
-        },{
-          num:'Z190215000049877',
-          status:'还款中',
-          name:'杜斯',
-          dateTime:'2020/04/03',
-        },
+        }
       ],
     }
   },
@@ -138,17 +165,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less" scoped>
-  .list{
-    .contentBox{
-      height: 100vh;
-      overflow: hidden;
-    }
-    .content{
-      height: calc(100vh - 104px);
-      overflow-y: scroll;
-      margin-top: 104px;
-    }
-  }
-</style>

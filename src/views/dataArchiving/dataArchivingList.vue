@@ -58,18 +58,6 @@ export default {
         },
       }
     }
-  },
-  created(){
-    this.$store.commit('setPageParams',{id:222});
-  },
-  methods: {
-    
   }
 }
 </script>
-
-<style lang="less" scoped>
-  .dataArchivingList{
-
-  }
-</style>

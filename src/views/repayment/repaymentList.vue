@@ -54,17 +54,8 @@ export default {
       }
     }
   },
-  created(){
-    this.$store.commit('setPageParams',{id:111});
-  },
-  methods: {
-    
+  created () {
+    this.$store.commit('setCustomerInfoBtn',false)
   }
 }
 </script>
-
-<style lang="less" scoped>
-  .repaymentList{
-
-  }
-</style>

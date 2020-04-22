@@ -22,31 +22,41 @@ const router = new Router({
     {
       path: "/login",
       name: "login",
-      component: () => import("../views/basics/login.vue")
+      component: () => import("../views/basics/login/login.vue")
     }, {
       path: "/retrievePassword",
       name: "retrievePassword",
-      component: () => import("../views/basics/retrievePassword.vue")
+      component: () => import("../views/basics/login/retrievePassword.vue")
+    }, {
+      path: "/userDetails",
+      name: "userDetails",
+      component: () => import("../views/basics/login/userDetails.vue")
     }, {
       path: "/home",
       name: "home",
-      component: () => import("../views/basics/home.vue")
+      component: () => import("../views/basics/home/home.vue")
     }, {
       path: "/mailList",
       name: "mailList",
-      component: () => import("../views/basics/mailList.vue")
+      component: () => import("../views/basics/home/mailList.vue")
     }, {
       path: "/todoList",
       name: "todoList",
-      component: () => import("../views/basics/todoList.vue")
+      component: () => import("../views/basics/home/todoList.vue")
     }, {
       path: "/myInfo",
       name: "myInfo",
-      component: () => import("../views/basics/myInfo.vue")
+      component: () => import("../views/basics/home/myInfo.vue")
     },
 
     /************************************** 公共页面组件 **************************************/
-
+    // 写跟进
+    {
+      path: "/writeFollowup/:id/:type",
+      name: "writeFollowup",
+      meta: { zIndex: 1 },
+      component: () => import("../components/basics/WriteFollowup.vue")
+    },
     // 还款明细
     {
       path: "/repayment/detailedCard/:id",
@@ -55,18 +65,30 @@ const router = new Router({
     },
     // 还款计划
     {
-      path: "/repayment/plan/:id",
+      path: "/repayment/plan/:id/:customerInfoBtn?",
       name: "plan",
       component: () => import("../components/template/repayment/Plan.vue")
     },
     // 资料归档
     {
-      path: "/dataArchiving/archiving/:id",
+      path: "/dataArchiving/archiving/:id/:state",
       name: "archiving",
       component: () => import("../components/template/dataArchiving/Archiving.vue")
     },
-
-
+    
+    // 客户信息
+    {
+      path: "/collection/customerInfo/:id",
+      name: "customerInfo",
+      component: () => import("../components/template/collection/CustomerInfo.vue")
+    },
+    // 新增补充信息
+    {
+      path: "/collection/customerInfo/addSupplementInfo/:id",
+      name: "addSupplementInfo",
+      component: () => import("../components/template/collection/AddSupplementInfo.vue")
+    },
+    
     /************************************** 还款跟踪 **************************************/
 
     // 还款列表
@@ -85,6 +107,13 @@ const router = new Router({
       path: "/dataArchiving/dataArchivingList",
       name: "dataArchivingList",
       component: () => import("../views/dataArchiving/dataArchivingList.vue")
+    },
+
+    // 电话催收
+    {
+      path: "/dataArchiving/phoneCollectionList",
+      name: "phoneCollectionList",
+      component: () => import("../views/collection/phoneCollectionList.vue")
     },
 
     // 其他

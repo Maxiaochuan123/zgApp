@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Api from '@api'
+// import Api from '@api'
 import tool from './js/tool'
 export default {
   name: "uploadImage",
@@ -65,24 +65,24 @@ export default {
       item.progress.progressState = 0;
       item.progress.progressNum = 0;
       
-      Api.uploadFilesOrImgs(fd,item).then(res => {
-        item.progress.progressNum = 100; item.progress.progressState = 1; item.progress.isNew = false;
-        item.progress.isProgress=false;
-        Object.keys(res).forEach(one=> item[one] = res[one])
-      }).catch( err => {
-        item.progress.progressState = 2;
-        item.progress.isProgress=false;
-      })
+      // Api.uploadFilesOrImgs(fd,item).then(res => {
+      //   item.progress.progressNum = 100; item.progress.progressState = 1; item.progress.isNew = false;
+      //   item.progress.isProgress=false;
+      //   Object.keys(res).forEach(one=> item[one] = res[one])
+      // }).catch( err => {
+      //   item.progress.progressState = 2;
+      //   item.progress.isProgress=false;
+      // })
     },
     // 删除文件
     deleteImageItem(item){
-      Api.deleteFilesOrImgs({
-        id:item.fileId
-      }).then(res => {
-        this.enclosureList = this.enclosureList.filter(imgItem => imgItem.fileId !== item.fileId);
-        this.$emit('parentEnclosureLoad',this.enclosureList)
-        this.$refs.fileInput.value = '';
-      })
+      // Api.deleteFilesOrImgs({
+      //   id:item.fileId
+      // }).then(res => {
+      //   this.enclosureList = this.enclosureList.filter(imgItem => imgItem.fileId !== item.fileId);
+      //   this.$emit('parentEnclosureLoad',this.enclosureList)
+      //   this.$refs.fileInput.value = '';
+      // })
      
     },
     onChange(){

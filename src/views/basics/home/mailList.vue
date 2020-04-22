@@ -175,9 +175,9 @@
 </template>
 
 <script>
-import AppBar from '../../components/AppBar'
-import SearchBar from '../../components/SearchBar'
-import Nothing from '../../components/Nothing'
+import AppBar from '@components/basics/AppBar'
+import SearchBar from '@components/basics/SearchBar'
+import Nothing from '@components/basics/Nothing'
 import { mapMutations } from 'vuex'
 export default {
   name:'organization',
