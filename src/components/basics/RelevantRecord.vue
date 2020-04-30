@@ -52,9 +52,11 @@ export default {
 .progress-column {
   padding: 30px 15px;
   width: 100%;
+  height: 100%;
   background-color: #fff;
   display: flex;
   flex-flow: column;
+  overflow-y: scroll;
   .item {
     position: relative;
     display: flex;

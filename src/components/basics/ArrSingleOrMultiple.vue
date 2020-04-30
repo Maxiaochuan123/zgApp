@@ -10,14 +10,9 @@
   <div class="arr-single-or-multiple">
     <div class="title">{{title}}</div>
     <div class="multipleSelection">
-      <div
-        :class="{
-          'activeSelect':selectedClass(item)
-        }"
-        :key="index"
-        @click="select(item)"
-        v-for="(item,index) in showList"
-      >{{item[labelField]}}</div>
+      <div :class="{'activeSelect':selectedClass(item)}" :key="index" @click="select(item)" v-for="(item,index) in showList" >
+        {{item[labelField]}}
+      </div>
     </div>
   </div>
 </template>

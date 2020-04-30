@@ -124,24 +124,5 @@ export default {
     } else {
       return {};
     }
-  },
-  guid() {
-    // 用于文件多张上传需要传入的randow
-    function S4() {
-      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-    }
-    return S4() + S4() + S4() + S4() + S4() + S4() + S4() + S4();
-  },
-  // 打开loading
-  openLoading(name = "加载中，请稍后...") {
-    let loading = document.getElementById("ajaxLoading");
-    let text = document.getElementById("loadingText");
-    text.innerHtml = name;
-    loading.style.display = "block";
-  },
-  // 关闭loading
-  closeLoading() {
-    let loading = document.getElementById("ajaxLoading");
-    loading.style.display = "none";
   }
 };

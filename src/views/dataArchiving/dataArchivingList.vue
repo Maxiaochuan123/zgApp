@@ -1,12 +1,12 @@
 <template>
   <!-- 资料归档 -->
   <div class="dataArchivingList">
-    <List pageTitle="资料归档" :drawerList="drawerList" listType="1" pageSource="dataArchivingList"></List>
+    <List pageTitle="资料归档" :drawerList="drawerList" listType="1"></List>
   </div>
 </template>
 
 <script>
-import List from '@components/template/List'
+import List from '@view/template/List'
 export default {
   components: {
     List
@@ -58,6 +58,9 @@ export default {
         },
       }
     }
+  },
+  created () {
+    this.$store.commit('setPageSource',"dataArchivingList");
   }
 }
 </script>

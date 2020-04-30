@@ -1,59 +1,35 @@
 <template>
   <div id="app">
-    <router-view />
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive" />
+    </keep-alive>
+    
+    <router-view v-if="!$route.meta.keepAlive" />
 
-    <BottomNav v-if="showBotNav && !crmToGroup" />
+    <Loading v-if="loading" />
+
+    <BottomNav/>
   </div>
 </template>
 
 <script>
-import BottomNav from "./components/basics/BottomNav";
+import Loading from '@components/basics/Loading'
+import BottomNav from "@components/basics/BottomNav";
 import Theme from "muse-ui/lib/theme";
-import myTheme from "@static/json/myTheme.json";
-import VConsole from "vConsole";
-import tool from "@static/js/tool.js";
-import Cookies from "js-cookie";
-import { mapState, mapMutations } from "vuex";
-import { promise } from "ora";
+// import VConsole from "vConsole";
+import { mapState } from "vuex";
 export default {
   components: {
-    BottomNav
-  },
-  data() {
-    return {
-      showBotNav: true
-    };
+    Loading, BottomNav
   },
   created() {
-
-    // 设置当前选中 TAB 项
-    if(!this.storage.sessionGet('tabsActive')) this.storage.sessionSet('tabsActive',0);
-
+    // new VConsole();
     // 设置主题色
     Theme.add("theme_one", {primary: "#EC191F"}, "light");
     Theme.use("theme_one");
   },
-  watch: {
-    $route(to, from) {
-      // 恢复 TAB 默认项
-      // if(to.path == '/home'){
-      //   this.storage.sessionSet('tabsActive',1);
-      // }
-      // console.log('to:',to.name,'from:',from.name)
-      
-      if (to.path == "/home" || to.path == "/mailList" || to.path == "/todoList" || to.path == "/myInfo") {
-        this.$store.commit("setBottomNav", to.path.split("/")[1]); // 设置 bottomNav 选中项
-        this.showBotNav = true;
-      } else {
-        this.showBotNav = false;
-      }
-    }
-  },
   computed: {
-    ...mapState(["crmToGroup"])
-  },
-  methods: {
-    
+    ...mapState(["loading"])
   }
 };
 </script>
@@ -61,7 +37,6 @@ export default {
 <style lang="less">
 @import url("../static/css/resetMuseUI.less");
 @import url("../static/css/public.less");
-@import url("../static/css/loading.less");
 * {
   margin: 0px;
   padding: 0px;

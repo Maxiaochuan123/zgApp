@@ -7,37 +7,37 @@
         <div class="header regular-words">
           <div>头像</div>
           <mu-avatar size="48">
-            <img :src=" loginInfo.img ? loginInfo.img : loadingImg('defaultHeadPortrait.png') " />
+            <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : '@static/images/defaultHeadPortrait.png' " />
           </mu-avatar>
         </div>
         <div class="brief">
           <div class="regular-words">简介</div>
-          <div>{{ loginInfo.remark || "暂无简介" }}</div>
+          <div>{{ loginInfo.remark | paramsError }}</div>
         </div>
       </div>
       <div class="basic">
         <div class="basic-details-item">
           <div class="basic-details-item-left">
             <div class="title">真实姓名</div>
-            <div class="sub-title">{{ loginInfo.realname }}</div>
+            <div class="sub-title">{{ loginInfo.realname | paramsError  }}</div>
           </div>
         </div>
         <div class="basic-details-item">
           <div class="basic-details-item-left">
             <div class="title">所在企业</div>
-            <div class="sub-title">{{ loginInfo.deptName }}</div>
+            <div class="sub-title">{{ loginInfo.deptName | paramsError }}</div>
           </div>
         </div>
         <div class="basic-details-item">
           <div class="basic-details-item-left">
             <div class="title">职位</div>
-            <div class="sub-title">{{ loginInfo.post || "暂无职位" }}</div>
+            <div class="sub-title">{{ loginInfo.post  | paramsError }}</div>
           </div>
         </div>
         <div class="basic-details-item no-border-bottom">
           <div class="basic-details-item-left">
             <div class="title">联系方式</div>
-            <div class="sub-title">{{ loginInfo.mobile }}</div>
+            <div class="sub-title">{{ loginInfo.mobile | paramsError }}</div>
           </div>
         </div>
       </div>
@@ -58,16 +58,18 @@ export default {
   data () {
     return {
       loginInfo:{
-        realname:'AA',
-        deptName:'AA',
-        post:'AA',
-        mobile:'AA',
+        realname:'',
+        deptName:'',
+        post:'',
+        mobile:'',
       }
     }
   },
   methods: {
     loginOut() {
-      
+      this.api.loginOut().then(res => {
+        this.goPage("login");
+      })
     }
   }
 };
@@ -96,6 +98,9 @@ export default {
         font-size: @primary-size;
         color: @regular-text;
         padding: 12px 0 0 0;
+        :last-child{
+          margin-top: 10px;
+        }
       }
     }
     .basic {

@@ -24,7 +24,7 @@
         <mu-form-item :rules="rules.password" class="password" prop="password" >
           <img src="@static/images/pwd.png">
           <mu-text-field
-              :action-icon="visibility ? 'visibility_off' : 'visibility'" :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'"
+              :action-icon="visibility ? 'visibility' : 'visibility_off'" :action-click="() => (visibility = !visibility)" :type="visibility ? 'text' : 'password'"
               placeholder="请输入密码"
               prop="password"
               v-model.trim="form.password"
@@ -48,9 +48,8 @@
 </template>
 
 <script>
-import tool from "@static/js/tool.js";
-import Rules from "@static/js/rules";
 import axios from "axios";
+import tool from "@static/js/tool.js";
 import storage from '@static/js/storage';
 export default {
   components: {},
@@ -70,6 +69,11 @@ export default {
     };
   },
   created(){
+    if(localStorage.getItem("token") || storage.localGet("userInfo")){
+      storage.localRemove("token");
+      storage.localRemove("userInfo");
+    }
+
     if(localStorage.getItem("loc_loginInfo")){
       this.loc_loginInfo = JSON.parse(tool.decAse192(localStorage.getItem("loc_loginInfo"),"loc_loginInfo"));
     }
@@ -86,6 +90,12 @@ export default {
         if(!newVal) this.form.password = "";
       },
       deep: true
+    },
+    "form.password":{
+      handler(newVal,oldVal){
+        if(!newVal) this.remPwd = false; this.storage.localSet("remPwd", false);
+      },
+      deep: true
     }
   },
   methods: {
@@ -93,15 +103,33 @@ export default {
     login() {
       this.$refs.form.validate().then(result => {
         if (result) {
-          // this.api.login(this.form).then(res => {
-            // 记住账号密码
-            this.loc_loginInfo.username = this.form.username;
-            this.loc_loginInfo.password = this.form.password;
-            this.storage.localSet("loc_loginInfo",tool.encAse192(JSON.stringify(this.loc_loginInfo),"loc_loginInfo"));
-            // 存入登陆信息
-            this.storage.localSet("login",{});
-            this.goPage("home");
-          // });
+          this.api.login(this.form).then(res => {
+            if(res.message === "success"){
+              // 记住账号密码
+              this.loc_loginInfo.username = this.form.username;
+              this.loc_loginInfo.password = this.form.password;
+              this.storage.localSet("loc_loginInfo",tool.encAse192(JSON.stringify(this.loc_loginInfo),"loc_loginInfo"));
+              // 存入登陆信息
+              this.storage.localSet("token",tool.encAse192(res.data.token,"token"));
+              this.storage.localSet("userInfo",res.data.user);
+              
+              // 设置公共数据
+              let _this = this;
+              axios.all([this.api.company(), this.api.lendingPlatform(), this.api.repaymentState(), this.api.projectState(), this.api.personLiable(), this.api.strategy(), this.api.followUp()]).then(axios.spread(function (one, two, three, four, five, six, seven) {
+                storage.localSet("company", one.data); //公司
+                storage.localSet("lendingPlatform", two.data); //放款平台
+                storage.localSet("repaymentState", three.data); //还款状态
+                storage.localSet("projectState", four.data); //项目状态
+                storage.localSet("personLiable", five.data); //责任人
+                storage.localSet("strategy", six.data); //策略
+                storage.localSet("followUp", seven.data); //跟进类型
+              })).then(res => {
+                this.goPage("home");
+              })
+            }else{
+              this.form.password = "";
+            }
+          });
         }
       });
     },

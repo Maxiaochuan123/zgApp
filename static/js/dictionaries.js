@@ -1,3 +1,5 @@
+import storage from "@static/js/storage"
+
 // 跟进类型
 export const FOLLOW_UP_TYPE = [
   {
@@ -117,3 +119,19 @@ export const ARCHIVES = [
     value: 3
   }
 ];
+
+// 策略
+let _strategy = storage.localGet("strategy");
+let __strategy = [];
+_strategy.forEach(item => {
+  __strategy.push({ text: item.name, value:item.type})
+})
+export const STRATEGY = __strategy;
+
+// 跟进类型
+let _followUp = storage.localGet("followUp");
+let __followUp = [];
+_followUp.forEach(item => {
+  __followUp.push({ text: item.name, value: item.type })
+})
+export const FOLLOWUP = __followUp;

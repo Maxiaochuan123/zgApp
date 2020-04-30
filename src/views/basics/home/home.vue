@@ -2,7 +2,7 @@
   <div class="home">
     <div class="header">
       <p class="title_1">欢迎使用资管系统!</p>
-      <p class="title_2">您好, 马总</p>
+      <p class="title_2">您好, {{userInfo.userName}}</p>
       <div class="serchInputBox">
         <mu-icon value=":iconfont icon-sousuo"></mu-icon>
         <input type="text" placeholder="项目编号, 客户姓名, 手机号码" @focus="isShow = true" @blur="searchBlur" @input="searchInputCallback">
@@ -17,8 +17,8 @@
     <div class="content">
       <div class="block" v-for="(block,index) in blockList" :key="index">
         <p class="title">{{block.title}}</p>
-        <div :class="['itemBox', block.itemList.length>4?'moreBox':'']">
-          <div :class="['item',item.haveInHandlink?'':'plan']" v-for="(item,index2) in block.itemList" :key="index2" @click="goPage(item.linkName)">
+        <div :class="['itemBox', block.itemList.length > 4 ? 'moreBox' : '']">
+          <div :class="['item',item.haveInHandlink ? '' : 'plan']" v-for="(item,index2) in block.itemList" :key="index2" @click="goPage(item.linkName)">
             <img :src="item.src">
             <span>{{item.describe}}</span>
           </div>
@@ -42,25 +42,25 @@ export default {
         {
           title:"还款跟踪",
           itemList:[
-            {src:"../../../../static/images/repayment.png",describe:"还款列表",haveInHandlink:true,linkName:"repaymentList"},
-            {src:"../../../../static/images/overdue.png",describe:"逾期列表",haveInHandlink:true,linkName:""},
-            {src:"../../../../static/images/endowment.png",describe:"代偿列表",haveInHandlink:true,linkName:""},
-            {src:"../../../../static/images/dataArchiving.png",describe:"资料归档",haveInHandlink:true,linkName:"dataArchivingList"},
+            {src:"../../../../static/images/repayment.png",describe:"还款列表",haveInHandlink:true,linkName:"repayment"},
+            {src:"../../../../static/images/overdue.png",describe:"逾期列表",haveInHandlink:true,linkName:"overdue"},
+            {src:"../../../../static/images/compensatory.png",describe:"代偿列表",haveInHandlink:true,linkName:"compensatory"},
+            {src:"../../../../static/images/dataArchiving.png",describe:"资料归档",haveInHandlink:false,linkName:"dataArchivingList"},
           ]
         },
         {
           title:"逾期回收",
           itemList:[
-            {src:"../../../../static/images/phoneCollection.png",describe:"电话催收",haveInHandlink:true,linkName:"phoneCollectionList"},
-            {src:"../../../../static/images/business.png",describe:"业务催收",haveInHandlink:true,linkName:""},
-            {src:"../../../../static/images/collection.png",describe:"外勤催收",haveInHandlink:true,linkName:""},
-            {src:"../../../../static/images/settle.png",describe:"全员催收",haveInHandlink:true,linkName:""},
+            {src:"../../../../static/images/phoneCollection.png",describe:"电话催收",haveInHandlink:false,linkName:"phoneCollectionList"},
+            {src:"../../../../static/images/business.png",describe:"业务催收",haveInHandlink:false,linkName:""},
+            {src:"../../../../static/images/collection.png",describe:"外勤催收",haveInHandlink:false,linkName:""},
+            {src:"../../../../static/images/settle.png",describe:"全员催收",haveInHandlink:false,linkName:""},
           ]
         },
         {
           title:"其他",
           itemList:[
-            {src:"../../../../static/images/loanCalculation.png",describe:"贷款计算",haveInHandlink:true,linkName:""},
+            {src:"../../../../static/images/loanCalculation.png",describe:"贷款计算",haveInHandlink:false,linkName:""},
             {src:"../../../../static/images/reportForm.png",describe:"统计报表",haveInHandlink:false,linkName:""},
             {src:"../../../../static/images/customer.png",describe:"客户信息",haveInHandlink:false,linkName:""},
             {src:"../../../../static/images/bond.png",describe:"保证金",haveInHandlink:false,linkName:""},
@@ -99,9 +99,6 @@ export default {
 </script>
 <style scope lang="less">
 .home {
-  // /deep/ .app-bar {
-  //   box-shadow: 0px 2px 6px 0px #ededed;
-  // }
   .header{
     width: 100%;
     height: 190px;
@@ -219,13 +216,6 @@ export default {
     }
   }
   .plan {
-    // img {
-    //   // filter: grayscale(100%);
-    //   filter: gray;
-    // }
-    // span {
-    //   color: red;
-    // }
     opacity: 0.2;
   }
 }

@@ -2,27 +2,33 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-25 15:40:36
- * @LastEditTime: 2020-04-01 09:08:58
- * @LastEditors: shenah
+ * @LastEditTime : 2020-01-10 09:11:21
+ * @LastEditors  : shenah
  */
 "use strict";
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require("path");
-const proxy = require("./proxy");
 
 module.exports = {
   dev: {
     // Paths
     assetsSubDirectory: "static",
     assetsPublicPath: "/",
-    proxyTable: proxy,
+    proxyTable: {
+      "/api": {
+        target: "http://192.168.0.92:8899",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": ""
+        }
+      }
+    },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
-    // host: "192.168.50.82", // can be overwritten by process.env.HOST
-    // host: "192.168.50.226", // can be overwritten by process.env.HOST
+    // host: 'localhost', // can be overwritten by process.env.HOST
+    host: "192.168.50.92", // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

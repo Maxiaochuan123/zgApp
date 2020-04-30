@@ -19,7 +19,7 @@
       >
         <img :src="changeImg(item)" />
         <img
-          :src="loadingImg('delete.png')"
+          src="@static/images/delete.png"
           @click.stop="del(item)"
           class="close"
         />
@@ -51,7 +51,7 @@ export default {
     changeImg(row) {
       let src = row.img;
       if (!row.img) {
-        src = this.loadingImg("default-header.png");
+        src = "../../../static/images/default-header.png";
       }
       return src;
     },

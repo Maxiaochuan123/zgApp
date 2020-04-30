@@ -52,7 +52,7 @@ const router = new Router({
     /************************************** 公共页面组件 **************************************/
     // 写跟进
     {
-      path: "/writeFollowup/:id/:type",
+      path: "/writeFollowup/",
       name: "writeFollowup",
       meta: { zIndex: 1 },
       component: () => import("../components/basics/WriteFollowup.vue")
@@ -61,46 +61,66 @@ const router = new Router({
     {
       path: "/repayment/detailedCard/:id",
       name: "detailedCard",
-      component: () => import("../components/template/repayment/DetailedCard.vue")
+      component: () => import("../views/template/public/DetailedCard.vue")
     },
     // 还款计划
     {
-      path: "/repayment/plan/:id/:customerInfoBtn?",
+      path: "/repayment/plan/:orderId/:customerInfoBtn?",
       name: "plan",
-      component: () => import("../components/template/repayment/Plan.vue")
+      meta: { keepAlive: false },
+      component: () => import("../views/template/public/Plan.vue")
     },
     // 资料归档
     {
       path: "/dataArchiving/archiving/:id/:state",
       name: "archiving",
-      component: () => import("../components/template/dataArchiving/Archiving.vue")
+      component: () => import("../views/template/dataArchiving/Archiving.vue")
     },
     
     // 客户信息
     {
       path: "/collection/customerInfo/:id",
       name: "customerInfo",
-      component: () => import("../components/template/collection/CustomerInfo.vue")
+      component: () => import("../views/template/collection/CustomerInfo.vue")
     },
     // 新增补充信息
     {
       path: "/collection/customerInfo/addSupplementInfo/:id",
       name: "addSupplementInfo",
-      component: () => import("../components/template/collection/AddSupplementInfo.vue")
+      component: () => import("../views/template/collection/AddSupplementInfo.vue")
+    },
+    // 更改策略
+    {
+      path: "/overdue/changeStrategy",
+      name: "changeStrategy",
+      component: () => import("../views/template/overdue/ChangeStrategy.vue")
     },
     
-    /************************************** 还款跟踪 **************************************/
+    /************************************** 列表 **************************************/
 
     // 还款列表
     {
-      path: "/repayment/repaymentList",
-      name: "repaymentList",
-      component: () => import("../views/repayment/repaymentList.vue")
+      path: "/list/repayment",
+      name: "repayment",
+      meta: { keepAlive: false },
+      component: () => import("../views/list/repayment.vue")
     },
-    
-    
-
     // 逾期列表
+    {
+      path: "/list/overdue",
+      name: "overdue",
+      meta: { keepAlive: false },
+      component: () => import("../views/list/overdue.vue")
+    },
+    // 代偿列表
+    {
+      path: "/list/compensatory",
+      name: "compensatory",
+      meta: { keepAlive: false },
+      component: () => import("../views/list/compensatory.vue")
+    },
+
+
     // 代偿列表
     // 资料归档
     {
@@ -125,17 +145,23 @@ const router = new Router({
     }
   ]
 });
+
+// 解决路由报错 Error↵ at new NavigationDuplicated
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 router.beforeEach((to, from, next) => {
-  // if (localStorage.getItem("login")) {
-  //   next();
-  // } else {
-  //   if (to.path == "/login") {
-  //     next();
-  //   } else {
-  //     storage.localRemove("login");
-  //     next("/login");
-  //   }
-  // }
+  if (localStorage.getItem("token")) {
+    next();
+  } else {
+    if (to.path == "/login") {
+      next();
+    } else {
+      next("/login");
+    }
+  }
   next();
 });
 export default router;

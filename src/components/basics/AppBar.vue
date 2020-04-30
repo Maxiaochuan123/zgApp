@@ -24,7 +24,7 @@
 
         <mu-list slot="content">
           <template v-for="(item, index) in menuList">
-            <mu-list-item button :key="index" @click="menuItem(item)" v-if="item.flag" >
+            <mu-list-item :class="item.disabled ? 'isDisabled' : '' " button :key="index" @click="menuItem(item)" v-if="item.flag" >
               <mu-list-item-content>
                 <mu-list-item-title>{{ item.title }}</mu-list-item-title>
               </mu-list-item-content>
@@ -63,6 +63,11 @@ export default {
     isGoBack: {
       type: Boolean,
       default: true
+    },
+
+    closePage: {
+      type: Boolean,
+      default: false
     },
 
     // 标题
@@ -127,15 +132,21 @@ export default {
   },
   methods: {
     leftClick() {
-      this.$router.go(-1);
+      if(!this.closePage){
+        this.$router.go(-1);
+      }else{
+        this.$emit("closePage")
+      }
     },
     menuItem(item) {
       const { title, linkName, linkParams = {} } = item;
-      if (linkName) {
-        this.goPage(linkName, linkParams);
-      } else {
-        this.$emit("menuChange", item);
-        this.menuStatus = false;
+      if(!item.disabled){
+        if (linkName) {
+          this.goPage(linkName, linkParams);
+        } else {
+          this.$emit("menuChange", item);
+          this.menuStatus = false;
+        }
       }
     }
   }
@@ -170,5 +181,7 @@ export default {
     padding-right: 15px;
     color: @primary;
   }
+
+  
 }
 </style>

@@ -26,7 +26,7 @@ Message.config(options.message);
 Vue.use(Loading);
 // fastclick.attach(document.body);
 
-import mixins from "@static/js/mixins";
+import mixins from "@/api/mixins";
 Vue.mixin(mixins);
 
 import dayjs from "dayjs";
@@ -39,7 +39,7 @@ Vue.prototype.storage = storage;
 import api from "./api/api";
 Vue.prototype.api = api;
 
-import apiMethods from './api/apiMethod';
+import apiMethods from './api/apiMethods';
 Vue.prototype.apiMethods = apiMethods;
 
 import preview from "vue-photo-preview";
@@ -52,11 +52,7 @@ import AlloyFingerPlugin from "alloyfinger/vue/alloy_finger_vue";
 Vue.use(AlloyFingerPlugin, {
   AlloyFinger
 });
-// const prefix = `${window.location.protocol}//${window.location.host}/api`;
-const prefix = `${window.location.protocol}//${window.location.host}/mock`; // mocksever数据
-window.config = {
-  service: prefix
-};
+
 /* eslint-disable no-new */
 new Vue({
   el: "#app",

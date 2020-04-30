@@ -1,47 +1,33 @@
-/*
- * @Author: your name
- * @Date: 2020-04-18 11:03:44
- * @LastEditTime: 2020-04-18 16:17:34
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \zgApp\src\vuex\store.js
- */
 import Vue from "vue";
 import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    crmToGroup: false, // 是否嵌入 集团 APP
-    token_GJ: "", //管家跳转crm所需 token
-    otherApp: "", //是否第三方 app 用于顶级路由返回判断
-    bottomNav: "home", // 当前点击的底部页签
-    
+    loading: false, //页面全局loading
+  
     searchInputValue: "", //搜索框数据
     customerInfoBtn: "", //用于显示客户信息按钮
+    pageSource: "", //页面来源
+
+    routeData: {}, //路由参数
   },
   mutations: {
-    // 设置数据
-    setList: (state, obj) => {
-      let { type, data } = obj;
-      state.dataSet[type] = data;
-    },
-    // 改变 是否第三方APP 跳转 状态
-    setCrmToGroup: (state, data) => {
-      state.crmToGroup = data;
-    },
-    // 跳转管家的token
-    setToken_GJ: (state, data) => {
-      state.token_GJ = data;
-    },
-    // 设置 是否第三方 app
-    setOtherApp: (state, data) => {
-      state.otherApp = data;
-    },
+    // 框架
+    showLoading: state => state.loading = true,
+    closeLoading: state => state.loading = false,
 
-    // 基础方法
-    setBottomNav: (state, data) => {state.bottomNav = data},
+    // 页面
     setSearchInputVal: (state, data) => { state.searchInputValue = data },
     setCustomerInfoBtn: (state, data) => { state.customerInfoBtn = data },
+    setPageSource: (state, data) => { state.pageSource = data },
+
+    // 设置公共数据
+    setCompany: (state, data) => { state.company = data },
+    setLendingPlatform: (state, data) => { state.lendingPlatform = data },
+    setRepaymentState: (state, data) => { state.repaymentState = data },
+
+    // 设置路由参数
+    setRouteData: (state, data) => { state.routeData = data }
   }
 });

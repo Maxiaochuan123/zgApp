@@ -30,7 +30,7 @@
           <div v-for="(item ,index) in deptUserList" :key="index">
             <mu-list-item button v-waves @click="goPage('personalInfo',item)">
               <mu-avatar>
-                <img :src="loadingImg('defaultImg.png')">
+                <img src="@static/images/defaultHeadPortrait.png">
               </mu-avatar>
               <mu-list-item-content>
                 <mu-list-item-title>{{item.realname}}</mu-list-item-title>
@@ -62,7 +62,7 @@
           <div v-for="(item ,index) in groupUserList" :key="index">
             <mu-list-item button v-waves @click="goPage('personalInfo',item)">
               <mu-avatar>
-                <img :src="loadingImg('defaultImg.png')">
+                <img src="@static/images/defaultHeadPortrait.png">
               </mu-avatar>
               <mu-list-item-content>
                 <mu-list-item-title>{{item.realname}}</mu-list-item-title>
@@ -94,7 +94,7 @@
           <div v-for="(item ,index) in group_1_UserList" :key="index">
             <mu-list-item button v-waves @click="goPage('personalInfo',item)">
               <mu-avatar>
-                <img :src="loadingImg('defaultImg.png')">
+                <img src="@static/images/defaultHeadPortrait.png">
               </mu-avatar>
               <mu-list-item-content>
                 <mu-list-item-title>{{item.realname}}</mu-list-item-title>
@@ -126,7 +126,7 @@
           <div v-for="(item ,index) in group_1_1_UserList" :key="index">
             <mu-list-item button v-waves @click="goPage('personalInfo',item)">
               <mu-avatar>
-                <img :src="loadingImg('defaultImg.png')">
+                <img src="@static/images/defaultHeadPortrait.png">
               </mu-avatar>
               <mu-list-item-content>
                 <mu-list-item-title>{{item.realname}}</mu-list-item-title>
@@ -157,7 +157,7 @@
           <div v-for="(item ,index) in contactsList" :key="index">
             <mu-list-item button v-waves @click="drawerContacts = false;drawerDepartment = false; goPage('personalInfo',item)">
               <mu-avatar>
-                <img :src="loadingImg('defaultImg.png')">
+                <img src="@static/images/defaultHeadPortrait.png">
               </mu-avatar>
               <mu-list-item-content>
                 <mu-list-item-title>{{item.realname}}</mu-list-item-title>

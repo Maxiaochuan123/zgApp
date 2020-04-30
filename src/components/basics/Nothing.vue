@@ -1,20 +1,14 @@
 <!--
- * @Description: 没有任何东西
- * type: 描诉
- * no-content => 暂无线索,客户,公海,待办,日报,任务
- * no-network => 暂无网络
- * no-orders =>  暂无订单
- * no-visits =>  暂无拜访
+ * noData => 暂无数据
+ * dataError => 数据获取失败
+ * noNetwork => 暂无网络
  * @Author: shenah
  -->
 <template>
-  <div class="nothing">
+  <div class="nothing" v-if="showNothing">
     <div class="no">
-      <img
-        :src="loadingImg(`${type}.png`)"
-        class="bc-img"
-      />
-      <div class="text">{{words}}</div>
+      <img :src="`../../../static/images/${imgType}.png`" class="bc-img" />
+      <div class="text">{{describe}}</div>
     </div>
   </div>
 </template>
@@ -22,22 +16,51 @@
 <script>
 export default {
   name: "Nothing",
-  components: {},
-  data() {
-    return {};
-  },
-  props: {
-    type: {
-      type: String,
-      default: "no-content"
+  // props: {
+  //   type: {
+  //     type: String, 
+  //     default: "noData"
+  //   },
+  //   words: {
+  //     type: String,
+  //     default: "暂无数据"
+  //   }
+  // },
+  computed: {
+    showNothing(){
+      if(this.listData.length == 0 || this.dataError){
+        return true;
+      }else{
+        return false;
+      }
     },
-    words: {
-      type: String,
-      default: "暂无数据"
+    imgType(){
+      if(this.listData.length == 0){
+        return "noData"
+      }else if(this.dataError){
+        console.log('err')
+        return "dataError"
+      }
+    },
+    describe(){
+      if(this.listData.length == 0){
+        return "暂无数据"
+      }else if(this.dataError){
+        console.log('err')
+        return "获取数据失败"
+      }
     }
   },
-  mounted() {},
-  methods: {}
+  // mounted() {
+  //   window.ononline=()=>{
+  //     this.networkState = true;
+  //     this.$toast.success("网络已恢复")
+  //   }
+  //   window.onoffline=()=>{
+  //     this.networkState = false;
+  //     this.$toast.error("网络连接中断")
+  //   }
+  // },
 };
 </script>
 <style lang='less' scoped>

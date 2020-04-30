@@ -6,10 +6,10 @@
         <p>我的</p>
         <div class="userInfo">
           <div class="describe">
-            <p>罗普蓝</p>
-            <p>众汇车服/资管专员</p>
+            <p>{{ userInfo.userName }}</p>
+            <p>{{ userInfo.comment }}</p>
           </div>
-          <img src="@static/images/defaultHeadPortrait.png">
+          <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : '@static/images/defaultHeadPortrait.png' " />
         </div>
       </div>
       <div class="functionalArea">

@@ -1,11 +1,11 @@
 <template>
   <div class="phoneCollectionList">
-    <List pageTitle="电话催收" :drawerList="drawerList" listType="0" pageSource="dataArchivingList"></List>
+    <List pageTitle="电话催收" :drawerList="drawerList" listType="0"></List>
   </div>
 </template>
 
 <script>
-import List from '@components/template/List'
+import List from '@view/template/List'
 export default {
   components: {
     List
@@ -66,7 +66,9 @@ export default {
     }
   },
   created () {
-    this.$store.commit('setCustomerInfoBtn',true)
+    this.$store.commit('setPageSource',"phoneCollectionList");
+
+    this.$store.commit('setCustomerInfoBtn',true);
   }
 }
 </script>

@@ -1,21 +1,8 @@
-<!--
- * @Description: 客户写跟进
- * @Author: shenah
- -->
 <template>
   <div class="write-followup">
-    <AppBar
-      :customFnc="customFnc"
-      customIconBtn
-      customTitle="保存"
-      pageTitle="写跟进"
-    ></AppBar>
+    <AppBar pageTitle="写跟进" customTextBtn customText="保存" :customCallback="customCallback"></AppBar>
     <div class="content">
-      <!-- <GeneralForm
-        :fieldList="fieldList"
-        class="form"
-        ref="generalForm"
-      ></GeneralForm> -->
+      <CustomerForm ref="customerForm" :fieldList="fieldList"></CustomerForm>
     </div>
   </div>
 </template>
@@ -23,94 +10,49 @@
 <script>
 import AppBar from "@components/basics/AppBar";
 import { FOLLOW_UP_TYPE } from "@static/js/dictionaries";
-// import GeneralForm from "@components/basics/GeneralForm";
-// import Api from "@api";
+import CustomerForm from "@components/basics/CustomerForm";
+import { mapState } from "vuex"
+
 export default {
   name: "writeFollowup",
-  components: { AppBar, GeneralForm },
-  computed: {
-    id() {
-      return this.$route.params.id;
-    },
-    type() {
-      return this.$route.params.type;
-    }
-  },
+  components: { AppBar, CustomerForm },
   data() {
     return {
-      fieldList: [
-        {
-          fieldName: "category",
-          formType: "select",
-          isNull: 1,
-          name: "跟进类型",
-          options: FOLLOW_UP_TYPE.map(item => item.text).join(","),
-          type: 3,
-          value: ""
-        },
-        {
-          fieldName: "nextTime",
-          formType: "datetime",
-          isNull: 1,
-          name: "下次跟进时间",
-          options: null,
-          type: 13,
-          value: ""
-        },
-        {
-          fieldName: "batchId",
-          formType: "file",
-          isNull: 0,
-          name: "",
-          options: null,
-          type: 8,
-          value: ""
-        },
-        {
-          fieldName: "content",
-          formType: "textarea",
-          isNull: 1,
-          name: "跟进内容",
-          options: null,
-          type: 2,
-          value: ""
-        }
-      ]
+      fieldList:[], // 字段列表
     };
   },
-  props: {},
-  mounted() {},
+  created() {
+    this.fieldList = [{
+      type:"picker",
+      field:{ key:"actionType", value:"" },
+      label:"跟进类型",
+      rules:{ required: true }
+    },{
+      type:"date",
+      field:{ key:"nextDate", value:"" },
+      label:"下次更进时间",
+      rules:{ required: true }
+    },{
+      type:"textarea",
+      field:{ key:"actionContent", value:"" },
+      label:"跟进内容",
+      rules:{ required: true }
+    },{
+      type:"file",
+      field:{ key:"attachmentIds", value:{} },
+      label:"附件",
+      rules:{ required: false }
+    }]
+  },
   methods: {
-    customFnc() {
-      // 保存
-      // let addFollowUpRecordApi;
-      // if (this.type === "联系人") {
-      //   addFollowUpRecordApi = this.api.addContactsFollowUp;
-      // } else if (this.type === "线索") {
-      //   addFollowUpRecordApi = this.api.addClueFollowUp;
-      // } else {
-      //   addFollowUpRecordApi = Api.addCustomerFollowUpRecord;
-      // }
-      // const generalFormVue = this.$refs.generalForm;
-      // generalFormVue.$refs.form.validate().then(result => {
-      //   if (result) {
-      //     let params = { ...generalFormVue.form, typesId: this.id };
-      //     if (this.type !== "联系人" || this.type !== "线索") {
-      //       params.isEvent = 0;
-      //     }
-      //     addFollowUpRecordApi(params).then(res => {
-      //       this.$toast.success({
-      //         message: "新增成功"
-      //       });
-      //       this.goBack();
-      //     });
-      //   }
-      // });
+    customCallback() {
+      let { orderId, orderNo, periodsIndex } = { ...this.routeData };
+      this.apiMethods.saveCallback(this, "写跟进", this.api.addFollowUpRecord, { orderList:[{ orderId:orderId, orderNo:orderNo, periodsIndex:periodsIndex }] });
     }
   }
 };
 </script>
-<style lang='less' scoped>
+<style lang="less" scoped>
 .write-followup {
   width: 100%;
   height: 100%;

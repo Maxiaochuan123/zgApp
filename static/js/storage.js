@@ -17,10 +17,7 @@ export default {
   // 设置缓存
   localSet(name, data) {
     localStorage.removeItem(name);
-    localStorage.setItem(
-      name,
-      typeof data === "string" ? data : JSON.stringify(data)
-    );
+    localStorage.setItem( name, typeof data === "string" ? data : JSON.stringify(data));
   },
   // 获取缓存
   localGet(name) {

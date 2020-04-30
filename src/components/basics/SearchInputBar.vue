@@ -2,9 +2,8 @@
   <div class="search-input-bar bottomShadow">
     <div class="serch-input">
       <mu-icon value=":iconfont icon-sousuo"></mu-icon>
-      <input :placeholder="placeholderText" class="query-input" type="text" v-model="value" @input="searchInput" />
-      <img v-show="value" :src="loadingImg('delete.png')" @click.stop=" value = '' " class="close" />
-      <br />
+      <input :placeholder="placeholderText" class="query-input" @keypress="searchGoods" type="serch" v-model="value"/>
+      <img v-show="value" src="@static/images/delete.png" @click.stop="close" class="close" />
     </div>
   </div>
 </template>
@@ -13,7 +12,6 @@
 import tool from '@static/js/tool'
 export default {
   name: "SearchInputBar",
-  components: {},
   data() {
     return {
       value: ""
@@ -26,11 +24,32 @@ export default {
     }
   },
   methods: {
-    searchInput:tool.debounce(function(){
-      // this.resetListHandle();
-      this.$store.commit('setSearchInputVal',this.value);
-      this.$emit("searchInputBarChange", this.value);
-    })
+
+    // 实时搜索
+    // searchInput:tool.debounce(function(){
+    //   this.resetListHandle();
+    //   this.$store.commit('setSearchInputVal',this.value);
+    //   this.$emit("searchInputBarChange", this.value);
+    // },1200),
+
+    // 移动端点击搜索 || 前往
+    searchGoods(event) { 
+      if (event.keyCode == 13) {
+        event.preventDefault(); //禁止默认事件（默认是换行） 
+        this.resetListHandle();
+        this.$store.commit('setSearchInputVal',this.value);
+        this.$emit("searchInputBarChange", this.value);
+        let el = document.querySelector(".query-input")
+        el.blur();
+      } 
+    },
+
+    // 清空
+    close(){
+      this.value = ''
+      this.$store.commit('setSearchInputVal',"");
+      this.$emit("searchClose")
+    }
   }
 };
 </script>

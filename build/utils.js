@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-25 15:40:36
- * @LastEditTime: 2019-09-03 15:38:00
- * @LastEditors: Please set LastEditors
- */
 'use strict'
 const path = require('path')
 const config = require('../config')

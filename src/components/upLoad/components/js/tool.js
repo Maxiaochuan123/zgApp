@@ -147,4 +147,30 @@ export default{
     document.body.appendChild(link)
     link.click()
   },
+
+  // 判断操作系统
+  getSystem() {
+    var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+      if (u.indexOf(Agents[v]) > 0) {
+        flag = false;
+        break;
+      }
+    }
+
+    if (flag) {
+      return 'Web'
+    } else {
+      if (isAndroid) {
+        return 'Android';
+      }
+      if (isIOS) {
+        return 'iOS'
+      }
+    }
+  },
 }

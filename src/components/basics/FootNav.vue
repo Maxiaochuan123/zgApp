@@ -5,11 +5,11 @@
 <template>
   <div class="foot-nav topShadow">
     <div @click="writeFollowUp" class="nav-item" v-if="writeFlag" >
-      <img src="../../../static/images/buttom-write-follow.png" />
+      <img src="@static/images/buttom-write-follow.png" />
       <div class="text">写跟进</div>
     </div>
-    <div @click="assign" class="nav-item" v-if="callFlag" >
-      <img src="../../../static/images/assign.png" />
+    <div @click="assign" class="nav-item isDisabled" v-if="assignFlag" >
+      <img src="@static/images/assign.png" />
       <div class="text">指派</div>
     </div>
   </div>
@@ -28,18 +28,14 @@ export default {
       type: Boolean,
       default: true
     },
-    callFlag:{
+    assignFlag:{
       type: Boolean,
       default: true
-    },
-    linkParams: {
-      type: Object,
-      default: () => {}
     }
   },
   methods: {
     writeFollowUp(){
-      this.goPage("writeFollowup", this.linkParams);
+      this.goPage("writeFollowup");
     },
     assign() {
       

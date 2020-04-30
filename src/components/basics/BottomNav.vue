@@ -1,16 +1,9 @@
-<!--
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-25 11:48:12
- * @LastEditTime: 2019-09-03 18:12:17
- * @LastEditors: Please set LastEditors
- -->
 <template>
-  <div class="bottom-nav">
-    <mu-bottom-nav :value.sync="bottomNav" color="primary" @change="navChange">
+  <div class="bottom-nav" v-if="showBotNav">
+    <mu-bottom-nav :value.sync="bottomNav" color="primary">
       <mu-bottom-nav-item value="home" title="首页" icon=":iconfont iconshouye" to="/home"></mu-bottom-nav-item>
-      <mu-bottom-nav-item value="mailList" title="通讯录" icon=":iconfont icontongxunlu" to="/mailList"></mu-bottom-nav-item>
-      <mu-bottom-nav-item value="todoList" title="待办" icon=":iconfont icondaiban" to="/todoList"></mu-bottom-nav-item>
+      <!-- <mu-bottom-nav-item value="mailList" title="通讯录" icon=":iconfont icontongxunlu" to="/mailList"></mu-bottom-nav-item>
+      <mu-bottom-nav-item value="todoList" title="待办" icon=":iconfont icondaiban" to="/todoList"></mu-bottom-nav-item> -->
       <mu-bottom-nav-item value="myInfo" title="我的" icon=":iconfont iconwode" to="/myInfo"></mu-bottom-nav-item>
     </mu-bottom-nav>
   </div>
@@ -21,22 +14,23 @@ export default {
   name: "bottom-nav",
   data() {
     return {
-
+      showBotNav: true,
+      bottomNav: ""
     };
   },
-  computed:{
-    bottomNav:{
-      get(){
-        return this.$store.state.bottomNav
-      },
-      set(data){
-        this.$store.commit('setBottomNav',data);
-      }
-    }
+  created () {
+    // this.bottomNav = "home";
+    // this.$router.push("home");
   },
-  methods:{
-    navChange(val){
-      this.$store.commit('setBottomNav',val)
+  watch: {
+    $route(to, from) {
+      if (to.path == "/home" || to.path == "/mailList" || to.path == "/todoList" || to.path == "/myInfo") {
+        this.showBotNav = true;
+        this.bottomNav = to.name;
+        this.$router.push(to.name);
+      } else {
+        this.showBotNav = false;
+      }
     }
   }
 };

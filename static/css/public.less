@@ -38,11 +38,11 @@ input:focus {
 }
 
 // picker 包裹器 防止 input 聚焦时 拉起输入法
-.surround {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
+// .surround {
+//   display: flex;
+//   align-items: center;
+//   width: 100%;
+// }
 
 // picker 组件样式
 .zm-picker .picker {
@@ -56,10 +56,15 @@ input:focus {
 }
 
 /* 向右旋转180 */
-.rotate-rignth180 {
-  transform: rotate(-180deg) !important;
-  transition: transform 0.3s;
-  transform-origin: center center; //旋转中心要是正中间 才行
+// .rotate-rignth180 {
+//   transform: rotate(-180deg) !important;
+//   transition: transform 0.3s;
+//   transform-origin: center center; //旋转中心要是正中间 才行
+// }
+
+// 禁用
+.isDisabled {
+  opacity: .4;
 }
 
 
@@ -88,7 +93,10 @@ input:focus {
   margin-top: 92px;
   padding-bottom: 12px;
 }
-
+// 跟进
+.followRecord{
+  height: calc(100vh - 92px - 87px) !important;
+}
 // 展示信息布局
 .basic-info{
   .header {
@@ -180,4 +188,10 @@ input:focus {
       }
     }
   }
+}
+
+.textEllipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
