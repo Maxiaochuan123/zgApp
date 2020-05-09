@@ -9,7 +9,7 @@
             <p>{{ userInfo.userName }}</p>
             <p>{{ userInfo.comment }}</p>
           </div>
-          <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : '@static/images/defaultHeadPortrait.png' " />
+          <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : '../../../../static/images/defaultHeadPortrait.png' " />
         </div>
       </div>
       <div class="functionalArea">

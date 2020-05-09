@@ -11,7 +11,7 @@
 
         <div class="basicInfo" v-if="tabsActive==0">
           <!-- 基础信息 -->
-          <InfoCard></InfoCard>
+          <Info></Info>
           <!-- 编辑 -->
           <Edit v-if="route.state != 'alreadyFile' && route.state != 'alreadyBorrowing' && route.state != 'alreadyDestruction'"></Edit>
           <!-- 查看 -->
@@ -28,13 +28,13 @@
 
 <script>
 import AppBar from '@components/basics/AppBar'
-import InfoCard from '@view/template/dataArchiving/InfoCard'
-import Edit from '@view/template/dataArchiving/Edit'
-import See from '@view/template/dataArchiving/See'
+import Info from '@components/card/Info'
+import Edit from '@views/repaymentTracking/dataFiling/Edit'
+import See from '@views/repaymentTracking/dataFiling/See'
 
 export default {
   components: {
-    AppBar, InfoCard, Edit, See
+    AppBar, Info, Edit, See
   },
   data () {
     return {

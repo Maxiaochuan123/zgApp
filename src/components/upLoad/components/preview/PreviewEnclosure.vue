@@ -43,7 +43,7 @@ export default {
   },
   computed:{
     systemt(){
-      return tool.getSystem();
+      return this.tool.getSystem();
     }
   },
   methods: {

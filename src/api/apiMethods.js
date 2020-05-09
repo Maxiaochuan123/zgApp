@@ -4,7 +4,7 @@ export default{
 
   /******************************  列表 ******************************/
   // 获取基础数据
-  getSource(_this) {
+  getApi(_this) {
     let api, msg
     switch (store.state.pageSource) {
       case "repayment":
@@ -74,17 +74,16 @@ export default{
     return screenDataList;
   },
 
-  getListCallback(_this, type="default"){
-    let { api, msg } = this.getSource(_this);
+  getListCallback(_this, type = "default"){
+    let { api, msg } = this.getApi(_this);
     let params = {};
-    let defaultParams = { ..._this.paging };
 
     if(type == "default"){
-      params = defaultParams;
+      params = { ..._this.paging };
     }else if(type == "screen"){
-      params = { ...defaultParams, ...this.getScreenParams(_this) };
+      params = { ..._this.paging, ...this.getScreenParams(_this) };
     }else if(type == "search"){
-      params = { ...defaultParams, nameOrPhoneOrOrderNo:store.state.searchInputValue };
+      params = { ..._this.paging, nameOrPhoneOrOrderNo:store.state.searchInputValue };
     }
 
     // console.log('params:', params)
@@ -95,7 +94,7 @@ export default{
       if (res.data){
         _this.loadUpdate.loadedAll = res.data.results.length === 0 ? true : false;
 
-        if (_this.loadUpdate.loadingState === 'default' || _this.loadUpdate.loadingState === 'refresh') {
+        if (_this.loadUpdate.loadingState === 'default' || _this.loadUpdate.loadingState === 'refresh' || type == "search") {
           _this.listData = res.data.results; _this.loadUpdate.refreshing = false;
         } else {
           _this.listData.push(...res.data.results); _this.loadUpdate.loading = false;

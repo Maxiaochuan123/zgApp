@@ -1,12 +1,3 @@
-<!--
- * @Description: 贷款计算
- * @Author: shenah
- * @Date: 2020-03-30 09:51:14
- * @LastEditors: shenah
- * @LastEditTime: 2020-03-30 14:30:24
- -->
-
-
 <!-- 车型先不做 -->
 <template>
   <div class="loan-calculate">

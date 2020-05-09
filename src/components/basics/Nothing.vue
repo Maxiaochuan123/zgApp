@@ -8,7 +8,7 @@
   <div class="nothing" v-if="showNothing">
     <div class="no">
       <img :src="`../../../static/images/${imgType}.png`" class="bc-img" />
-      <div class="text">{{describe}}</div>
+      <div class="text">{{words || describe}}</div>
     </div>
   </div>
 </template>
@@ -16,37 +16,37 @@
 <script>
 export default {
   name: "Nothing",
-  // props: {
-  //   type: {
-  //     type: String, 
-  //     default: "noData"
-  //   },
-  //   words: {
-  //     type: String,
-  //     default: "暂无数据"
-  //   }
-  // },
+  props: {
+    // type: {
+    //   type: String, 
+    //   default: "noData"
+    // },
+    words: {
+      type: String,
+      default: "暂无数据"
+    }
+  },
   computed: {
     showNothing(){
-      if(this.listData.length == 0 || this.dataError){
+      if(this.listData.length == 0 || this.departmentList.length == 0  || this.dataError){
         return true;
       }else{
         return false;
       }
     },
     imgType(){
-      if(this.listData.length == 0){
+      if(this.listData.length == 0 || this.departmentList.length == 0){
         return "noData"
       }else if(this.dataError){
-        console.log('err')
         return "dataError"
       }
     },
     describe(){
       if(this.listData.length == 0){
         return "暂无数据"
+      }else if(this.departmentList.length == 0){
+        return "无子部门"
       }else if(this.dataError){
-        console.log('err')
         return "获取数据失败"
       }
     }

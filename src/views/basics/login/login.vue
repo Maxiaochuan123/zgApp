@@ -34,7 +34,7 @@
     </div>
     <div class="otherOperations">
       <div class="rememberPassword" @click="setRemPwd">
-        <img :src="remPwd ? '../../../../static/images/remember.png' : '../../../../static/images/forget.png'">
+        <img :src="remPwd ? '../../../../static/images/selected.png' : '../../../../static/images/forget.png'">
         <span>记住密码</span>
       </div>
       <div class="forgetPassword" @click="retrievePassword">

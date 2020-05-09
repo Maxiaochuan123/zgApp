@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import List from '@view/template/List'
+import List from '@components/list/List'
 export default {
   components: {
     List

@@ -7,7 +7,7 @@
         <div class="header regular-words">
           <div>头像</div>
           <mu-avatar size="48">
-            <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : '@static/images/defaultHeadPortrait.png' " />
+            <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : '../../../../static/images/defaultHeadPortrait.png' " />
           </mu-avatar>
         </div>
         <div class="brief">

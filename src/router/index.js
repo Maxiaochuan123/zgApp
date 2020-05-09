@@ -38,6 +38,7 @@ const router = new Router({
     }, {
       path: "/mailList",
       name: "mailList",
+      meta: { keepAlive: true },
       component: () => import("../views/basics/home/mailList.vue")
     }, {
       path: "/todoList",
@@ -61,39 +62,45 @@ const router = new Router({
     {
       path: "/repayment/detailedCard/:id",
       name: "detailedCard",
-      component: () => import("../views/template/public/DetailedCard.vue")
+      component: () => import("../components/card/Detailed.vue")
     },
     // 还款计划
     {
       path: "/repayment/plan/:orderId/:customerInfoBtn?",
       name: "plan",
       meta: { keepAlive: false },
-      component: () => import("../views/template/public/Plan.vue")
+      component: () => import("../components/page/plan.vue")
     },
     // 资料归档
     {
       path: "/dataArchiving/archiving/:id/:state",
       name: "archiving",
-      component: () => import("../views/template/dataArchiving/Archiving.vue")
+      component: () => import("../views/repaymentTracking/dataFiling/archiving.vue")
     },
     
     // 客户信息
     {
       path: "/collection/customerInfo/:id",
       name: "customerInfo",
-      component: () => import("../views/template/collection/CustomerInfo.vue")
+      component: () => import("../views/beOverdueCollection/call/customerInfo.vue")
     },
     // 新增补充信息
     {
       path: "/collection/customerInfo/addSupplementInfo/:id",
       name: "addSupplementInfo",
-      component: () => import("../views/template/collection/AddSupplementInfo.vue")
+      component: () => import("../views/beOverdueCollection/call/addSupplementInfo.vue")
     },
-    // 更改策略
+    // 更改策略c
     {
       path: "/overdue/changeStrategy",
       name: "changeStrategy",
-      component: () => import("../views/template/overdue/ChangeStrategy.vue")
+      component: () => import("../components/page/changeStrategy.vue")
+    },
+    // 个人信息
+    {
+      path: "/mailList/personalInfo",
+      name: "personalInfo",
+      component: () => import("../components/page/personalInfo.vue")
     },
     
     /************************************** 列表 **************************************/
@@ -126,14 +133,14 @@ const router = new Router({
     {
       path: "/dataArchiving/dataArchivingList",
       name: "dataArchivingList",
-      component: () => import("../views/dataArchiving/dataArchivingList.vue")
+      component: () => import("../views/list/dataArchiving.vue")
     },
 
     // 电话催收
     {
       path: "/dataArchiving/phoneCollectionList",
       name: "phoneCollectionList",
-      component: () => import("../views/collection/phoneCollectionList.vue")
+      component: () => import("../views/list/phoneCollection.vue")
     },
 
     // 其他
@@ -141,7 +148,7 @@ const router = new Router({
       path: "/loanCalculate",
       name: "loanCalculate",
       
-      component: () => import("../views/other/loanCalculate.vue")
+      component: () => import("../views/other/loanCalculation/loanCalculate.vue")
     }
   ]
 });
