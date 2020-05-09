@@ -2,6 +2,7 @@
   <div class="loadingBox">
     
     <div class="loading">
+      <!-- <mu-circular-progress class="demo-circular-progress" :size="36" color="#fff" :stroke-width="3"></mu-circular-progress> -->
       <div class="block">
         <div class="rect1"></div>
         <div class="rect2"></div>

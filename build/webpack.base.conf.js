@@ -28,7 +28,7 @@ module.exports = {
       "@": resolve("src"),
       "@components": resolve("src/components"),
       "@static": path.resolve(__dirname, "../static"),
-      "@view": path.resolve("src/views")
+      "@views": path.resolve("src/views")
     }
   },
   module: {

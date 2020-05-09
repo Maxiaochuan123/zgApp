@@ -133,7 +133,6 @@ export default {
       this.paging.pageIndex = ++this.paging.pageIndex;
       this.loadUpdate.loading = true;
       this.loadUpdate.loadingState = "load";
-      console.log(this.paging.pageIndex)
     },
     // 筛选栏 重置列表状态
     resetListHandle() {
@@ -167,8 +166,14 @@ export default {
     closeDrawerState() {
       this.$parent.$parent.drawerState = false;
     },
-    lala() {
-      console.log('lala')
+
+    // 打电话
+    dial(phoneNumber) {
+      // if (!store.state.crmToGroup) {
+        window.location.href = `tel:${phoneNumber}`;
+      // } else {
+      //   bridge.callHandler('callPhone', { phone: phoneNumber });
+      // }
     },
   },
   filters: {

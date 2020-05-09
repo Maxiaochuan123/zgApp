@@ -2,8 +2,8 @@
   <div class="bottom-nav" v-if="showBotNav">
     <mu-bottom-nav :value.sync="bottomNav" color="primary">
       <mu-bottom-nav-item value="home" title="首页" icon=":iconfont iconshouye" to="/home"></mu-bottom-nav-item>
-      <!-- <mu-bottom-nav-item value="mailList" title="通讯录" icon=":iconfont icontongxunlu" to="/mailList"></mu-bottom-nav-item>
-      <mu-bottom-nav-item value="todoList" title="待办" icon=":iconfont icondaiban" to="/todoList"></mu-bottom-nav-item> -->
+      <mu-bottom-nav-item value="mailList" title="通讯录" icon=":iconfont icontongxunlu" to="/mailList"></mu-bottom-nav-item>
+      <!-- <mu-bottom-nav-item value="todoList" title="待办" icon=":iconfont icondaiban" to="/todoList"></mu-bottom-nav-item> -->
       <mu-bottom-nav-item value="myInfo" title="我的" icon=":iconfont iconwode" to="/myInfo"></mu-bottom-nav-item>
     </mu-bottom-nav>
   </div>

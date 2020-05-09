@@ -9,8 +9,8 @@
           <mu-tab>跟进记录</mu-tab>
         </mu-tabs>
         <div class="basicInfo" v-if="tabsActive==0">
-          <InfoCard :infoData="infoData"></InfoCard>
-          <LoanCard v-for="(item,index) in loanInfoList" :key="index" :item="item"></LoanCard>
+          <Info :infoData="infoData"></Info>
+          <Loan v-for="(item,index) in loanInfoList" :key="index" :item="item"></Loan>
         </div>
         <div class="followUp" v-if="tabsActive==1">
           <FollowRecord :record="followUpRecord"></FollowRecord>
@@ -23,14 +23,14 @@
 
 <script>
 import AppBar from '@components/basics/AppBar'
-import InfoCard from '@view/template/public/InfoCard'
-import LoanCard from '@view/template/public/LoanCard'
+import Info from '@components/card/Info'
+import Loan from '@components/card/Loan'
 import FollowRecord from '@components/basics/FollowRecord'
 import FootNav from '@components/basics/FootNav'
 import { mapState } from 'vuex'
 export default {
   components: {
-    AppBar, InfoCard, LoanCard, FollowRecord, FootNav
+    AppBar, Info, Loan, FollowRecord, FootNav
   },
   data() {
     return {

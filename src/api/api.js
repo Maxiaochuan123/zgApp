@@ -33,12 +33,19 @@ export default {
 
   /******************************  查询 ******************************/
   //主借人信息
-  seeMainLoanPersonInfo: params => get({ params, url: `/manager/order/info/${params.orderId}/main/borrower` }),
+  seeMainLoanPersonInfo: params => get({ params, url: `/manager/order/info/main/borrower/orderId` }),
   // 订单 ID 查询 还款期数及对应信息
-  seeRepaymentStageNumInfo: params => get({ params, url: `/manager/loan/order/repayment/plan/${params.orderId}/orderId` }),
+  seeRepaymentStageNumInfo: params => get({ params, url: `/manager/loan/order/repayment/plan/orderId` }),
   // 订单 ID 查询 跟进记录
-  seeFollowUpRecord: params => get({ params, url: `/manager/followup/log/${params.orderId}/orderId` }),
+  seeFollowUpRecord: params => get({ params, url: `/manager/followup/log/orderId` }),
 
+  // 部门
+  seeDepartment: params => post({ params, url: "/department/findDepartmentTree" }),
+  // 部门 id 模糊搜索 联系人信息
+  seeDepUserInfo: params => get({ params, url: "/systemUser/departmentUserPage" }),
+
+  // 通讯录 模糊搜索 联系人信息
+  seeUserInfo: params => get({ params, url: "/systemUser/userPage" }),
 
   /******************************  操作 ******************************/
   // 变更策略

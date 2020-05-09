@@ -17,8 +17,8 @@
 <script>
 import AppBar from '@components/basics/AppBar'
 import SearchInputBar from "@components/basics/SearchInputBar";
-import ListItem_0 from "@view/template/public/ListItem_0";
-import ListItem_1 from "@view/template/public/ListItem_1";
+import ListItem_0 from "@components/list/ListItem_0";
+import ListItem_1 from "@components/list/ListItem_1";
 import Nothing from "@components/basics/Nothing";
 export default {
   components: {

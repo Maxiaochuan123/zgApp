@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-20 17:34:17
- * @LastEditTime: 2019-08-21 14:24:54
- * @LastEditors: Please set LastEditors
- */
 import Exif from 'exif-js'
 
 export default{
@@ -105,7 +98,7 @@ export default{
     return [targetWidth, targetHeight]
   },
 
-  // 去重
+  // 对象去重
   removeRepeat(_this){
     let obj = {};
     _this.imagesList = _this.imagesList.reduce((item, next) =>{
@@ -127,50 +120,5 @@ export default{
         i = Math.floor(Math.log(bytes) / Math.log(k));
 
     return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
-  },
-  /**
-   * @Excel 导出
-   * @param data object 数据
-   * @param name string excel表名
-   * @param that object 上下文
-   * */
-  downloadExcel(that, data, name) {
-    if (!data) {
-      return
-    }
-    let url = window.URL.createObjectURL(new Blob([data]))
-    let link = document.createElement('a')
-    link.style.display = 'none'
-    link.href = url
-    // let suffix = name.substring(name.lastIndexOf('.'))
-    link.setAttribute('download', 'test.docx')
-    document.body.appendChild(link)
-    link.click()
-  },
-
-  // 判断操作系统
-  getSystem() {
-    var u = navigator.userAgent;
-    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-    var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
-    var flag = true;
-    for (var v = 0; v < Agents.length; v++) {
-      if (u.indexOf(Agents[v]) > 0) {
-        flag = false;
-        break;
-      }
-    }
-
-    if (flag) {
-      return 'Web'
-    } else {
-      if (isAndroid) {
-        return 'Android';
-      }
-      if (isIOS) {
-        return 'iOS'
-      }
-    }
   },
 }

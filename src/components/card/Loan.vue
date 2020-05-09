@@ -1,5 +1,5 @@
 <template>
-  <div class="LoanCard">
+  <div class="loanCard">
     <div class="header">
       <div class="phase">{{item.periodsIndex | paramsError('期')}}</div>
       <div class="repaymentState">
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .LoanCard{
+  .loanCard{
     background-color: #fff;
     padding: 12px 20px 0;
 

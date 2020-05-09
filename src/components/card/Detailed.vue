@@ -1,5 +1,5 @@
 <template>
-  <div class="DetailedCard">
+  <div class="detailedCard">
     <AppBar pageTitle="还款明细" shadow occupyBtn></AppBar>
     <div class="contentBox">
       <div class="content-appBar basic-info">
