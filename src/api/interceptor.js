@@ -2,7 +2,7 @@ import axios from 'axios'
 import Qs from 'qs';
 import Toast from "muse-ui-toast";
 import store from "@/vuex/store";
-import tool from '../../static/js/tool'
+import tool from '@static/js/tool'
 
 // 超时时间
 axios.defaults.timeout = 5000;

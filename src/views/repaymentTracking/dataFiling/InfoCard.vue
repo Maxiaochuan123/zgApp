@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="foot" @click="status = !status">
-      <img :src="status ? '../../../../static/images/arrowUpper.png' : '../../../../static/images/arrowLower.png' ">
+      <img :src="status ? loadImage('arrowUpper.png') : loadImage('arrowLower.png') ">
     </div>
   </div>
 </template>

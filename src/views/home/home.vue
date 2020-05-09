@@ -42,28 +42,28 @@ export default {
         {
           title:"还款跟踪",
           itemList:[
-            {src:"../../../../static/images/repayment.png",describe:"还款列表",haveInHandlink:true,linkName:"repayment"},
-            {src:"../../../../static/images/overdue.png",describe:"逾期列表",haveInHandlink:true,linkName:"overdue"},
-            {src:"../../../../static/images/compensatory.png",describe:"代偿列表",haveInHandlink:true,linkName:"compensatory"},
-            {src:"../../../../static/images/dataArchiving.png",describe:"资料归档",haveInHandlink:false,linkName:"dataArchivingList"},
+            {src: this.loadImage("repayment.png"),describe:"还款列表",haveInHandlink:true,linkName:"repayment"},
+            {src:this.loadImage("overdue.png"),describe:"逾期列表",haveInHandlink:true,linkName:"overdue"},
+            {src:this.loadImage("compensatory.png"),describe:"代偿列表",haveInHandlink:true,linkName:"compensatory"},
+            {src:this.loadImage("dataArchiving.png"),describe:"资料归档",haveInHandlink:false,linkName:"dataArchivingList"},
           ]
         },
         {
           title:"逾期回收",
           itemList:[
-            {src:"../../../../static/images/phoneCollection.png",describe:"电话催收",haveInHandlink:false,linkName:"phoneCollectionList"},
-            {src:"../../../../static/images/business.png",describe:"业务催收",haveInHandlink:false,linkName:""},
-            {src:"../../../../static/images/collection.png",describe:"外勤催收",haveInHandlink:false,linkName:""},
-            {src:"../../../../static/images/settle.png",describe:"全员催收",haveInHandlink:false,linkName:""},
+            {src:this.loadImage("phoneCollection.png"),describe:"电话催收",haveInHandlink:false,linkName:"phoneCollectionList"},
+            {src:this.loadImage("business.png"),describe:"业务催收",haveInHandlink:false,linkName:""},
+            {src:this.loadImage("collection.png"),describe:"外勤催收",haveInHandlink:false,linkName:""},
+            {src:this.loadImage("settle.png"),describe:"全员催收",haveInHandlink:false,linkName:""},
           ]
         },
         {
           title:"其他",
           itemList:[
-            {src:"../../../../static/images/loanCalculation.png",describe:"贷款计算",haveInHandlink:false,linkName:""},
-            {src:"../../../../static/images/reportForm.png",describe:"统计报表",haveInHandlink:false,linkName:""},
-            {src:"../../../../static/images/customer.png",describe:"客户信息",haveInHandlink:false,linkName:""},
-            {src:"../../../../static/images/bond.png",describe:"保证金",haveInHandlink:false,linkName:""},
+            {src:this.loadImage("loanCalculation.png"),describe:"贷款计算",haveInHandlink:false,linkName:""},
+            {src:this.loadImage("reportForm.png"),describe:"统计报表",haveInHandlink:false,linkName:""},
+            {src:this.loadImage("customer.png"),describe:"客户信息",haveInHandlink:false,linkName:""},
+            {src:this.loadImage("bond.png"),describe:"保证金",haveInHandlink:false,linkName:""},
           ]
         }
       ]
@@ -102,7 +102,7 @@ export default {
   .header{
     width: 100%;
     height: 190px;
-    background-image: url("../../../../static/images/home_banner.png");
+    background-image: url("~@static/images/home_banner.png");
     background-size: cover;
     padding: 23px 25px 32px;
     

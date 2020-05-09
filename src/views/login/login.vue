@@ -34,7 +34,7 @@
     </div>
     <div class="otherOperations">
       <div class="rememberPassword" @click="setRemPwd">
-        <img :src="remPwd ? '../../../../static/images/selected.png' : '../../../../static/images/forget.png'">
+        <img :src="remPwd ? loadImage('selected.png') : loadImage('forget.png')">
         <span>记住密码</span>
       </div>
       <div class="forgetPassword" @click="retrievePassword">
@@ -49,7 +49,6 @@
 
 <script>
 import axios from "axios";
-import tool from "@static/js/tool.js";
 import storage from '@static/js/storage';
 export default {
   components: {},
@@ -75,7 +74,7 @@ export default {
     }
 
     if(localStorage.getItem("loc_loginInfo")){
-      this.loc_loginInfo = JSON.parse(tool.decAse192(localStorage.getItem("loc_loginInfo"),"loc_loginInfo"));
+      this.loc_loginInfo = JSON.parse(this.tool.decAse192(localStorage.getItem("loc_loginInfo"),"loc_loginInfo"));
     }
 
     // 获取已记住的账号密码
@@ -108,9 +107,9 @@ export default {
               // 记住账号密码
               this.loc_loginInfo.username = this.form.username;
               this.loc_loginInfo.password = this.form.password;
-              this.storage.localSet("loc_loginInfo",tool.encAse192(JSON.stringify(this.loc_loginInfo),"loc_loginInfo"));
+              this.storage.localSet("loc_loginInfo",this.tool.encAse192(JSON.stringify(this.loc_loginInfo),"loc_loginInfo"));
               // 存入登陆信息
-              this.storage.localSet("token",tool.encAse192(res.data.token,"token"));
+              this.storage.localSet("token",this.tool.encAse192(res.data.token,"token"));
               this.storage.localSet("userInfo",res.data.user);
               
               // 设置公共数据

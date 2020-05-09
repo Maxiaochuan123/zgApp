@@ -1,9 +1,6 @@
 // 日期处理
 import dayjs from "dayjs";
 
-// 工具函数
-import tool from "@static/js/tool";
-
 // 存储
 import storage from "@static/js/storage";
 
@@ -175,6 +172,11 @@ export default {
       //   bridge.callHandler('callPhone', { phone: phoneNumber });
       // }
     },
+    
+    // 获取图片
+    loadImage(name){
+      return require(`@static/images/${name}`)
+    }
   },
   filters: {
     // 金额千分号

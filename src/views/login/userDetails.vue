@@ -7,7 +7,7 @@
         <div class="header regular-words">
           <div>头像</div>
           <mu-avatar size="48">
-            <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : '../../../../static/images/defaultHeadPortrait.png' " />
+            <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : loadImage('defaultHeadPortrait.png') " />
           </mu-avatar>
         </div>
         <div class="brief">
@@ -51,7 +51,6 @@
 <script>
 import { mapState } from "vuex";
 import AppBar from "@components/basics/AppBar";
-import tool from "@static/js/tool";
 export default {
   name: "personalDetails",
   components: { AppBar },

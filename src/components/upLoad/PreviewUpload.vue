@@ -64,13 +64,13 @@ export default {
       return (type) => {
         switch (type) {
           case "txt":
-            return "../../../static/images/txt.png"
+            return this.loadImage('txt.png')
           case "docx":
-            return "../../../static/images/word.png"
+            return this.loadImage('word.png')
           case "xlsx":
-            return "../../../static/images/excel.png"
+            return this.loadImage('excel.png')
           case "pdf":
-            return "../../../static/images/pdf.png"
+            return this.loadImage('pdf.png')
         }
       }
     }

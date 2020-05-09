@@ -6,7 +6,7 @@
       <div class="content-list">
         <SearchInputBar ref="bar" placeholderText="输入关键字 姓名 / 手机号" @searchInputBarChange="searchInputBarChange" isCandidate :candidateList="candidateList">
           <li slot="candidateList" v-for="(item, index) in candidateList" :key="index" @click="goPage('personalInfo',item);$refs.bar.close()">
-            <img src="../../../static/images/defaultHeadPortrait.png"><span>{{item.userName}}</span><span>{{item.roles.map(val=>val.name).join(", ")}}</span>
+            <img :src="loadImage('defaultHeadPortrait.png')"><span>{{item.userName}}</span><span>{{item.roles.map(val=>val.name).join(", ")}}</span>
           </li>
         </SearchInputBar>
 

@@ -30,11 +30,6 @@ export default {
       default:""
     }
   },
-  data() {
-    return {
-      
-    }
-  },
   created () {
     this.apiMethods.getListCallback(this);
   },
