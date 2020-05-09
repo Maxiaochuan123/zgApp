@@ -7,7 +7,7 @@
 <template>
   <div class="nothing" v-if="showNothing">
     <div class="no">
-      <img :src="`../../../static/images/${imgType}.png`" class="bc-img" />
+      <img :src="loadImage(`${imgType}.png`)" class="bc-img" />
       <div class="text">{{words || describe}}</div>
     </div>
   </div>

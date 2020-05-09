@@ -1,7 +1,7 @@
 <!-- 跟进记录 -->
 <template>
   <div class="progress-column">
-    <div v-if="record.length > 0">
+    <div v-if="record && record.length > 0">
       <div :key="index" class="item" v-for="(item, index) in record">
         <div class="item-left">
           <div class="line"></div>
@@ -11,7 +11,7 @@
           <div class="time">{{ item.createDate }}</div>
           <div class="node">
             <mu-avatar class="node-left" size="36">
-              <img :src="item.userImg || '../../../static/images/defaultHeadPortrait.png'" />
+              <img :src="item.userImg || loadImage('defaultHeadPortrait.png')" />
             </mu-avatar>
             <div class="node-right">
               <div class="name">{{ item.userName }}</div>
@@ -97,7 +97,7 @@ export default {
         position: relative;
         width: 20px;
         height: 20px;
-        background: url("../../../static/images/time-stamp.png") no-repeat;
+        background: url("~@static/images/time-stamp.png") no-repeat;
         background-size: 100% 100%;
         z-index: 100;
       }

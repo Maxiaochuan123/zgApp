@@ -22,32 +22,32 @@ const router = new Router({
     {
       path: "/login",
       name: "login",
-      component: () => import("../views/basics/login/login.vue")
+      component: () => import("@views/login/login.vue")
     }, {
       path: "/retrievePassword",
       name: "retrievePassword",
-      component: () => import("../views/basics/login/retrievePassword.vue")
+      component: () => import("@views/login/retrievePassword.vue")
     }, {
       path: "/userDetails",
       name: "userDetails",
-      component: () => import("../views/basics/login/userDetails.vue")
+      component: () => import("@views/login/userDetails.vue")
     }, {
       path: "/home",
       name: "home",
-      component: () => import("../views/basics/home/home.vue")
+      component: () => import("@views/home/home.vue")
     }, {
       path: "/mailList",
       name: "mailList",
       meta: { keepAlive: true },
-      component: () => import("../views/basics/home/mailList.vue")
+      component: () => import("@views/home/mailList.vue")
     }, {
       path: "/todoList",
       name: "todoList",
-      component: () => import("../views/basics/home/todoList.vue")
+      component: () => import("@views/home/todoList.vue")
     }, {
       path: "/myInfo",
       name: "myInfo",
-      component: () => import("../views/basics/home/myInfo.vue")
+      component: () => import("@views/home/myInfo.vue")
     },
 
     /************************************** 公共页面组件 **************************************/
@@ -116,7 +116,7 @@ const router = new Router({
     {
       path: "/list/overdue",
       name: "overdue",
-      meta: { keepAlive: false },
+      meta: { keepAlive: true },
       component: () => import("../views/list/overdue.vue")
     },
     // 代偿列表

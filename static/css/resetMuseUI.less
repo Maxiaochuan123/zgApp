@@ -1,25 +1,23 @@
 // 菜单
-body{
-  .mu-popover{
-    .mu-list{
-      overflow-y: hidden;
-      .mu-item{
-        height: 34px;
-        .mu-item-title{
-          height: 100%;
-          line-height: 34px;
-          text-align: center;
-        }
+.mu-popover{
+  .mu-list{
+    overflow-y: hidden;
+    .mu-item{
+      height: 34px;
+      .mu-item-title{
+        height: 100%;
+        line-height: 34px;
+        text-align: center;
       }
-      li{
-        &:not(:last-child) {
-          .mu-item-title{
-            border-bottom: 1px solid @primary-border;
-          }
-        }
-      }
-      
     }
+    li{
+      &:not(:last-child) {
+        .mu-item-title{
+          border-bottom: 1px solid @primary-border;
+        }
+      }
+    }
+    
   }
 }
 

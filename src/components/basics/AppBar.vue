@@ -158,10 +158,6 @@ export default {
   .title {
     font-size: 18px;
   }
-  .mu-popover {
-    top: 52px !important;
-    right: 2px !important;
-  }
   .mu-drawer {
     width: 76%;
     padding: 46px 0;

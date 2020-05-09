@@ -9,10 +9,10 @@
         <mu-load-more :refreshing="loadUpdate.refreshing" @refresh="refresh" :loading="loadUpdate.loading" @load="load" :loaded-all="loadUpdate.loadedAll">
           <div class="list" v-for="(item, index) in listData" :key="index">
             <div class="switch" @click="switchUser(item, index)" v-if="isSelectUser">
-              <img :src="item.state ? '../../../static/images/selected.png' : '../../../static/images/no-selected.png' ">
+              <img :src="item.state ? loadImage('selected.png') : loadImage('no-selected.png') ">
             </div>
             <div :class="['info', index = listData.length - 1 && index + 1 != listData.length  ? 'borderBottom' : '']" @click="goPage('personalInfo',item)">
-              <img src="../../../static/images/defaultHeadPortrait.png">
+              <img :src="loadImage('defaultHeadPortrait.png')">
               <div class="describe">
                 <p>{{item.userName}}</p>
                 <p>{{item.roles.map(val=>val.name).join(", ")}}</p>

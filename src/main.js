@@ -32,6 +32,9 @@ Vue.mixin(mixins);
 import dayjs from "dayjs";
 Vue.prototype.dayjs = dayjs;
 
+import tool from "@static/js/tool";
+Vue.prototype.tool = tool;
+
 Vue.config.productionTip = false;
 import storage from "@static/js/storage";
 Vue.prototype.storage = storage;

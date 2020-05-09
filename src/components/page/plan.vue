@@ -8,11 +8,11 @@
           <mu-tab>基本信息</mu-tab>
           <mu-tab>跟进记录</mu-tab>
         </mu-tabs>
-        <div class="basicInfo" v-if="tabsActive==0">
+        <div class="basicInfo" v-show="tabsActive==0">
           <Info :infoData="infoData"></Info>
           <Loan v-for="(item,index) in loanInfoList" :key="index" :item="item"></Loan>
         </div>
-        <div class="followUp" v-if="tabsActive==1">
+        <div class="followUp" v-show="tabsActive==1">
           <FollowRecord :record="followUpRecord"></FollowRecord>
           <FootNav></FootNav>
         </div>
