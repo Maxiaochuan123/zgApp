@@ -147,7 +147,6 @@ const router = new Router({
     {
       path: "/loanCalculate",
       name: "loanCalculate",
-      
       component: () => import("../views/other/loanCalculation/loanCalculate.vue")
     }
   ]
