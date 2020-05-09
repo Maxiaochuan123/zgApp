@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-09-03 09:55:54
- * @LastEditTime: 2019-12-16 10:54:55
- * @LastEditors: shenah
- */
 // node 加密模块
 var crypto = require("crypto");
 export default {
@@ -108,21 +101,24 @@ export default {
     dec += decipher.final("utf8"); //编码方式从utf-8;
     return dec;
   },
-  // 退出登录
-  signOut() {
-    // 清空登录
-    localStorage.removeItem("login");
-    const ipHost = `${window.location.protocol}//${window.location.host}`;
-    window.location.href = `${ipHost}#/login`;
-  },
-  // 解密登录的信息并返回userInfo的对象
-  decUserInfo() {
-    let login = localStorage.getItem("login");
-    if (typeof login === "string" && login !== "") {
-      return JSON.parse(login);
-      // return JSON.parse(this.decAse192(login, "login"));
-    } else {
-      return {};
+
+  /**
+   * @Excel 导出
+   * @param data object 数据
+   * @param name string excel表名
+   * @param that object 上下文
+   * */
+  downloadExcel(that, data, name) {
+    if (!data) {
+      return
     }
-  }
+    let url = window.URL.createObjectURL(new Blob([data]))
+    let link = document.createElement('a')
+    link.style.display = 'none'
+    link.href = url
+    // let suffix = name.substring(name.lastIndexOf('.'))
+    link.setAttribute('download', 'test.docx')
+    document.body.appendChild(link)
+    link.click()
+  },
 };
