@@ -1,10 +1,10 @@
 <template>
   <div class="bottom-nav" v-if="showBotNav">
     <mu-bottom-nav :value.sync="bottomNav" color="primary">
-      <mu-bottom-nav-item value="home" title="首页" icon=":iconfont iconshouye" to="/home"></mu-bottom-nav-item>
-      <mu-bottom-nav-item value="mailList" title="通讯录" icon=":iconfont icontongxunlu" to="/mailList"></mu-bottom-nav-item>
-      <!-- <mu-bottom-nav-item value="todoList" title="待办" icon=":iconfont icondaiban" to="/todoList"></mu-bottom-nav-item> -->
-      <mu-bottom-nav-item value="myInfo" title="我的" icon=":iconfont iconwode" to="/myInfo"></mu-bottom-nav-item>
+      <mu-bottom-nav-item value="home" title="首页" icon=":iconfont icon-shouye" to="/home"></mu-bottom-nav-item>
+      <mu-bottom-nav-item value="mailList" title="通讯录" icon=":iconfont icon-tongxunlu" to="/mailList"></mu-bottom-nav-item>
+      <!-- <mu-bottom-nav-item value="todoList" title="待办" icon=":iconfont icon-daiban" to="/todoList"></mu-bottom-nav-item> -->
+      <mu-bottom-nav-item value="myInfo" title="我的" icon=":iconfont icon-wode" to="/myInfo"></mu-bottom-nav-item>
     </mu-bottom-nav>
   </div>
 </template>
@@ -14,13 +14,9 @@ export default {
   name: "bottom-nav",
   data() {
     return {
-      showBotNav: true,
+      showBotNav: false,
       bottomNav: ""
     };
-  },
-  created () {
-    // this.bottomNav = "home";
-    // this.$router.push("home");
   },
   watch: {
     $route(to, from) {

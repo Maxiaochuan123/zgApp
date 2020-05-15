@@ -1,6 +1,6 @@
 <template>
   <div class="department">
-    <AppBar :isGoBack="!isTopPage" pageTitle="通讯录" :occupyBtn="!isTopPage" />
+    <AppBar v-bind="$attrs"/>
 
     <div class="contentBox">
       <div class="content-list">
@@ -16,23 +16,20 @@
                   @click="breadTap(item, index)"
             >{{ `${item.title} ${index != breadBarList.length-1 ? ' > ' : ''} ` }}</span>
           </div>
-
-          <div>
-            <mu-list v-if="departmentList.length > 0">
-              <div v-for="(item ,index) in departmentList" :key="index">
-                <mu-list-item button @click="getNextDep(item,index)">
-                  <mu-list-item-title>{{item.name}}</mu-list-item-title>
-                  <mu-list-item-action>
-                    <mu-icon value=":iconfont icon-rightArrow"></mu-icon>
-                  </mu-list-item-action>
-                </mu-list-item>
-                <mu-divider shallow-inset v-show="index + 1 !== departmentList.length"></mu-divider>
-              </div>
-            </mu-list>
-
-            <Nothing words="无子部门" v-else></Nothing>
-          </div>
           
+          <mu-list v-if="departmentList.length > 0">
+            <div v-for="(item ,index) in departmentList" :key="index">
+              <mu-list-item button @click="getNextDep(item,index)">
+                <mu-list-item-title>{{item.name}}</mu-list-item-title>
+                <mu-list-item-action>
+                  <mu-icon value=":iconfont icon-rightArrow"></mu-icon>
+                </mu-list-item-action>
+              </mu-list-item>
+              <mu-divider shallow-inset v-show="index + 1 !== departmentList.length"></mu-divider>
+            </div>
+          </mu-list>
+
+          <Nothing describe="无子部门" v-if="departmentList.length == 0"></Nothing>
 
       </div>
     </div>
@@ -52,7 +49,7 @@ export default {
     isTopPage: {
       type: Boolean,
       default: false
-    }
+    },
   },
   data() {
     return {
@@ -127,10 +124,7 @@ export default {
 
     .content-list{
       height: calc(100vh - 160px);
-      // height: 50vh;
-      // background-color: #ff6600;
     }
-
     .mu-list{
       background-color: #fff;
       margin-top: 4px;

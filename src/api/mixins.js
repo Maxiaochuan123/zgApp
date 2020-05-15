@@ -7,10 +7,7 @@ import storage from "@static/js/storage";
 // 原生通讯
 // import bridge from "./JSbridge";
 
-// 菜单
-import menu from '@static/js/menu'
-
-import store from "@/vuex/store";
+import { mapState, mapMutations } from "vuex"
 
 export default {
   data() {
@@ -18,25 +15,11 @@ export default {
       // 用户信息
       userInfo: storage.localGet("userInfo"),
 
-      // dialog
-      dialogState: false,
-
-      // 按钮状态
-      btnLoading: false,
-      btnDisabled: false,
-
-      // picker 底部选择器
-      pickerTitle: "",
-      pickerList: [],
-
-      // 侧边栏
-      drawerState: false,
-
       // tabs 当前选中项
       tabsActive: 0,
-      
-       //网络状态
-      // networkState: false,
+
+      // 骨架屏
+      skeleton: true,
 
       // 列表数据
       listData: [],
@@ -60,8 +43,6 @@ export default {
 
       screenData: {}, //筛选数据
 
-      menu: menu, //菜单
-
       // uploadPrefix: `${window.location.protocol}//${window.location.host}/`, // 图片,附件 路径前缀 (线上部署替换)
       uploadPrefix: 'http://192.168.0.92:8900/', // 图片,附件 路径前缀 (本地调试用)
 
@@ -75,9 +56,11 @@ export default {
     };
   },
   computed: {
+    ...mapState(["routeData","pageSource"]),
+
     // 列表按钮文字
     listBtnText() {
-      switch (store.state.pageSource) {
+      switch (this.pageSource) {
         case "compensatory":
           return '代偿明细';
 
@@ -85,9 +68,10 @@ export default {
           return '还款计划';
       }
     },
+
     // 明细按钮文字
     detailedBtnText() {
-      switch (store.state.pageSource) {
+      switch (this.pageSource) {
         case "compensatory":
           return '回款明细';
 
@@ -96,28 +80,26 @@ export default {
       }
     },
 
-    // 路由 其他参数
-    routeData(){
-      return store.state.routeData;
-    },
-
     companyList() { //公司列表
-      return this.company.map(item => {
-        return item.name
-      })
+      return this.filterList(this.company, "name");
     },
     lendingPlatformList() { //放款平台列表
-      return this.lendingPlatform.map(item => {
-        return item.name
-      })
+      return this.filterList(this.lendingPlatform, "name");
     },
     personLiableList() { //责任人列表
-      return this.personLiable.map(item => {
-        return item.userName
-      })
+      return this.filterList(this.personLiable, "userName");
     }
   },
   methods: {
+    ...mapMutations(["setRouteData","setMoreBoxScrollTop"]),
+
+    // 过滤列表
+    filterList(data, field){
+      return data.map(item => {
+        return item[field]
+      })
+    },
+
     // 下拉刷新 handle
     refreshHandle() {
       this.paging.pageIndex = 1;
@@ -125,15 +107,17 @@ export default {
       this.listData = [];
       this.loadUpdate.loadingState = "refresh";
     },
+
     // 上拉加载 handle
     loadHandle() {
       this.paging.pageIndex = ++this.paging.pageIndex;
       this.loadUpdate.loading = true;
       this.loadUpdate.loadingState = "load";
     },
+
     // 筛选栏 重置列表状态
     resetListHandle() {
-      window.scrollTo(0, 0);
+      this.setMoreBoxScrollTop("reset")
       this.loadUpdate.loadedAll = false;
       this.paging.pageIndex = 1;
       this.listData = [];
@@ -144,6 +128,7 @@ export default {
     goBack(index = -1) {
       this.$router.go(index);
     },
+
     // 跳转页面
     goPage(linkName, params = {}, routeData) {
       this.$router.push({
@@ -152,25 +137,13 @@ export default {
       });
 
       if (routeData){
-        this.$store.commit("setRouteData", routeData)
+        this.setRouteData(routeData);
       }
-    },
-
-    // 侧边栏
-    openDrawerState() {
-      this.drawerState = true;
-    },
-    closeDrawerState() {
-      this.$parent.$parent.drawerState = false;
     },
 
     // 打电话
     dial(phoneNumber) {
-      // if (!store.state.crmToGroup) {
-        window.location.href = `tel:${phoneNumber}`;
-      // } else {
-      //   bridge.callHandler('callPhone', { phone: phoneNumber });
-      // }
+      window.location.href = `tel:${phoneNumber}`;
     },
     
     // 获取图片
@@ -179,18 +152,6 @@ export default {
     }
   },
   filters: {
-    // 金额千分号
-    formatThousandBit(num) {
-      if (!/^(\+|-)?(\d+)(\.\d+)?$/.test(num)) {
-        return num;
-      }
-      const a = RegExp.$1;
-      let b = RegExp.$2;
-      const c = RegExp.$3;
-      const re = new RegExp().compile("(\\d)(\\d{3})(,|$)");
-      while (re.test(b)) b = b.replace(re, "$1,$2$3");
-      return `${a}${b}${c}`;
-    },
     // 日期格式化
     formatDate(timeStamp, type) {
       if (type === "date") {
@@ -201,6 +162,7 @@ export default {
     
     // 参数空处理 unit:单位
     paramsError(val, unit, showUnit=true) {
+      // 金额千分号
       let formatThousandBit = num => {
         if (!/^(\+|-)?(\d+)(\.\d+)?$/.test(num)) {
           return num;

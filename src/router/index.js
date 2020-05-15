@@ -20,6 +20,11 @@ const router = new Router({
       redirect: "/home"
     },
     {
+      path: "/test",
+      name: "test",
+      component: () => import("@views/home/test.vue")
+    },
+    {
       path: "/login",
       name: "login",
       component: () => import("@views/login/login.vue")
@@ -68,7 +73,6 @@ const router = new Router({
     {
       path: "/repayment/plan/:orderId/:customerInfoBtn?",
       name: "plan",
-      meta: { keepAlive: false },
       component: () => import("../components/page/plan.vue")
     },
     // 资料归档
@@ -109,7 +113,7 @@ const router = new Router({
     {
       path: "/list/repayment",
       name: "repayment",
-      meta: { keepAlive: false },
+      meta: { keepAlive: true },
       component: () => import("../views/list/repayment.vue")
     },
     // 逾期列表

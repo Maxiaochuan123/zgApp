@@ -103,6 +103,7 @@ export default {
     width: 100%;
     height: 190px;
     background-image: url("~@static/images/home_banner.png");
+    background-position: 0px -46px;
     background-size: cover;
     padding: 23px 25px 32px;
     

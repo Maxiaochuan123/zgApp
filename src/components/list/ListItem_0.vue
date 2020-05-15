@@ -17,20 +17,31 @@
       </div>
       <div class="bottom">
         <span class="updateTime">{{item.updateDate.split(" ")[0]}} 更新</span>
-        <mu-button flat @click="goPage('plan',{orderId:item.orderId, customerInfoBtn:$store.state.customerInfoBtn},{...item})">{{ listBtnText }}</mu-button>
+        <mu-button flat @click="handler(item)">{{ listBtnText }}</mu-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
+import { mapState, mapMutations } from "vuex"
 export default {
   props: {
     list:{
       type: Array,
       default: ()=>[]
     }
+  },
+  methods: {
+    ...mapMutations(["setCurrentMoreBoxScrollTop"]),
+
+    handler(item){
+      this.setCurrentMoreBoxScrollTop();
+      this.goPage('plan',{orderId:item.orderId, customerInfoBtn:this.customerInfoBtn},{...item});
+    },
+  },
+  computed: {
+    ...mapState(["customerInfoBtn"])
   }
 }
 </script>

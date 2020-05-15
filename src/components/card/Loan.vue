@@ -6,7 +6,8 @@
         <div><span>{{item.periodsTotalAmount | paramsError('元',false)}}</span><span>本期还款金额(元)</span></div>
         <div v-show="item.periodsRepaymentAction === '正常' "><span>{{item.periodsRepaymentAction}}</span><span>还款行为</span></div>
         <div v-show="item.periodsRepaymentAction === '逾期' "><span class="primaryColor">{{item.overdueDays}}</span><span class="primaryColor">逾期天数(天)</span></div>
-        <div><mu-button flat disabled @click="goPage('detailedCard')">{{ detailedBtnText }}</mu-button></div>
+        <!-- <div><mu-button flat disabled @click="handler">{{ detailedBtnText }}</mu-button></div> -->
+        <div><mu-button flat @click="goPage('detailedCard')">{{ detailedBtnText }}</mu-button></div>
       </div>
     </div>
     <div :class="['middle', status ? 'foldAnimation' : '']">

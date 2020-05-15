@@ -1,6 +1,6 @@
 <template>
   <div class="mailList">
-    <Department isTopPage></Department>
+    <Department pageTitle="通讯录" :isGoBack="false" :occupyBtn="false"></Department>
   </div>
 </template>
 

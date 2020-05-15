@@ -3,7 +3,7 @@
   <div class="plan">
     <AppBar pageTitle="还款计划" :occupyBtn="getMenuList.length > 0 ? false : true" :shadow="pageSource === 'repayment'" :menuList="getMenuList" @menuChange="menuChange"></AppBar>
     <div class="contentBox">
-      <div :class="[pageSource !== 'repayment' ? tabsActive == 1 ? 'content-tabs followRecord' : 'content-tabs' : 'content-appBar']">
+      <div ref="loanBox" :class="[pageSource !== 'repayment' ? tabsActive == 1 ? 'content-tabs followRecord' : 'content-tabs' : 'content-appBar']">
         <mu-tabs v-if="pageSource !== 'repayment'" :value.sync="tabsActive" inverse color="primary" indicator-color="primary" center>
           <mu-tab>基本信息</mu-tab>
           <mu-tab>跟进记录</mu-tab>
@@ -27,6 +27,7 @@ import Info from '@components/card/Info'
 import Loan from '@components/card/Loan'
 import FollowRecord from '@components/basics/FollowRecord'
 import FootNav from '@components/basics/FootNav'
+import menu from '@static/js/menu'
 import { mapState } from 'vuex'
 export default {
   components: {
@@ -45,8 +46,6 @@ export default {
     this.api.seeMainLoanPersonInfo({orderId:this.route.orderId}).then(res => {
       if(res.message === "success"){
         this.infoData = res.data;
-      }else{
-        this.$tost.error("数据加载失败")
       }
     })
 
@@ -54,8 +53,6 @@ export default {
     this.api.seeRepaymentStageNumInfo({orderId:this.route.orderId}).then(res => {
       if(res.message === "success"){
         this.loanInfoList = res.data;
-      }else{
-        this.$tost.error("数据加载失败")
       }
     })
 
@@ -63,8 +60,6 @@ export default {
     this.api.seeFollowUpRecord({orderId:this.route.orderId}).then(res => {
       if(res.message === "success"){
         this.followUpRecord = res.data;
-      }else{
-        this.$tost.error("数据加载失败")
       }
     })
   },
@@ -79,10 +74,10 @@ export default {
     getMenuList(){
       switch (this.pageSource) {
         case "repayment":
-          return this.menu.repayment;
+          return menu.repayment;
 
         case "overdue":
-          return this.menu.overdue;
+          return menu.overdue;
 
         default:
           return [];

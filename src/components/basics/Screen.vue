@@ -8,7 +8,7 @@
           <div class="title" v-if="!(item.mode === 'single' || item.mode === 'multiple')">{{item.fileTitle}}</div>
           
           <div class="screenInput" v-if="item.type === 'input'">
-            <i class="iconfont icon-sousuo1"></i>
+            <i class="iconfont icon-sousuo"></i>
             <mu-text-field class="input" v-model="item.val" :placeholder="`请输入${item.fileTitle}`"></mu-text-field>
           </div>
 
@@ -75,19 +75,15 @@ export default {
           onedata.val2 = '';
           onedata.selectVal = '';
         }
-      
       }
     },
     //筛选 - 确认
     drawerSubmit(){
       this.getParams();
       this.$emit('getScreenParams', this.submitDrawerList);
-      // this.resetDrawerList();
-      this.closeDrawerState();
     },
     getParams(){
       for(let item in this.drawerList){
-        // console.log(this.drawerList[item])
         this.submitDrawerList[item] = this.drawerList[item].val
       }
     }
@@ -146,7 +142,7 @@ export default {
           color: @regular-text;
           z-index: 99;
         }
-        .icon-sousuo1{
+        .icon-sousuo{
           font-size: 18px;
           top: 2px;
           display: inline-block;
@@ -173,7 +169,7 @@ export default {
           }
           /deep/ .mu-text-field{
             width: 96%;
-            margin: 2px 0 0 4px;
+            margin-left: 4px;
           }
         }
         .input{
@@ -185,8 +181,11 @@ export default {
           }
           /deep/ .mu-text-field{
             width: 76%;
-            margin: 2px 0 0 4px;
+            margin-left: 4px;
           }
+        }
+        /deep/ .mu-input{
+          padding-top: 2px;
         }
         .mu-select-input{
           font-size: @regular-size;
@@ -206,6 +205,7 @@ export default {
         }
         /deep/ .mu-input{
           font-size: 14px;
+          // padding-top: 2px;
         }
       }
       .dateInput{

@@ -74,7 +74,7 @@
           </div>
           <!-- 更多操作 -->
           <mu-menu :open.sync="listItem.openMenu" placement="left-start">
-            <i class="iconfont icon-gengduovertical"></i>
+            <i class="iconfont icon-gengduo2"></i>
             <mu-list slot="content">
               <mu-list-item @click="operation(listItem, '删除')" button v-if="isEdit" >
                 <mu-list-item-title>删除</mu-list-item-title>

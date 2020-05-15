@@ -31,6 +31,7 @@ import AppBar from '@components/basics/AppBar'
 import Info from '@components/card/Info'
 import Edit from '@views/repaymentTracking/dataFiling/Edit'
 import See from '@views/repaymentTracking/dataFiling/See'
+import menu from '@static/js/menu'
 
 export default {
   components: {

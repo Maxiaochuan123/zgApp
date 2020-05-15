@@ -45,10 +45,14 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
   store.commit('closeLoading');
   if (response.data.message !== "success") Toast.error({ message: response.data.message });
+  switch (response.data.code) {
+    case 9999:
+      window.location.href = loginUrl;
+      break;
+  }
   return response
 }, error => {
   store.commit('closeLoading');
-
   if (error && error.response) {
     switch (error.response.status) {
       case 302:

@@ -18,6 +18,11 @@ export default {
   },
   created () {
     this.drawerList = {
+      inpu:{
+        fileTitle:'姓名',
+        type:'input',
+        val:""
+      },
       dateSwitch:{
         fileTitle:'更新日期',
         type:'date',
