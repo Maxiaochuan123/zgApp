@@ -1,14 +1,12 @@
 <!--
  * noData => 暂无数据
  * dataError => 数据获取失败
- * noNetwork => 暂无网络
- * @Author: shenah
  -->
 <template>
-  <div class="nothing" v-if="showNothing">
+  <div class="nothing">
     <div class="no">
       <img :src="loadImage(`${imgType}.png`)" class="bc-img" />
-      <div class="text">{{words || describe}}</div>
+      <div class="text">{{describe}}</div>
     </div>
   </div>
 </template>
@@ -17,50 +15,15 @@
 export default {
   name: "Nothing",
   props: {
-    // type: {
-    //   type: String, 
-    //   default: "noData"
-    // },
-    words: {
+    imgType: {
+      type: String,
+      default: "noData"
+    },
+    describe: {
       type: String,
       default: "暂无数据"
     }
-  },
-  computed: {
-    showNothing(){
-      if(this.listData.length == 0 || this.departmentList.length == 0  || this.dataError){
-        return true;
-      }else{
-        return false;
-      }
-    },
-    imgType(){
-      if(this.listData.length == 0 || this.departmentList.length == 0){
-        return "noData"
-      }else if(this.dataError){
-        return "dataError"
-      }
-    },
-    describe(){
-      if(this.listData.length == 0){
-        return "暂无数据"
-      }else if(this.departmentList.length == 0){
-        return "无子部门"
-      }else if(this.dataError){
-        return "获取数据失败"
-      }
-    }
-  },
-  // mounted() {
-  //   window.ononline=()=>{
-  //     this.networkState = true;
-  //     this.$toast.success("网络已恢复")
-  //   }
-  //   window.onoffline=()=>{
-  //     this.networkState = false;
-  //     this.$toast.error("网络连接中断")
-  //   }
-  // },
+  }
 };
 </script>
 <style lang='less' scoped>
@@ -77,6 +40,7 @@ export default {
     .bc-img {
       width: 254px;
       height: 254px;
+      margin-top: -150px;
     }
     .text {
       font-size: @primary-size;

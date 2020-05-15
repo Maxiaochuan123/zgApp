@@ -4,14 +4,14 @@
     <AppBar pageTitle="个人资料" occupyBtn ></AppBar>
     <div class="content">
       <div class="headers">
-        <div class="header regular-words">
+        <div class="header regular-describe">
           <div>头像</div>
           <mu-avatar size="48">
             <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : loadImage('defaultHeadPortrait.png') " />
           </mu-avatar>
         </div>
         <div class="brief">
-          <div class="regular-words">简介</div>
+          <div class="regular-describe">简介</div>
           <div>{{ loginInfo.remark | paramsError }}</div>
         </div>
       </div>

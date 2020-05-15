@@ -26,7 +26,7 @@
       </div>
     </div>
     <div v-else>
-      <Nothing words="暂无相关记录"></Nothing>
+      <Nothing describe="暂无相关记录"></Nothing>
     </div>
   </div>
 </template>

@@ -11,7 +11,7 @@
       <span class="title">{{ pageTitle }}</span>
 
       <!-- 右侧筛选按钮 -->
-      <mu-button @click="openDrawerState" icon slot="right" v-if="guolv">
+      <mu-button @click="drawerState = true" icon slot="right" v-if="guolv">
         <mu-icon size="24" value=":iconfont icon-guolv"></mu-icon>
       </mu-button>
       
@@ -127,6 +127,7 @@ export default {
   },
   data() {
     return {
+      drawerState: false,
       menuStatus: false
     };
   },
@@ -137,6 +138,9 @@ export default {
       }else{
         this.$emit("closePage")
       }
+    },
+    closeDrawer(){
+      this.drawerState = false;
     },
     menuItem(item) {
       const { title, linkName, linkParams = {} } = item;

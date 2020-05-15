@@ -15,7 +15,7 @@
         <div class="imgBox"><img src="@static/images/jianshao.png" @click="reduce(index)"></div>
         <div class="itemBox">
           <div class="item">
-            <span>档案类型</span><div class="select" @click="pickerShow('档案类型',index)"><span>{{item.pickerVal}}</span><mu-icon size="24" value=":iconfont icon-xiajiantou1"></mu-icon></div>
+            <span>档案类型</span><div class="select" @click="pickerShow('档案类型',index)"><span>{{item.pickerVal}}</span><mu-icon size="24" value=":iconfont icon-xiajiantou"></mu-icon></div>
           </div>
           <div class="item">
             <span>原件份数</span><div class="input"><input type="number" @input="limit(item.originalNumber,index,'originalNumber')" v-model="item.originalNumber"></div>

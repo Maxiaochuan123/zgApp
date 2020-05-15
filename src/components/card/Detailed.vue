@@ -175,3 +175,11 @@ export default {
   }
 }
 </script>
+
+<style lang="less" scoped>
+  .detailedCard{
+    .content-appBar{
+      height: calc(100vh - 56px);
+    }
+  }
+</style>

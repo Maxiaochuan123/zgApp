@@ -30,9 +30,7 @@
         </div>
       </div>
     </div>
-    <div v-else>
-      <Nothing words="暂无跟进记录"></Nothing>
-    </div>
+    <Nothing describe="暂无跟进记录" v-else></Nothing>
   </div>
 </template>
 

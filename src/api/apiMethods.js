@@ -75,6 +75,7 @@ export default{
   },
 
   getListCallback(_this, type = "default"){
+    _this.skeleton = true;
     let { api, msg } = this.getApi(_this);
     let params = {};
 
@@ -89,9 +90,10 @@ export default{
     // console.log('params:', params)
 
     api(params).then(res => {
-      // if (res.message !== 'success') _this.$toast.warning(`${msg}获取失败!`);
+      if (res.message !== 'success') _this.$toast.warning(`${msg}获取失败!`);
 
       if (res.data){
+        _this.skeleton = false;
         _this.loadUpdate.loadedAll = res.data.results.length === 0 ? true : false;
 
         if (_this.loadUpdate.loadingState === 'default' || _this.loadUpdate.loadingState === 'refresh' || type == "search") {
@@ -102,7 +104,6 @@ export default{
       }else{
         _this.dataError = true;
       }
-      // console.log(_this.listData)
     })
   },
 
