@@ -51,8 +51,9 @@ export default {
       },
     }
     this.$store.commit('setPageSource',"compensatory");
-
-    this.$store.commit('setCustomerInfoBtn',false)
+  },
+  activated () {
+    this.$store.commit('setPageSource',"compensatory");
   }
 }
 </script>

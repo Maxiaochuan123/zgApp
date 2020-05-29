@@ -1,7 +1,3 @@
-<!--
- * @Description: 用户登录界面
- * @Author: shenah
- -->
 <template>
   <div class="login">
     <div class="headPortrait">
@@ -68,10 +64,10 @@ export default {
     };
   },
   created(){
-    if(localStorage.getItem("token") || storage.localGet("userInfo")){
-      storage.localRemove("token");
-      storage.localRemove("userInfo");
-    }
+    // if(localStorage.getItem("token") || storage.localGet("userInfo")){
+    //   storage.localRemove("token");
+    //   storage.localRemove("userInfo");
+    // }
 
     if(localStorage.getItem("loc_loginInfo")){
       this.loc_loginInfo = JSON.parse(this.tool.decAse192(localStorage.getItem("loc_loginInfo"),"loc_loginInfo"));
@@ -113,8 +109,7 @@ export default {
               this.storage.localSet("userInfo",res.data.user);
               
               // 设置公共数据
-              let _this = this;
-              axios.all([this.api.company(), this.api.lendingPlatform(), this.api.repaymentState(), this.api.projectState(), this.api.personLiable(), this.api.strategy(), this.api.followUp()]).then(axios.spread(function (one, two, three, four, five, six, seven) {
+              axios.all([this.api.company(), this.api.lendingPlatform(), this.api.repaymentState(), this.api.projectState(), this.api.personLiable(), this.api.strategy(), this.api.followUp(), this.api.accessControl()]).then(axios.spread(function (one, two, three, four, five, six, seven, eight) {
                 storage.localSet("company", one.data); //公司
                 storage.localSet("lendingPlatform", two.data); //放款平台
                 storage.localSet("repaymentState", three.data); //还款状态
@@ -122,6 +117,7 @@ export default {
                 storage.localSet("personLiable", five.data); //责任人
                 storage.localSet("strategy", six.data); //策略
                 storage.localSet("followUp", seven.data); //跟进类型
+                storage.localSet("control", eight.data); //权限
               })).then(res => {
                 this.goPage("home");
               })

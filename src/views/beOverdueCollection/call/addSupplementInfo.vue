@@ -1,13 +1,13 @@
 <template>
   <div class="addSupplementInfo">
-    <AppBar pageTitle="客户信息" shadow customTextBtn customText="保存" :customCallback="custom"></AppBar>
+    <AppBar pageTitle="新增补充信息" shadow customTextBtn customText="保存" :customCallback="custom"></AppBar>
     <div class="contentBox">
       <div class="content-appBar">
         <div class="itemBox">
           <div class="item" v-for="(item,index) in supplementInfoList" :key="index">
             <span>{{`补充信息 ${index == 0 ? '' : index+1}`}}</span>
             <mu-text-field v-model="item.value" placeholder="请输入补充信息" multi-line :rows="1" :rows-max="6"></mu-text-field>
-            <mu-icon size="20" :value="`:iconfont ${item.icon}`" @click="item.icon == 'icon-tianjia' ? addSupplementInfo(index) : reduceSupplementInfo(index)"></mu-icon>
+            <mu-icon size="24" :value="`:iconfont ${item.icon}`" @click="item.icon == 'icon-tianjia' ? addSupplementInfo(index) : reduceSupplementInfo(index)"></mu-icon>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@ export default {
         value:"",
         icon:"icon-tianjia"
       })
-      this.supplementInfoList[index].icon = "iconjianshao";
+      this.supplementInfoList[index].icon = "icon-jianshao";
     },
 
     // 减少

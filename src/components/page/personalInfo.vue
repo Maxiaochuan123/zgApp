@@ -9,9 +9,9 @@
         </div>
         <div class="info">
           <div class="name">
-            <span>{{info.userName}}</span>
+            <span>{{route.userName}}</span>
           </div>
-          <div class="level">{{info.roles.map(val=>val.name).join(", ")}}</div>
+          <div class="level">{{route.roles ? route.roles.map(val=>val.name).join(", ") : ''}}</div>
         </div>
       </mu-paper>
 
@@ -20,17 +20,17 @@
           <mu-list-item>
             <mu-list-item-content>
               <mu-list-item-title>手机号码</mu-list-item-title>
-              <mu-list-item-sub-title>{{info.mobile}}</mu-list-item-sub-title>
+              <mu-list-item-sub-title>{{route.mobile}}</mu-list-item-sub-title>
             </mu-list-item-content>
             <mu-list-item-action>
-              <mu-icon @click="dial(info.mobile)" value=":iconfont icon-dianhua" ></mu-icon>
+              <mu-icon @click="dial(route.mobile)" value=":iconfont icon-dianhua" ></mu-icon>
             </mu-list-item-action>
           </mu-list-item>
           <mu-divider></mu-divider>
           <mu-list-item>
             <mu-list-item-content>
               <mu-list-item-title>部门</mu-list-item-title>
-              <mu-list-item-sub-title>{{info.departments.map(val=>val.name).join(", ")}}</mu-list-item-sub-title>
+              <mu-list-item-sub-title>{{route.departments ? route.departments.map(val=>val.name).join(", ") : ''}}</mu-list-item-sub-title>
             </mu-list-item-content>
           </mu-list-item>
         </mu-list>
@@ -46,12 +46,8 @@ export default {
   components: { AppBar },
   data() {
     return {
-      info:this.$route.params
+      route:this.$route.params
     };
-  },
-  methods: {},
-  mounted(){
-    console.log(this.info)
   }
 };
 </script>
@@ -59,7 +55,7 @@ export default {
 <style scoped lang="less">
 .personalInfo {
   .content {
-    padding: 44px 4px;
+    padding: 44px 0;
     .topInfo {
       display: flex;
       padding: 20px @primary-size;

@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-21 10:09:27
- * @LastEditTime: 2019-08-21 10:36:11
- * @LastEditors: Please set LastEditors
- */
 (function() {
 
     var debug = false;

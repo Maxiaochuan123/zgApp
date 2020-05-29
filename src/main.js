@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-25 15:40:36
- * @LastEditTime: 2020-03-30 11:07:58
- * @LastEditors: shenah
- */
 import Vue from "vue";
 import App from "./App";
 import router from "./router";

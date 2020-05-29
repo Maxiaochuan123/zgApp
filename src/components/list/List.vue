@@ -23,7 +23,7 @@ import ListItem_0 from "@components/list/ListItem_0";
 import ListItem_1 from "@components/list/ListItem_1";
 import Nothing from "@components/basics/Nothing";
 import Skeleton from "@components/basics/Skeleton";
-import { mapMutations } from "vuex"
+import { mapState, mapMutations } from "vuex"
 export default {
   components: {
     AppBar, SearchInputBar, ListItem_0, ListItem_1, Nothing, Skeleton
@@ -41,7 +41,10 @@ export default {
     this.setMoreBox(this.$refs.moreBox);
   },
   activated () {
-    this.setMoreBoxScrollTop();
+    if(this.moreBox) this.setMoreBoxScrollTop();
+  },
+  computed: {
+    ...mapState(["moreBox"])
   },
   methods: {
     ...mapMutations(["setMoreBox", "setMoreBoxScrollTop"]),

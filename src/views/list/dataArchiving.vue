@@ -8,9 +8,7 @@
 <script>
 import List from '@components/list/List'
 export default {
-  components: {
-    List
-  },
+  components: { List },
   data() {
     return {
       drawerList:{
@@ -60,7 +58,10 @@ export default {
     }
   },
   created () {
-    this.$store.commit('setPageSource',"dataArchivingList");
+    this.$store.commit('setPageSource',"dataArchiving");
+  },
+  activated () {
+    this.$store.commit('setPageSource',"dataArchiving");
   }
 }
 </script>

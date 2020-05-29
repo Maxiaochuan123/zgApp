@@ -68,7 +68,7 @@ input:focus {
 }
 // appBar 盒子
 .content-appBar {
-  height: 100vh;
+  height: calc(100vh - 56px);
   overflow-y: scroll;
   padding: 0 0 12px;
   margin-top: 56px;
@@ -86,6 +86,28 @@ input:focus {
   overflow-y: scroll;
   margin-top: 92px;
   padding-bottom: 12px;
+
+  // tabs
+  .mu-tabs {
+    position: fixed;
+    top: 44px;
+    z-index: 9;
+    border-top: 1px solid @primary-border;
+    box-shadow: 0px 2px 6px 0px #ededed;
+  }
+
+  .mu-tabs-center {
+    justify-content: space-around !important;
+    background-color: #fff !important;
+
+    .mu-tab-wrapper {
+      font-size: @primary-size;
+      font-weight: 400;
+      padding: 10px 0;
+      letter-spacing: 1px;
+      min-height: 44px;
+    }
+  }
 }
 // 跟进
 // .followRecord{
@@ -121,17 +143,17 @@ input:focus {
         width: 50%;
         display: flex;
 
-        span {
+        >span {
           display: inline-block;
         }
 
-        span:nth-child(1) {
+        >span:nth-child(1) {
           width: 40%;
           text-align: right;
           margin-right: 10px;
         }
 
-        span:nth-child(2) {
+        >span:nth-child(2) {
           width: 56%;
           color: @primary-text;
           text-align: left;
@@ -142,15 +164,11 @@ input:focus {
 
       .voucher { //回款凭证
         width: 100%;
-        span {
+        >span {
           width: 20% !important;
         }
-        .imgList {
+        .previewList {
           width: 80%;
-          img {
-            width: 80px;
-            height: 80px;
-          }
         }
       }
     }

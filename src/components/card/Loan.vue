@@ -1,13 +1,13 @@
+<!-- 分期列表 -->
 <template>
   <div class="loanCard">
     <div class="header">
-      <div class="phase">{{item.periodsIndex | paramsError('期')}}</div>
+      <div class="phase">{{item.periodsNo}}</div>
       <div class="repaymentState">
         <div><span>{{item.periodsTotalAmount | paramsError('元',false)}}</span><span>本期还款金额(元)</span></div>
         <div v-show="item.periodsRepaymentAction === '正常' "><span>{{item.periodsRepaymentAction}}</span><span>还款行为</span></div>
         <div v-show="item.periodsRepaymentAction === '逾期' "><span class="primaryColor">{{item.overdueDays}}</span><span class="primaryColor">逾期天数(天)</span></div>
-        <!-- <div><mu-button flat disabled @click="handler">{{ detailedBtnText }}</mu-button></div> -->
-        <div><mu-button flat @click="goPage('detailedCard')">{{ detailedBtnText }}</mu-button></div>
+        <div class="detailed"><mu-button flat v-show="pageControl.detailed" @click="handler(item)">{{ detailedBtnText }}</mu-button></div>
       </div>
     </div>
     <div :class="['middle', status ? 'foldAnimation' : '']">
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex"
 export default {
   props: {
     item:{
@@ -50,6 +51,15 @@ export default {
   data() {
     return {
       status:false
+    }
+  },
+  methods: {
+    ...mapMutations(["setCurrentLoanBoxScrollTop", "setActiveBtn"]),
+
+    handler(item){
+      this.setCurrentLoanBoxScrollTop();
+      this.setActiveBtn("detailed");
+      this.goPage('detailed',{orderId:item.orderId,orderNo:item.orderNo,periodsIndex:item.periodsIndex});
     }
   }
 }
@@ -102,12 +112,14 @@ export default {
           }
         }
         
-        .mu-button{
-          border-radius: 6px;
-          color: @primary-text;
-          border: 1px solid #9F9F9F;
-          height: 30px;
-          opacity: .2;
+        .detailed{
+          min-width: 90px;
+          .mu-button{
+            border-radius: 6px;
+            color: @primary-text;
+            border: 1px solid #9F9F9F;
+            height: 30px;
+          }
         }
       }
     }

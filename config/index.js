@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-25 15:40:36
- * @LastEditTime : 2020-01-10 09:11:21
- * @LastEditors  : shenah
- */
 "use strict";
 // Template version: 1.3.1
 // see http://vuejs-templates.github.io/webpack for documentation.

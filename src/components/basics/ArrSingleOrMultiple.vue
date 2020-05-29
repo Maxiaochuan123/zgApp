@@ -1,11 +1,3 @@
-<!--
- * @Description: 排列式的单选或者多选
- * @Author: shenah
- * @Date: 2019-10-16 13:19:22
- * @LastEditors: shenah
- * @LastEditTime: 2019-11-14 11:20:11
- -->
-
 <template>
   <div class="arr-single-or-multiple">
     <div class="title">{{title}}</div>

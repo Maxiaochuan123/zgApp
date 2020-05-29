@@ -144,7 +144,7 @@ export default {
         }
         .icon-sousuo{
           font-size: 18px;
-          top: 2px;
+          top: 4px;
           display: inline-block;
         }
         .shanchu{

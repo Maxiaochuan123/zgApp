@@ -1,7 +1,7 @@
 <template>
   <div class="infoCard">
     <div class="header">
-      <span>{{ infoData.name | paramsError }}</span> <mu-button flat @click="goPage('customerInfo',{id:333})" v-if="$route.params.customerInfoBtn">客户信息</mu-button>
+      <span>{{ infoData.name | paramsError }}</span> <mu-button flat @click="goPage('customerInfo',{id:333})" v-if="customerInfoBtn">客户信息</mu-button>
     </div>
     <div :class="['middle', status ? 'foldAnimation' : '']">
       <div class="itemBox">
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 export default {
   props: {
     infoData:{
@@ -57,6 +58,16 @@ export default {
       status: true,
       type: '还款',
       num: '',
+    }
+  },
+  computed: {
+    ...mapState(["pageSource"]),
+    customerInfoBtn(){
+      if(this.pageSource === "phone" || this.pageSource === "business" || this.pageSource === "visit" || this.pageSource === "all"){
+        return true
+      }else{
+        return false
+      }
     }
   }
 }

@@ -8,9 +8,7 @@
 <script>
 import List from '@components/list/List'
 export default {
-  components: {
-    List
-  },
+  components: { List },
   data() {
     return {
       drawerList:{}
@@ -51,8 +49,9 @@ export default {
       },
     }
     this.$store.commit('setPageSource',"overdue");
-
-    this.$store.commit('setCustomerInfoBtn',false)
+  },
+  activated () {
+    this.$store.commit('setPageSource',"overdue");
   }
 }
 </script>

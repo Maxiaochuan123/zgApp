@@ -1,17 +1,13 @@
-/*
- * @Author: your name
- * @Date: 2020-04-18 11:03:44
- * @LastEditTime: 2020-04-18 16:02:10
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \zgApp\src\router\index.js
- */
 import Vue from "vue";
 import Router from "vue-router";
-import store from "../vuex/store";
-import storage from "../../static/js/storage";
-Vue.use(Router);
+import store from "@/vuex/store";
+import { controlInit } from "@static/js/control";
 
+// 权限字段
+let work = {};
+let control = {};
+
+Vue.use(Router);
 const router = new Router({
   routes: [
     // basics 基础页面
@@ -43,7 +39,6 @@ const router = new Router({
     }, {
       path: "/mailList",
       name: "mailList",
-      meta: { keepAlive: true },
       component: () => import("@views/home/mailList.vue")
     }, {
       path: "/todoList",
@@ -65,13 +60,13 @@ const router = new Router({
     },
     // 还款明细
     {
-      path: "/repayment/detailedCard/:id",
-      name: "detailedCard",
+      path: "/repayment/detailed/:orderId/:orderNo/:periodsIndex",
+      name: "detailed",
       component: () => import("../components/card/Detailed.vue")
     },
     // 还款计划
     {
-      path: "/repayment/plan/:orderId/:customerInfoBtn?",
+      path: "/repayment/plan/:orderId",
       name: "plan",
       component: () => import("../components/page/plan.vue")
     },
@@ -94,17 +89,29 @@ const router = new Router({
       name: "addSupplementInfo",
       component: () => import("../views/beOverdueCollection/call/addSupplementInfo.vue")
     },
-    // 更改策略c
-    {
-      path: "/overdue/changeStrategy",
-      name: "changeStrategy",
-      component: () => import("../components/page/changeStrategy.vue")
-    },
     // 个人信息
     {
       path: "/mailList/personalInfo",
       name: "personalInfo",
       component: () => import("../components/page/personalInfo.vue")
+    },
+    // 更改策略
+    {
+      path: "/overdue/changeStrategy",
+      name: "changeStrategy",
+      component: () => import("../components/page/changeStrategy.vue")
+    },
+    // 转派
+    {
+      path: "/overdue/selectUser",
+      name: "selectUser",
+      component: () => import("../components/page/selectUser.vue")
+    },
+    // 回款
+    {
+      path: "/overdue/collection",
+      name: "collection",
+      component: () => import("../components/page/collection.vue")
     },
     
     /************************************** 列表 **************************************/
@@ -127,24 +134,43 @@ const router = new Router({
     {
       path: "/list/compensatory",
       name: "compensatory",
-      meta: { keepAlive: false },
+      meta: { keepAlive: true },
       component: () => import("../views/list/compensatory.vue")
     },
-
-
-    // 代偿列表
     // 资料归档
     {
-      path: "/dataArchiving/dataArchivingList",
-      name: "dataArchivingList",
+      path: "/list/dataArchiving",
+      name: "dataArchiving",
+      meta: { keepAlive: true },
       component: () => import("../views/list/dataArchiving.vue")
     },
-
     // 电话催收
     {
-      path: "/dataArchiving/phoneCollectionList",
-      name: "phoneCollectionList",
-      component: () => import("../views/list/phoneCollection.vue")
+      path: "/list/phone",
+      name: "phone",
+      meta: { keepAlive: true },
+      component: () => import("../views/list/phone.vue")
+    },
+    // 业务催收
+    {
+      path: "/list/business",
+      name: "business",
+      meta: { keepAlive: true },
+      component: () => import("../views/list/business.vue")
+    },
+    // 外勤催收
+    {
+      path: "/list/visit",
+      name: "visit",
+      meta: { keepAlive: true },
+      component: () => import("../views/list/visit.vue")
+    },
+    // 全员催收
+    {
+      path: "/list/all",
+      name: "all",
+      meta: { keepAlive: true },
+      component: () => import("../views/list/all.vue")
     },
 
     // 其他
@@ -162,9 +188,58 @@ Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (localStorage.getItem("token")) {
-    next();
+
+    // 白名单
+    let whiteList = ["home", "mailList", "todoList", "myInfo", "userDetails", "login"];
+    let whiteList2 = ["repayment", "overdue", "compensatory", "phone", "business", "visit", "all"];
+    switch (to.name) {
+      case "login":
+        control = await controlInit();
+        break;
+      case "home":
+        control = await controlInit();
+        break;
+      case "repayment":
+        to.meta.control = control.repayment;
+        break;
+      case "overdue":
+        to.meta.control = control.overdue;
+        break;
+      case "compensatory":
+        to.meta.control = control.compensatory;
+        break;
+      case "phone":
+        to.meta.control = control.phone;
+        break;
+      case "business":
+        to.meta.control = control.business;
+        break;
+      case "visit":
+        to.meta.control = control.visit;
+        break;
+      case "all":
+        to.meta.control = control.all;
+        break;
+    }
+
+    if (whiteList.indexOf(to.name) !== -1){
+      next();
+    }else{
+      if (whiteList2.indexOf(to.name) !== -1) {
+        //列表权限
+        let toControl = to.meta.control;
+        if (toControl.search) next();
+        store.commit('setPageControl', control[to.name])
+      } else {
+        //按钮权限
+        let pageControl = store.state.pageControl;
+        let activeBtn = store.state.activeBtn;
+        if (pageControl[activeBtn]) next();
+      }
+    }
+    
   } else {
     if (to.path == "/login") {
       next();
@@ -172,6 +247,6 @@ router.beforeEach((to, from, next) => {
       next("/login");
     }
   }
-  next();
 });
+
 export default router;

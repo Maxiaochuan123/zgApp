@@ -1,63 +1,34 @@
 <template>
   <div class="detailedCard">
-    <AppBar pageTitle="还款明细" shadow occupyBtn></AppBar>
+    <AppBar :pageTitle="pageTitle" shadow occupyBtn></AppBar>
     <div class="contentBox">
       <div class="content-appBar basic-info">
 
-        <div class="header"> <span>肚丝(1期)</span> </div>
+        <div class="header"> <span>{{main.name}} ({{order.periodsIndex}}期)</span> </div>
         <div class="middle">
           <div class="itemBox">
-            <div class="item"><span>身份证号</span> <span>510923198802250021</span></div><div class="item"><span>手机号</span> <span>13111866951</span></div>
+            <div class="item"><span>身份证号</span> <span>{{ main.cardId | paramsError}}</span></div><div class="item"><span>手机号</span> <span>{{ main.phone | paramsError}}</span></div>
           </div>
           <div v-if="carTitle == '还款明细'">
             <div class="itemBox">
-              <div class="item"><span>本期还款金额</span> <span>90,234,76元</span></div><div class="item"><span>应还款日期</span> <span>2020.01.21</span></div>
+              <div class="item"><span>本期还款金额</span> <span>{{ order.periodsTotalAmount | paramsError("元")}}</span></div><div class="item"><span>应还款日期</span> <span>{{ order.periodsRepaymentDay | paramsError}}</span></div>
             </div>
             <div class="itemBox">
-              <div class="item"><span>放款平台</span> <span>工商-海南分行</span></div><div class="item"><span>还款方式</span> <span>保证金扣除</span></div>
+              <div class="item"><span>放款平台</span> <span>{{ main.platformName | paramsError}}</span></div><div class="item"><span>还款方式</span> <span>{{ order.periodsRepaymentModel | paramsError}}</span></div>
             </div>
           </div>
           <div v-else-if="carTitle == '回款明细'">
             <div class="itemBox">
-              <div class="item"><span>贷款金额</span> <span>90,234,76元</span></div><div class="item"><span>应还总金额</span> <span>90,234,76元</span></div>
+              <div class="item"><span>贷款金额</span> <span>{{ main.orderSourceAmount | paramsError("元")}}</span></div><div class="item"><span>应还总金额</span> <span>{{ order.periodsTotalAmount | paramsError("元")}}</span></div>
             </div>
             <div class="itemBox">
-              <div class="item"><span>拟代偿金额</span> <span>90,234,76元</span></div><div class="item"><span>代偿类型</span> <span>逾期代偿</span></div>
+              <div class="item"><span>拟代偿金额</span> <span>{{ order.withholdTotalAmount | paramsError("元")}}</span></div><div class="item"><span>代偿类型</span> <span>{{ order.orderTypeName | paramsError}}</span></div>
             </div>
             <div class="itemBox">
-              <div class="item"><span>代偿分类</span> <span>银行要垫资</span></div><div class="item"><span>已还总金额</span> <span>90,234,76元</span></div>
+              <div class="item"><span>代偿分类</span> <span>{{ order.orderClassification | paramsError}}</span></div><div class="item"><span>已还总金额</span> <span>{{ main.readyRepaymentAmount | paramsError("元")}}</span></div>
             </div>
             <div class="itemBox">
-              <div class="item"><span>剩余应还金额</span> <span>90,234,76元</span></div><div class="item"><span>所属公司</span> <span>贵州公司</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="header"> <span>肚丝(1期)</span> </div>
-        <div class="middle">
-          <div class="itemBox">
-            <div class="item"><span>身份证号</span> <span>510923198802250021</span></div><div class="item"><span>手机号</span> <span>13111866951</span></div>
-          </div>
-          <div v-if="carTitle == '还款明细'">
-            <div class="itemBox">
-              <div class="item"><span>本期还款金额</span> <span>90,234,76元</span></div><div class="item"><span>应还款日期</span> <span>2020.01.21</span></div>
-            </div>
-            <div class="itemBox">
-              <div class="item"><span>放款平台</span> <span>工商-海南分行</span></div><div class="item"><span>还款方式</span> <span>保证金扣除</span></div>
-            </div>
-          </div>
-          <div v-else-if="carTitle == '回款明细'">
-            <div class="itemBox">
-              <div class="item"><span>贷款金额</span> <span>90,234,76元</span></div><div class="item"><span>应还总金额</span> <span>90,234,76元</span></div>
-            </div>
-            <div class="itemBox">
-              <div class="item"><span>拟代偿金额</span> <span>90,234,76元</span></div><div class="item"><span>代偿类型</span> <span>逾期代偿</span></div>
-            </div>
-            <div class="itemBox">
-              <div class="item"><span>代偿分类</span> <span>银行要垫资</span></div><div class="item"><span>已还总金额</span> <span>90,234,76元</span></div>
-            </div>
-            <div class="itemBox">
-              <div class="item"><span>剩余应还金额</span> <span>90,234,76元</span></div><div class="item"><span>所属公司</span> <span>贵州公司</span></div>
+              <div class="item"><span>剩余应还金额</span> <span>{{ main.surplusRepaymentAmount | paramsError("元")}}</span></div><div class="item"><span>所属公司</span> <span>{{ main.organizationName | paramsError}}</span></div>
             </div>
           </div>
         </div>
@@ -67,46 +38,49 @@
             <div class="header"> <span>实还款信息</span> </div>
             <div class="middle">
               <div class="itemBox">
-                <div class="item"><span>还款金额</span> <span>90,234,76元</span></div><div class="item"><span>实还款日期</span> <span>2020.01.21</span></div>
+                <div class="item"><span>还款金额</span> <span>{{ main.repaymentTotalAmount | paramsError("元")}}</span></div><div class="item"><span>实还款日期</span> <span>{{ order.periodsRepaymentDate | paramsError}}</span></div>
               </div>
               <div class="itemBox">
-                <div class="item"><span>还款状态</span> <span>已代偿</span></div><div class="item"><span>还款行为</span> <span>代偿</span></div>
+                <div class="item"><span>还款状态</span> <span>{{ order.periodsRepaymentStatusComment | paramsError}}</span></div><div class="item"><span>还款行为</span> <span>{{ order.periodsRepaymentAction | paramsError}}</span></div>
               </div>
             </div>
           </div>
           <div v-else-if="detailedType == '回款'">
-            <div class="header"> <span>实还款信息(1)</span> </div>
-            <div class="middle">
-              <div class="itemBox">
-                <div class="item"><span>已回款金额</span> <span>90,234,76元</span></div><div class="item"><span>回款日期</span> <span>2020.01.21</span></div>
-              </div>
-              <div class="itemBox">
-                <div class="item"><span>未回款金额</span> <span>10000.00元</span></div><div class="item"><span>还款方式</span> <span>代偿回款</span></div>
-              </div>
-              <div class="itemBox">
-                <div class="item voucher"><span>回款凭证</span>
-                  <div class="imgList">
-                    <img :src="item" v-for="(item,index) in imagesList" :key="index" @click="openImagesPreview(item, index)">
+            <section v-for="(item, index) in repayment" :key="index">
+              <div class="header"> <span>实还款信息({{index+1}})</span> </div>
+              <div class="middle">
+                <div class="itemBox">
+                  <div class="item"><span>已回款金额</span> <span>{{ item.repaymentAmount | paramsError("元")}}</span></div><div class="item"><span>回款日期</span> <span>{{ item.repaymentDate | paramsError}}</span></div>
+                </div>
+                <div class="itemBox">
+                  <div class="item"><span>未回款金额</span> <span>{{ item.outstandingAmount | paramsError("元")}}</span></div><div class="item"><span>还款方式</span> <span>{{ item.repaymentType | paramsError}}</span></div>
+                </div>
+                <div class="itemBox">
+                  <div class="item voucher"><span>回款凭证</span>
+                    <div class="previewList" v-if="item.repaymentEvidenceList">
+                      <PreviewUpload PreviewUpload :previewList="item.repaymentEvidenceList"></PreviewUpload>
+                    </div>
+                    <span v-else>无</span>
                   </div>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
 
           <div style="margin-top:12px;">
             <div class="header"> <span>资方应还信息</span> </div>
             <div class="middle">
               <div class="itemBox">
-                <div class="item"><span>本金</span> <span>90,234,76元</span></div><div class="item"><span>利息</span> <span>90,234,76元</span></div>
+                <div class="item"><span>本金</span> <span>{{ order.periodsFundingBaseAmount | paramsError("元")}}</span></div><div class="item"><span>利息</span> <span>{{ order.periodsFundingInterestAmount | paramsError("元")}}</span></div>
               </div>
               <div class="itemBox">
-                <div class="item"><span>罚息</span> <span>90,234,76元</span></div>
+                <div class="item"><span>罚息</span> <span>{{ order.periodsFundingPenaltyAmount | paramsError("元")}}</span></div>
               </div>
             </div>
             <div class="header"> <span>平台应收信息</span> </div>
             <div class="middle">
               <div class="itemBox">
-                <div class="item"><span>违约金</span> <span>90,234,76元</span></div><div class="item"><span>罚息</span> <span>90,234,76元</span></div>
+                <div class="item"><span>违约金</span> <span>{{ order.periodsPlatformFineAmount | paramsError("元")}}</span></div><div class="item"><span>罚息</span> <span>{{ order.periodsPlatformPenaltyAmount | paramsError("元")}}</span></div>
               </div>
             </div>
           </div>
@@ -116,28 +90,30 @@
           <div class="header"> <span>代偿放款</span> </div>
           <div class="middle">
             <div class="itemBox">
-              <div class="item"><span>放贷金额</span> <span>90,234,76元</span></div><div class="item"><span>部门</span> <span>放款中心</span></div>
+              <div class="item"><span>放贷金额</span> <span>{{ main.orderRealAmount | paramsError("元")}}</span></div><div class="item"><span>部门</span> <span>一 一</span></div>
             </div>
             <div class="itemBox">
-              <div class="item"><span>需代偿平台</span> <span>贵州-工商银行</span></div>
+              <div class="item"><span>需代偿平台</span> <span>{{ main.platformName | paramsError}}</span></div>
             </div>
           </div>
           <div class="header"> <span>代偿回款</span> </div>
-          <div class="middle">
+          <div class="middle" v-for="(item, index) in repayment" :key="index">
             <div class="itemBox">
-              <div class="item"><span>回款金额</span> <span>90,234,76元</span></div><div class="item"><span>回款时间</span> <span>2020.01.21</span></div>
+              <div class="item"><span>回款金额</span> <span>{{ item.repaymentAmount | paramsError("元")}}</span></div><div class="item"><span>回款时间</span> <span>{{ item.repaymentDate | paramsError}}</span></div>
+            </div>
+            <div class="itemBox singleRow">
+              <div class="item"><span>回款内容</span> <span>{{ item.comment | paramsError}}</span></div>
             </div>
             <div class="itemBox">
               <div class="item voucher"><span>回款凭证</span>
-                <div class="imgList">
-                  <img :src="item" v-for="(item,index) in imagesList" :key="index" @click="openImagesPreview(item, index)">
+                <div class="previewList" v-if="item.repaymentEvidenceList">
+                  <PreviewUpload PreviewUpload :previewList="item.repaymentEvidenceList"></PreviewUpload>
                 </div>
+                <span v-else>无</span>
               </div>
             </div>
           </div>
         </div>
-
-        <PreviewImage :imagesView="imagesView" :imagesList="imagesList" :previewSrc="previewSrc" :previewIndex="previewIndex" :testImgState="false" @closeImagesPreview="closeImagesPreview"></PreviewImage>
 
       </div>
     </div>
@@ -146,32 +122,56 @@
 
 <script>
 import AppBar from '@components/basics/AppBar'
-import PreviewImage from '@components/upLoad/components/preview/PreviewImage'
+import PreviewUpload from "@components/upLoad/PreviewUpload";
+import { mapState } from "vuex"
 export default {
   components: {
-    AppBar, PreviewImage
+    AppBar, PreviewUpload
   },
   data() {
     return {
-      carTitle:'还款明细',
-      detailedType:'回款',
-      imagesView:false,
-      previewSrc:'',
-      previewIndex:0,
-      imagesList:['../../../../static/images2/dog.jpg','../../../../static/images2/github.jpg','../../../../static/images2/吹泡泡.jpg']
+      route: this.$route.params,
+      main:{}, //主借人信息
+      order:{}, //当期还款信息
+      repayment:{} //回款/还款明细
     }
   },
-  methods: {
-    // 显示查看图片 view
-    openImagesPreview(item, index){
-      this.imagesView = true;
-      this.previewSrc = item;
-      this.previewIndex = index;
+  computed: {
+    ...mapState(["pageSource"]),
+
+    pageTitle(){
+      if(this.pageSource === "compensatory"){
+        return "回款明细";
+      }else{
+        return "还款明细";
+      }
     },
-    // 关闭 图片预览 view
-    closeImagesPreview(val){
-      this.imagesView = val;
+
+    carTitle(){
+      if(this.pageSource === "compensatory"){
+        return "回款明细";
+      }else{
+        return "还款明细";
+      }
     },
+
+    detailedType(){
+      if(this.pageSource === "compensatory" || this.pageSource === "phone" || this.pageSource === "business" || this.pageSource === "visit" || this.pageSource === "all"){
+        return "回款";
+      }else{
+        return "还款";
+      }
+    }
+    
+  },
+  created () {
+    // 获取明细
+    this.api.seeRepaymentDetailed({orderId:this.route.orderId,orderNo:this.route.orderNo,periodsIndex:this.route.periodsIndex}).then(res => {
+      if(res.message === "success"){
+        let { mainBorrowerInfoDto, orderRepaymentPeriodsDto, repaymentLogDtoList} = res.data
+        this.main = mainBorrowerInfoDto; this.order = orderRepaymentPeriodsDto; this.repayment = repaymentLogDtoList;
+      }
+    })
   }
 }
 </script>
@@ -180,6 +180,9 @@ export default {
   .detailedCard{
     .content-appBar{
       height: calc(100vh - 56px);
+    }
+    .previewUpload{
+      margin-top: 6px;
     }
   }
 </style>

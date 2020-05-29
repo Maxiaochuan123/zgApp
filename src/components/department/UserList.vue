@@ -1,8 +1,8 @@
 <template>
   <div :class="['userList', state ? 'show' : '']" v-show="state">
     <div class="header">
-      <div class="bar"><i class="iconfont icon-cuo" @click="close"></i><span>{{departmentItem.name}}</span></div>
-      <SearchInputBar placeholderText="输入关键字 姓名 / 手机号" @searchInputBarChange="searchInputBarChange" @searchClose="searchClose"></SearchInputBar>
+      <div class="bar"><i class="iconfont icon-cuo" @click="close"></i><span>{{ isSelectUser ? "转派" : departmentItem.name}}</span></div>
+      <SearchInputBar v-if="isSelectUser==false" placeholderText="输入关键字 姓名 / 手机号" @searchInputBarChange="searchInputBarChange" @searchClose="searchClose"></SearchInputBar>
     </div>
     <div class="contentBox">
       <div :class="['content-list', isSelectUser ? 'selectUserContent' : '']">
@@ -15,7 +15,7 @@
               <img :src="loadImage('defaultHeadPortrait.png')">
               <div class="describe">
                 <p>{{item.userName}}</p>
-                <p>{{item.roles.map(val=>val.name).join(", ")}}</p>
+                <!-- <p>{{item.roles.map(val=>val.name).join(", ")}}</p> -->
               </div>
             </div>
           </div>
@@ -108,32 +108,45 @@ export default {
     // 获取用户列表
     getUserList(type){
       
-      this.api.seeDepUserInfo({...this.paging, departmentId:this.departmentItem.id, param:this.$store.state.searchInputValue}).then(res => {
-        if (res.message !== 'success') this.$toast.warning("用户列表获取失败!");
+      if(!this.isSelectUser){
+        this.api.seeDepUserInfo({...this.paging, departmentId:this.departmentItem.id, param:this.$store.state.searchInputValue}).then(res => {
+          if (res.message !== 'success') this.$toast.warning("用户列表获取失败!");
 
-        if (res.data){ 
-          
-          let results = res.data.results;
-          results.forEach(item => item.state = false);
-          if(results.length > 0){
-            this.state = true
+          if (res.data){ 
+            
+            let results = res.data.results;
+            results.forEach(item => item.state = false);
+            if(results.length > 0){
+              this.state = true
+            }else{
+              this.tagState = false;
+            }
+
+            this.loadUpdate.loadedAll = results.length === 0 ? true : false;
+
+            if (this.loadUpdate.loadingState === 'default' || this.loadUpdate.loadingState === 'refresh') {
+              this.listData = results; this.loadUpdate.refreshing = false;
+            } else {
+              this.listData.push(...results); this.loadUpdate.loading = false;
+            }
+
           }else{
-            this.tagState = false;
+            this.dataError = true;
           }
-
-          this.loadUpdate.loadedAll = results.length === 0 ? true : false;
-
-          if (this.loadUpdate.loadingState === 'default' || this.loadUpdate.loadingState === 'refresh') {
-            this.listData = results; this.loadUpdate.refreshing = false;
-          } else {
-            this.listData.push(...results); this.loadUpdate.loading = false;
+        })
+      }else{
+        this.api.seeAllUser().then(res => {
+          if (res.message !== 'success') this.$toast.warning("用户列表获取失败!");
+          if (res.data){
+            let data = res.data;
+            data.forEach(item => item.state = false);
+            // this.listData = data;
+            console.log(data)
+          }else{
+            this.dataError = true;
           }
-
-        }else{
-          this.dataError = true;
-        }
-
-      })
+        })
+      }
     },
   }
 }
@@ -182,7 +195,8 @@ export default {
       height: calc(100vh - 104px);
     }
     .selectUserContent{
-      height: calc(100vh - 104px - 72px);
+      margin-top: 56px;
+      height: calc(100vh - 104px);
     }
     .mu-load-more{
       height: 100%;

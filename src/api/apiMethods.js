@@ -19,6 +19,23 @@ export default{
         api = apiCallback.compensatory;
         msg = "代偿列表";
         break;
+      case "phone":
+        api = apiCallback.phone;
+        msg = "电话催收列表";
+        break;
+      case "business":
+        api = apiCallback.business;
+        msg = "业务催收列表";
+        break;
+      case "visit":
+        api = apiCallback.visit;
+        msg = "外勤催收列表";
+        break;
+      case "all":
+        api = apiCallback.all;
+        msg = "全员催收列表";
+        break;
+        
     }
     return { api, msg }
   },
@@ -61,15 +78,15 @@ export default{
         organizationId: this.getId(_this.company, company, "公司") //公司 id
       }
 
-      switch (store.state.pageSource) {
-        case "repayment":
-          screenDataList.projectState = this.isFieldData(projectState); //项目状态
-          break;
-        case "overdue":
-          screenDataList.repaymentState = this.isFieldData(repaymentState); //还款状态
-          screenDataList.userId = this.getId(_this.personLiable, personLiable, "责任人"); //责任人 id
-          break;
+      let pageSource = store.state.pageSource;
+
+      if (pageSource === "repayment"){
+        screenDataList.projectState = this.isFieldData(projectState); //项目状态
+      } else if (pageSource === "overdue" || pageSource === "phone" || pageSource === "business" || pageSource === "visit" || pageSource === "all"){
+        screenDataList.repaymentState = this.isFieldData(repaymentState); //还款状态
+        screenDataList.userId = this.getId(_this.personLiable, personLiable, "责任人"); //责任人 id
       }
+
     }
     return screenDataList;
   },
@@ -107,13 +124,18 @@ export default{
     })
   },
 
-  // this.$confirm("是否分享此线索 ?", "提示").then(res => {
-  //   if (res.result) {
-
-  //   }
-  // });
-
   /******************************  保存 ******************************/
+  getEnclosureIds(fieldName, form){
+    console.log(fieldName, form)
+    if (Object.keys(form[fieldName]).length > 0) {
+      form[fieldName].imgsID = form[fieldName].imgsID ? form[fieldName].imgsID : [];
+      form[fieldName].enclosureID = form[fieldName].enclosureID ? form[fieldName].enclosureID : [];
+      form[fieldName] = [...form[fieldName].imgsID, ...form[fieldName].enclosureID].join(",");
+    } else {
+      form[fieldName] = "";
+    }
+  },
+
   getSaveParams(_this, saveType, customerForm, data){
     let params = {};
     let form = { ...customerForm.form};
@@ -124,15 +146,15 @@ export default{
         params.newType = this.getId(_this.strategy, form.pickerVal, "策略");
         break;
       case "写跟进":
+        this.getEnclosureIds("attachmentIds", form);
         params = { ...params, ...form};
         params.actionType = this.getId(_this.followUp, form.actionType, "跟进类型");
-        if (Object.keys(form.attachmentIds).length > 0){
-          params.attachmentIds.imgsID = form.attachmentIds.imgsID ? form.attachmentIds.imgsID : [];
-          params.attachmentIds.enclosureID = form.attachmentIds.enclosureID ? form.attachmentIds.enclosureID : [];
-          params.attachmentIds = [...form.attachmentIds.imgsID, ...form.attachmentIds.enclosureID].join(",");
-        }else{
-          params.attachmentIds = "";
-        }
+        break;
+      case "回款":
+        this.getEnclosureIds("repaymentEvidence", form);
+        form.repaymentAmount = parseFloat(form.repaymentAmount);
+        form.repaymentDate += ":00";
+        params = { ...params, ...form };
         break;
     }
     return params;
@@ -151,7 +173,7 @@ export default{
         
         api(params).then(res => {
           if (res.message !== 'success') {
-            _this.$toast.warning(`${saveType}失败!`);
+            _this.$toast.error(res.message);
           }else{
             _this.$toast.success(`${saveType}成功!`); setTimeout(() => _this.$router.go(-1), 500);
           }
@@ -162,7 +184,6 @@ export default{
 
       _this.$toast.info("请检查信息是否补充完整，或无误");
       return false;
-
     });
   }
 }

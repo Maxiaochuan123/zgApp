@@ -5,7 +5,7 @@
       <p class="title_2">您好, {{userInfo.userName}}</p>
       <div class="serchInputBox">
         <mu-icon value=":iconfont icon-sousuo"></mu-icon>
-        <input type="text" placeholder="项目编号, 客户姓名, 手机号码" @focus="isShow = true" @blur="searchBlur" @input="searchInputCallback">
+        <input type="text" placeholder="项目编号, 客户姓名, 手机号码" @focus="isShow = true" @blur="searchBlur" @input="searchInputCallback" disabled>
         <div class="alternativeList" v-show="isShow">
           <ul>
             <li @click="searchCallback('还款管理')"><span>还款管理</span><span>1条</span></li>
@@ -15,10 +15,10 @@
       </div>
     </div>
     <div class="content">
-      <div class="block" v-for="(block,index) in blockList" :key="index">
+      <div class="block" v-for="(block,index) in blockList" :key="index" v-show="block.itemList.some(item => item.hidden)">
         <p class="title">{{block.title}}</p>
         <div :class="['itemBox', block.itemList.length > 4 ? 'moreBox' : '']">
-          <div :class="['item',item.haveInHandlink ? '' : 'plan']" v-for="(item,index2) in block.itemList" :key="index2" @click="goPage(item.linkName)">
+          <div :class="['item',item.disabled ? '' : 'plan']" v-show="item.hidden" v-for="(item,index2) in block.itemList" :key="index2" @click="goPage(item.linkName)">
             <img :src="item.src">
             <span>{{item.describe}}</span>
           </div>
@@ -30,56 +30,53 @@
 
 <script>
 import tool from "@static/js/tool.js";
-import { mapState } from 'vuex'
+import { controlInit } from "@static/js/control";
 export default {
-  components: {
-    
-  },
   data() {
     return {
       isShow:false,
-      blockList:[
+      blockList:[]
+    };
+  },
+  async created  () {
+    let control = await controlInit();
+
+    this.blockList = [
         {
           title:"还款跟踪",
           itemList:[
-            {src: this.loadImage("repayment.png"),describe:"还款列表",haveInHandlink:true,linkName:"repayment"},
-            {src:this.loadImage("overdue.png"),describe:"逾期列表",haveInHandlink:true,linkName:"overdue"},
-            {src:this.loadImage("compensatory.png"),describe:"代偿列表",haveInHandlink:true,linkName:"compensatory"},
-            {src:this.loadImage("dataArchiving.png"),describe:"资料归档",haveInHandlink:false,linkName:"dataArchivingList"},
+            {src: this.loadImage("repayment.png"),describe:"还款列表",disabled:true,hidden:control.repayment.search,linkName:"repayment"},
+            {src:this.loadImage("overdue.png"),describe:"逾期列表",disabled:true,hidden:control.overdue.search,linkName:"overdue"},
+            {src:this.loadImage("compensatory.png"),describe:"代偿列表",disabled:true,hidden:control.compensatory.search,linkName:"compensatory"},
+            {src:this.loadImage("dataArchiving.png"),describe:"资料归档",disabled:false,hidden:false,linkName:"dataArchiving"},
           ]
         },
         {
           title:"逾期回收",
           itemList:[
-            {src:this.loadImage("phoneCollection.png"),describe:"电话催收",haveInHandlink:false,linkName:"phoneCollectionList"},
-            {src:this.loadImage("business.png"),describe:"业务催收",haveInHandlink:false,linkName:""},
-            {src:this.loadImage("collection.png"),describe:"外勤催收",haveInHandlink:false,linkName:""},
-            {src:this.loadImage("settle.png"),describe:"全员催收",haveInHandlink:false,linkName:""},
+            {src:this.loadImage("phoneCollection.png"),describe:"电话催收",disabled:true,hidden:control.phone.search,linkName:"phone"},
+            {src:this.loadImage("business.png"),describe:"业务催收",disabled:true,hidden:control.business.search,linkName:"business"},
+            {src:this.loadImage("collection.png"),describe:"外勤催收",disabled:true,hidden:control.visit.search,linkName:"visit"},
+            {src:this.loadImage("all.png"),describe:"全员催收",disabled:true,hidden:control.all.search,linkName:"all"},
           ]
         },
         {
           title:"其他",
           itemList:[
-            {src:this.loadImage("loanCalculation.png"),describe:"贷款计算",haveInHandlink:false,linkName:""},
-            {src:this.loadImage("reportForm.png"),describe:"统计报表",haveInHandlink:false,linkName:""},
-            {src:this.loadImage("customer.png"),describe:"客户信息",haveInHandlink:false,linkName:""},
-            {src:this.loadImage("bond.png"),describe:"保证金",haveInHandlink:false,linkName:""},
+            {src:this.loadImage("loanCalculation.png"),describe:"贷款计算",disabled:false,hidden:false,linkName:""},
+            {src:this.loadImage("reportForm.png"),describe:"统计报表",disabled:false,hidden:false,linkName:""},
+            {src:this.loadImage("customer.png"),describe:"客户信息",disabled:false,hidden:false,linkName:""},
+            {src:this.loadImage("bond.png"),describe:"保证金",disabled:false,hidden:false,linkName:""},
           ]
         }
       ]
-    };
-  },
-  created() {
-    
-  },
-  computed:{
-    
   },
   methods: {
     // 搜索
     searchInputCallback:tool.debounce(()=>{
       console.log('sss')
     }),
+    // 搜索失去焦点
     searchBlur(){
       setTimeout(()=>this.isShow = false)
     },

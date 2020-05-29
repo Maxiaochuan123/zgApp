@@ -29,8 +29,18 @@ export default {
     Theme.use("theme_one");
   },
   computed: {
-    ...mapState(["loading"])
-  }
+    ...mapState(["loading","moreBox"])
+  },
+  watch: {
+    $route(to, from) {
+      if(to.path.indexOf("list") != -1 && from.name === "home"){
+        to.meta.keepAlive = false;
+      }
+      if(to.path.indexOf("list") != -1 && from.name === "plan"){
+        to.meta.keepAlive = true
+      }
+    }
+  },
 };
 </script>
 

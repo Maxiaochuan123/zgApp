@@ -33,7 +33,7 @@ export default {
   methods: {
     customCallback(){
       let { id, strategyState, orderId  } = { ...this.routeData };
-      this.apiMethods.saveCallback(this, "更改策略", this.api.changeStrategy, { orderInfoId:id, oldType:strategyState, orderId:orderId });
+      this.apiMethods.saveCallback(this, "更改策略", this.api.changeStrategy, { orderInfoId:id, oldType:strategyState, primaryId:orderId });
     }
   }
 }

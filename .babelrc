@@ -9,6 +9,8 @@
     "stage-2"
   ],
   "plugins": [
+    "transform-runtime",
+    // "@babel/plugin-proposal-optional-chaining", //对象可选链式语法
     ["import", {
       "libraryName": "mand-mobile",
       "libraryDirectory": "lib"
