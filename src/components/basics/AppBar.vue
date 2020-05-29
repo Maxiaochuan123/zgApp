@@ -22,9 +22,9 @@
           <mu-icon size="18" value=":iconfont icon-gengduo1"></mu-icon>
         </mu-button>
 
-        <mu-list slot="content">
+        <mu-list slot="content" v-show="menuList.some(item => item.hidden)">
           <template v-for="(item, index) in menuList">
-            <mu-list-item :class="item.disabled ? 'isDisabled' : '' " button :key="index" @click="menuItem(item)" v-if="item.flag" >
+            <mu-list-item :class="item.disabled ? 'isDisabled' : '' " button :key="index" @click="menuItem(item)" v-if="item.hidden" >
               <mu-list-item-content>
                 <mu-list-item-title>{{ item.title }}</mu-list-item-title>
               </mu-list-item-content>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapMutations } from "vuex";
 import Screen from "@components/basics/Screen";
 export default {
   name: "app-bar",
@@ -132,6 +132,8 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["setActiveBtn"]),
+
     leftClick() {
       if(!this.closePage){
         this.$router.go(-1);
@@ -143,13 +145,15 @@ export default {
       this.drawerState = false;
     },
     menuItem(item) {
-      const { title, linkName, linkParams = {} } = item;
+      const { title, hidden, linkName, linkParams = {} } = item;
       if(!item.disabled){
-        if (linkName) {
-          this.goPage(linkName, linkParams);
-        } else {
-          this.$emit("menuChange", item);
-          this.menuStatus = false;
+        if(hidden){
+          if (linkName) {
+            this.goPage(linkName, linkParams);
+          } else {
+            this.$emit("menuChange", item);
+            this.menuStatus = false;
+          }
         }
       }
     }

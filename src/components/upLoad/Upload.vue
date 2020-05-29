@@ -1,7 +1,7 @@
 <template>
   <div class="upLoad">
     <div class="enclosure">
-      <div :class="[isEdit ? 'title' : 'title2']"> {{ isEdit ? "附件" : "附件：" }}</div>
+      <div :class="[isEdit ? 'title' : 'title2']"> {{ isEdit ? name : `${name}：` }}</div>
       <div class="content">
         
         <!-- 上传图片 -->
@@ -101,6 +101,10 @@ export default {
     isEdit: { //编辑 or 查看
       type: Boolean,
       default: true
+    },
+    name: { //字段名
+      type: String,
+      default: "附件"
     },
     isEnclosure: { // 是否上传附件
       type: Boolean,

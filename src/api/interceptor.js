@@ -50,8 +50,11 @@ axios.interceptors.response.use(response => {
       window.location.href = loginUrl;
       break;
   }
+  // console.log('response:', response)
   return response
 }, error => {
+    // console.log('error:', error)
+
   store.commit('closeLoading');
   if (error && error.response) {
     switch (error.response.status) {

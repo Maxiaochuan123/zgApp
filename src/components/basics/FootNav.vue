@@ -1,16 +1,12 @@
-<!--
- * @Description: 底部导航,不同于主页的底部
- * @Author:shenah
- -->
 <template>
   <div class="foot-nav topShadow">
     <div @click="writeFollowUp" class="nav-item" v-if="writeFlag" >
       <img src="@static/images/buttom-write-follow.png" />
       <div class="text">写跟进</div>
     </div>
-    <div @click="assign" class="nav-item isDisabled" v-if="assignFlag" >
+    <div @click="dial(routeData.phone)" class="nav-item" v-if="callFlag" >
       <img src="@static/images/assign.png" />
-      <div class="text">指派</div>
+      <div class="text">打电话</div>
     </div>
   </div>
 </template>
@@ -25,10 +21,9 @@ export default {
   },
   props: {
     writeFlag:{
-      type: Boolean,
-      default: true
+      type: Boolean
     },
-    assignFlag:{
+    callFlag:{
       type: Boolean,
       default: true
     }
@@ -36,10 +31,7 @@ export default {
   methods: {
     writeFollowUp(){
       this.goPage("writeFollowup");
-    },
-    assign() {
-      
-    },
+    }
   }
 };
 </script>

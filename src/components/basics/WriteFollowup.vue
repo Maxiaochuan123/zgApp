@@ -9,9 +9,7 @@
 
 <script>
 import AppBar from "@components/basics/AppBar";
-import { FOLLOW_UP_TYPE } from "@static/js/dictionaries";
 import CustomerForm from "@components/basics/CustomerForm";
-import { mapState } from "vuex"
 
 export default {
   name: "writeFollowup",

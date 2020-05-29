@@ -1,10 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-09-02 17:44:35
- * @LastEditTime: 2019-09-03 15:05:05
- * @LastEditors: Please set LastEditors
- */
 export default {
   toast:{
     position: 'top',               // 弹出的位置

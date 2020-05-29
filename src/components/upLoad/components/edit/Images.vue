@@ -69,7 +69,6 @@ export default {
     onChange(){
       const files = this.$refs.fileInput.files;
       const filesArr =  [...files].filter( fileItem =>{
-        console.log(fileItem.type)
         if(/^image/.test(fileItem.type)) return fileItem;
       })
 

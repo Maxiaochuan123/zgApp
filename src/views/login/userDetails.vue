@@ -66,7 +66,9 @@ export default {
   },
   methods: {
     loginOut() {
+      let storageList = ["token","userInfo","repaymentState","personLiable","strategy","control","projectState","company","lendingPlatform","followUp"]
       this.api.loginOut().then(res => {
+        storageList.forEach(item => this.storage.localRemove(item))
         this.goPage("login");
       })
     }

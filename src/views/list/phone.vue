@@ -1,7 +1,6 @@
 <template>
-  <!-- 还款列表 -->
-  <div class="repayment">
-    <List pageTitle="还款列表" listType="0" :drawerList="drawerList"></List>
+  <div class="phoneList">
+    <List pageTitle="电话催收" :drawerList="drawerList" listType="0"></List>
   </div>
 </template>
 
@@ -33,19 +32,25 @@ export default {
         options:this.companyList,
         val:''
       },
-      projectState:{
+      personLiable:{
+        fileTitle:'责任人',
+        type:'select',
+        options:this.personLiableList,
+        val:''
+      },
+      repaymentState:{
         defaultValue:[],
-        fileTitle:'项目状态',
+        fileTitle:'还款状态',
         mode:'single',
         valueField:'code',
         labelField:'name',
-        list:this.projectState
+        list:this.repaymentState
       },
     }
-    this.$store.commit('setPageSource',"repayment");
+    this.$store.commit('setPageSource',"phone");
   },
   activated () {
-    this.$store.commit('setPageSource',"repayment");
+    this.$store.commit('setPageSource',"phone");
   }
 }
 </script>

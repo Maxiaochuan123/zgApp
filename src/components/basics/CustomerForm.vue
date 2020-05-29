@@ -1,6 +1,6 @@
 <template>
 <!-- 使用方法
-  type:"input / textarea / date month / picker", 字段类型
+  type:"input / textarea / date month / dateTime / picker", 字段类型
   field:"userName", 字段名
   label:"公证编号",  label标签
   rules:{
@@ -27,7 +27,12 @@
         <!-- 日期 & 月份 -->
         <mu-form-item class="basic date" :label="item.label" :prop="item.field.key" :rules="rules[item.field.key]" v-if="item.type === 'date' || item.type === 'month'">
           <span v-show="!form[item.field.key]">{{`请选择${item.label}`}}</span><mu-icon size="24" value=":iconfont icon-rightArrow"></mu-icon>
-          <mu-date-input v-model="form[item.field.key]" :type="item.type" :value-format="item.type === 'date' ? 'YYYY-MM-DD' : 'YYYY-MM'" :should-disable-date="disableDate" container="bottomSheet" label-float full-width></mu-date-input>
+          <mu-date-input v-model="form[item.field.key]" :type="item.type" :value-format="valueFormat(item.type)" :should-disable-date="afterToday" container="bottomSheet" label-float full-width></mu-date-input>
+        </mu-form-item>
+        <!-- 时间 -->
+        <mu-form-item class="basic date" :label="item.label" :prop="item.field.key" :rules="rules[item.field.key]" v-if="item.type === 'dateTime'">
+          <span v-show="!form[item.field.key]">{{`请选择${item.label}`}}</span><mu-icon size="24" value=":iconfont icon-rightArrow"></mu-icon>
+          <mu-date-input v-model="form[item.field.key]" :type="item.type" :value-format="'YYYY-MM-DD hh:mm'" :should-disable-date="beforeToday" container="bottomSheet" label-float full-width></mu-date-input>
         </mu-form-item>
 
         <!-- 弹出 picker -->
@@ -39,7 +44,7 @@
         </div>
 
         <!-- 上传文件  -->
-        <Upload class="upload-file" v-if="item.type === 'file'" @getImgID="getImgID" @getEnclosureID="getEnclosureID"></Upload>
+        <Upload class="upload-file" v-if="item.type === 'file'" :name="item.label" @getImgID="getImgID" @getEnclosureID="getEnclosureID"></Upload>
 
       </div>
     </mu-form>
@@ -73,31 +78,63 @@ export default {
       pickerList:[],
     }
   },
+  watch: {
+    form:{
+      handler(n, o){
+        this.$emit("watchForm",n)
+      },
+      deep: true
+    }
+  },
   created () {
     this.initForm();
     this.initRules();
     this.day = new Date();
   },
   computed: {
-    ...mapState(["pageSource"])
+    ...mapState(["pageSource"]),
+
+    // 附件字段名
+    attachmentField(){
+      let tempName = this.fieldList.filter(item => item.type === "file");
+      return tempName[0].field.key;
+    },
+
+    valueFormat(){
+      return (type)=>{
+        switch (type) {
+          case "date":
+            return "YYYY-MM-DD";
+            break;
+          case "month":
+            return "YYYY-MM";
+            break;
+          case "dateTime":
+            return "YYYY-MM-DD hh:mm";
+            break;
+        }
+      }
+    }
   },
   methods: {
 
     // 图片 id list
     getImgID(data){
-      this.form.attachmentIds.imgsID = [...data];
+      this.form[this.attachmentField].imgsID = [...data];
     },
 
     // 附件 id list
     getEnclosureID(data){
-      this.form.attachmentIds.enclosureID = [...data];
+      this.form[this.attachmentField].enclosureID = [...data];
     },
 
 
-    // 控制日期选择返回
-    disableDate(date){
-      // return date.getTime() < Date.now() - 8.64e7; //包含今天
+    // 控制日期选择返回 date.getTime() < Date.now() - 8.64e7;(包含今天)
+    afterToday(date){ //今天之后
       return date.getTime() < Date.now(); //不包含今天
+    },
+    beforeToday(date){//今天之前
+      return date.getTime() > Date.now();
     },
 
     // picker 弹出
@@ -141,7 +178,7 @@ export default {
       let getMsg = type => {
         if(type === "input" || type === "textarea"){
           return '填写';
-        }else if(type === "picker" || type === "date" || type === "month"){
+        }else if(type === "picker" || type === "date" || type === "month" || type === "dateTime"){
           return '选择';
         }
       }
@@ -199,6 +236,11 @@ export default {
         position: absolute;
         top: 6px;
       }
+      
+    }
+
+    /deep/ .mu-tabs{
+      position: sticky !important;
     }
 
     // 输入框

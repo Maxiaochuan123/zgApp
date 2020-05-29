@@ -16,8 +16,8 @@
         </div>
       </div>
       <div class="bottom">
-        <span class="updateTime">{{item.updateDate.split(" ")[0]}} 更新</span>
-        <mu-button flat @click="handler(item)">{{ listBtnText }}</mu-button>
+        <span class="updateTime">{{item.updateDate}} 更新</span>
+        <mu-button flat v-show="pageControl.searchBtn" @click="handler(item)">{{ listBtnText }}</mu-button>
       </div>
     </div>
   </div>
@@ -32,16 +32,20 @@ export default {
       default: ()=>[]
     }
   },
+  activated () {
+    if(this.loanBox) this.setLoanBoxScrollTop("reset");
+  },
+  computed: {
+    ...mapState(["loanBox"])
+  },
   methods: {
-    ...mapMutations(["setCurrentMoreBoxScrollTop"]),
+    ...mapMutations(["setCurrentMoreBoxScrollTop", "setLoanBoxScrollTop", "setActiveBtn"]),
 
     handler(item){
       this.setCurrentMoreBoxScrollTop();
-      this.goPage('plan',{orderId:item.orderId, customerInfoBtn:this.customerInfoBtn},{...item});
+      this.setActiveBtn("searchBtn");
+      this.goPage('plan',{orderId:item.orderId},{...item});
     },
-  },
-  computed: {
-    ...mapState(["customerInfoBtn"])
   }
 }
 </script>

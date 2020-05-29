@@ -1,12 +1,3 @@
-/*
- * @Description: In User Settings Edit
- * @Author: your name
- * @Date: 2019-08-25 15:40:36
- * @LastEditTime: 2019-09-03 14:37:29
- * @LastEditors: Please set LastEditors
- */
-// https://github.com/michael-ciniawsky/postcss-load-config
-
 module.exports = {
   // "plugins": {
   //   "postcss-px-to-viewport":{

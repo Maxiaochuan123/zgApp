@@ -56,7 +56,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["routeData","pageSource"]),
+    ...mapState(["routeData", "pageSource", "pageControl"]),
 
     // 列表按钮文字
     listBtnText() {
@@ -142,8 +142,8 @@ export default {
     },
 
     // 打电话
-    dial(phoneNumber) {
-      window.location.href = `tel:${phoneNumber}`;
+    dial(phoneNum) {
+      window.location.href = `tel:${phoneNum}`;
     },
     
     // 获取图片
