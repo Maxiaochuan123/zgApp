@@ -1,24 +1,16 @@
-import Vue from "vue";
-import Router from "vue-router";
+// import Vue from "vue";
+// import Router from "vue-router";
 import store from "@/vuex/store";
+import tool from '@static/js/tool'
 import { controlInit } from "@static/js/control";
 
-// 权限字段
-let work = {};
-let control = {};
-
-Vue.use(Router);
-const router = new Router({
+Vue.use(VueRouter);
+const router = new VueRouter({
   routes: [
     // basics 基础页面
     {
       path: "/",
       redirect: "/home"
-    },
-    {
-      path: "/test",
-      name: "test",
-      component: () => import("@views/home/test.vue")
     },
     {
       path: "/login",
@@ -109,9 +101,9 @@ const router = new Router({
     },
     // 回款
     {
-      path: "/overdue/collection",
-      name: "collection",
-      component: () => import("../components/page/collection.vue")
+      path: "/overdue/payment",
+      name: "payment",
+      component: () => import("../components/page/payment.vue")
     },
     
     /************************************** 列表 **************************************/
@@ -144,6 +136,7 @@ const router = new Router({
       meta: { keepAlive: true },
       component: () => import("../views/list/dataArchiving.vue")
     },
+
     // 电话催收
     {
       path: "/list/phone",
@@ -172,7 +165,13 @@ const router = new Router({
       meta: { keepAlive: true },
       component: () => import("../views/list/all.vue")
     },
-
+    // 待催收列表
+    {
+      path: "/list/collection",
+      name: "collection",
+      meta: { keepAlive: true },
+      component: () => import("../views/list/collection.vue")
+    },
     // 其他
     {
       path: "/loanCalculate",
@@ -183,65 +182,32 @@ const router = new Router({
 });
 
 // 解决路由报错 Error↵ at new NavigationDuplicated
-const originalPush = Router.prototype.push
-Router.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
-}
+// const originalPush = VueRouter.prototype.push
+// VueRouter.prototype.push = function push(location) {
+//   return originalPush.call(this, location).catch(err => err)
+// }
 
-router.beforeEach(async (to, from, next) => {
-  if (localStorage.getItem("token")) {
+let control = controlInit(); // 权限字段
 
-    // 白名单
-    let whiteList = ["home", "mailList", "todoList", "myInfo", "userDetails", "login"];
-    let whiteList2 = ["repayment", "overdue", "compensatory", "phone", "business", "visit", "all"];
-    switch (to.name) {
-      case "login":
-        control = await controlInit();
-        break;
-      case "home":
-        control = await controlInit();
-        break;
-      case "repayment":
-        to.meta.control = control.repayment;
-        break;
-      case "overdue":
-        to.meta.control = control.overdue;
-        break;
-      case "compensatory":
-        to.meta.control = control.compensatory;
-        break;
-      case "phone":
-        to.meta.control = control.phone;
-        break;
-      case "business":
-        to.meta.control = control.business;
-        break;
-      case "visit":
-        to.meta.control = control.visit;
-        break;
-      case "all":
-        to.meta.control = control.all;
-        break;
-    }
+// 嵌入 APP token
+let appToken = tool.getUrlKey('appToken') || '';
+let otherApp = tool.getUrlKey('otherApp') || false
 
-    if (whiteList.indexOf(to.name) !== -1){
-      next();
-    }else{
-      if (whiteList2.indexOf(to.name) !== -1) {
-        //列表权限
-        let toControl = to.meta.control;
-        if (toControl.search) next();
-        store.commit('setPageControl', control[to.name])
-      } else {
-        //按钮权限
-        let pageControl = store.state.pageControl;
-        let activeBtn = store.state.activeBtn;
-        if (pageControl[activeBtn]) next();
-      }
-    }
+router.beforeEach( (to, from, next) => {
+  if (localStorage.getItem("token") || appToken) {
     
+    next();
+
+    // 需要控制的页面
+    let listPages = ["repayment", "overdue", "compensatory", "phone", "business", "visit", "all", "collection"];
+    
+    //设置当前页面权限
+    if (listPages.includes(to.name)) {
+      store.commit('setPageControl', control[to.name])
+    }
+
   } else {
-    if (to.path == "/login") {
+    if (to.path === "/login") {
       next();
     } else {
       next("/login");

@@ -1,6 +1,6 @@
 <template>
-  <div class="collection">
-    <AppBar pageTitle="更改策略" customTextBtn customText="保存" :customCallback="customCallback"></AppBar>
+  <div class="payment">
+    <AppBar pageTitle="回款" customTextBtn customText="保存" :customCallback="customCallback"></AppBar>
     <div class="contentBox">
       <div class="content-appBar">
         <div class="block">
@@ -57,7 +57,7 @@ export default {
   methods: {
     customCallback(){
       let { orderId, orderNo, periodsIndex } = { ...this.routeData };
-      this.apiMethods.saveCallback(this, "回款", this.api.collection, { orderId:orderId, orderNo:orderNo, periodsIndex:periodsIndex });
+      this.apiMethods.saveCallback(this, "回款", this.api.payment, { orderId:orderId, orderNo:orderNo, periodsIndex:periodsIndex });
     },
     watchForm(data){
       this.formData = data;
@@ -67,7 +67,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .collection{
+  .payment{
     .surplusRepayment{
       background-color: #fff;
       text-align: right;

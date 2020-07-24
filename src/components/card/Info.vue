@@ -23,16 +23,16 @@
         <div class="item"><span>还款卡号</span> <span>{{infoData.repaymentNo | paramsError}}</span></div><div class="item"><span>放款平台</span> <span>{{infoData.platformName | paramsError}}</span></div>
       </div>
       <div class="itemBox">
-        <div class="item"><span>公司</span> <span>{{infoData.organizationName | paramsError}}</span></div><div class="item" v-if="type == '逾期' || type == '代偿' || type == '催收'"><span>逾期阶段</span> <span>{{num | paramsError}}</span></div>
+        <div class="item"><span>公司</span> <span>{{infoData.organizationName | paramsError}}</span></div><div class="item" v-if="type === '逾期' || type === '代偿' || type === '催收'"><span>逾期阶段</span> <span>{{num | paramsError}}</span></div>
       </div>
-      <div v-if="type == '逾期' || type == '代偿' || type == '催收'">
+      <div v-if="type === '逾期' || type === '代偿' || type === '催收'">
         <div class="itemBox">
           <div class="item"><span>当前到期还款日</span> <span>{{num | paramsError}}</span></div><div class="item"><span>连续逾期天数</span> <span>{{num | paramsError('天')}}</span></div>
         </div>
         <div class="itemBox">
-          <div class="item"><span>累计逾期次数</span> <span>{{num | paramsError('次')}}</span></div><div class="item" v-if="type == '代偿'"><span>当前代偿金额</span> <span>{{num | paramsError('元')}}</span></div>
+          <div class="item"><span>累计逾期次数</span> <span>{{num | paramsError('次')}}</span></div><div class="item" v-if="type === '代偿'"><span>当前代偿金额</span> <span>{{num | paramsError('元')}}</span></div>
         </div>
-        <div class="itemBox" v-if="type == '代偿'">
+        <div class="itemBox" v-if="type === '代偿'">
           <div class="item"><span>累计代偿金额</span> <span>{{num | paramsError('元')}}</span></div><div class="item"><span>累计代偿次数</span> <span>{{num | paramsError('次')}}</span></div>
         </div>
       </div>

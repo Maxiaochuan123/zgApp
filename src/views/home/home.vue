@@ -5,11 +5,12 @@
       <p class="title_2">您好, {{userInfo.userName}}</p>
       <div class="serchInputBox">
         <mu-icon value=":iconfont icon-sousuo"></mu-icon>
-        <input type="text" placeholder="项目编号, 客户姓名, 手机号码" @focus="isShow = true" @blur="searchBlur" @input="searchInputCallback" disabled>
+        <input v-model.trim="searchInputVal" type="text" class="query-input" placeholder="项目编号, 客户姓名, 手机号码" @focus="isShow = searchList.length > 0 ? true : false" @blur="isShow = false" @keypress="searchGoods">
         <div class="alternativeList" v-show="isShow">
           <ul>
-            <li @click="searchCallback('还款管理')"><span>还款管理</span><span>1条</span></li>
-            <li @click="searchCallback('垫款管理')"><span>垫款管理</span><span>1条</span></li>
+            <li v-for="(item, index) in searchList" :key="index" v-show="item.hidden" @click="searchCallback(item.modularName)">
+              <span>{{item.modularName}}</span><span>{{item.count}}条</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -29,65 +30,131 @@
 </template>
 
 <script>
+// import axios from 'axios'
 import tool from "@static/js/tool.js";
+import storage from '@static/js/storage';
 import { controlInit } from "@static/js/control";
+import { mapMutations } from "vuex"
 export default {
   data() {
     return {
       isShow:false,
+      searchInputVal:'',
+      searchList:[],
       blockList:[]
     };
   },
-  async created  () {
-    let control = await controlInit();
+  created  () {
+
+    let control = controlInit();
 
     this.blockList = [
-        {
-          title:"还款跟踪",
-          itemList:[
-            {src: this.loadImage("repayment.png"),describe:"还款列表",disabled:true,hidden:control.repayment.search,linkName:"repayment"},
-            {src:this.loadImage("overdue.png"),describe:"逾期列表",disabled:true,hidden:control.overdue.search,linkName:"overdue"},
-            {src:this.loadImage("compensatory.png"),describe:"代偿列表",disabled:true,hidden:control.compensatory.search,linkName:"compensatory"},
-            {src:this.loadImage("dataArchiving.png"),describe:"资料归档",disabled:false,hidden:false,linkName:"dataArchiving"},
-          ]
-        },
-        {
-          title:"逾期回收",
-          itemList:[
-            {src:this.loadImage("phoneCollection.png"),describe:"电话催收",disabled:true,hidden:control.phone.search,linkName:"phone"},
-            {src:this.loadImage("business.png"),describe:"业务催收",disabled:true,hidden:control.business.search,linkName:"business"},
-            {src:this.loadImage("collection.png"),describe:"外勤催收",disabled:true,hidden:control.visit.search,linkName:"visit"},
-            {src:this.loadImage("all.png"),describe:"全员催收",disabled:true,hidden:control.all.search,linkName:"all"},
-          ]
-        },
-        {
-          title:"其他",
-          itemList:[
-            {src:this.loadImage("loanCalculation.png"),describe:"贷款计算",disabled:false,hidden:false,linkName:""},
-            {src:this.loadImage("reportForm.png"),describe:"统计报表",disabled:false,hidden:false,linkName:""},
-            {src:this.loadImage("customer.png"),describe:"客户信息",disabled:false,hidden:false,linkName:""},
-            {src:this.loadImage("bond.png"),describe:"保证金",disabled:false,hidden:false,linkName:""},
-          ]
-        }
-      ]
+      {
+        title:"还款跟踪",
+        itemList:[
+          {src: this.loadImage("repayment.png"),describe:"还款列表",disabled:true,hidden:control.repayment.search,linkName:"repayment"},
+          {src:this.loadImage("overdue.png"),describe:"逾期列表",disabled:true,hidden:control.overdue.search,linkName:"overdue"},
+          {src:this.loadImage("compensatory.png"),describe:"代偿列表",disabled:true,hidden:control.compensatory.search,linkName:"compensatory"},
+          {src:this.loadImage("dataArchiving.png"),describe:"资料归档",disabled:false,hidden:false,linkName:"dataArchiving"},
+        ]
+      },
+      {
+        title:"逾期回收",
+        itemList:[
+          {src:this.loadImage("phoneCollection.png"),describe:"电话催收",disabled:true,hidden:control.phone.search,linkName:"phone"},
+          {src:this.loadImage("business.png"),describe:"业务催收",disabled:true,hidden:control.business.search,linkName:"business"},
+          {src:this.loadImage("collection.png"),describe:"外勤催收",disabled:true,hidden:control.visit.search,linkName:"visit"},
+          {src:this.loadImage("all.png"),describe:"全员催收",disabled:true,hidden:control.all.search,linkName:"all"},
+        ]
+      },
+      {
+        title:"其他",
+        itemList:[
+          {src:this.loadImage("loanCalculation.png"),describe:"贷款计算",disabled:false,hidden:false,linkName:""},
+          {src:this.loadImage("reportForm.png"),describe:"统计报表",disabled:false,hidden:false,linkName:""},
+          {src:this.loadImage("customer.png"),describe:"客户信息",disabled:false,hidden:false,linkName:""},
+          {src:this.loadImage("bond.png"),describe:"保证金",disabled:false,hidden:false,linkName:""},
+        ]
+      }
+    ]
+  },
+  watch: {
+    searchInputVal(n, o){
+      if(!n) this.searchList = [];
+    }
   },
   methods: {
+    ...mapMutations[("setSearchInputVal")],
+
     // 搜索
-    searchInputCallback:tool.debounce(()=>{
-      console.log('sss')
-    }),
-    // 搜索失去焦点
-    searchBlur(){
-      setTimeout(()=>this.isShow = false)
+    searchGoods(event){
+      // 移动端点击搜索 || 前往
+      if (this.searchInputVal && event.keyCode === 13) {
+        event.preventDefault(); //禁止默认事件（默认是换行）
+        this.api.seeModulCount({condition:this.searchInputVal}).then(res => {
+          if(res.message === 'success'){
+            this.searchList = res.data;
+
+            let control = controlInit();
+            this.searchList.forEach(item => {
+              switch (item.modularName) {
+                case "还款列表":
+                  item.hidden = control.repayment.search
+                  break;
+                case "逾期列表":
+                  item.hidden = control.overdue.search
+                  break;
+                case "代偿列表":
+                  item.hidden = control.compensatory.search
+                  break;
+                case "电话催收":
+                  item.hidden = control.phone.search
+                  break;
+                case "业务催收":
+                  item.hidden = control.business.search
+                  break;
+                case "外勤催收":
+                  item.hidden = control.visit.search
+                  break;
+                case "全员催收":
+                  item.hidden = control.all.search
+                  break;
+              }
+            })
+            this.isShow = true;
+          }
+        })
+        // if(!this.isCandidate){
+        //   let el = document.querySelector(".query-input")
+        //   el.blur();
+        // }
+      } 
     },
     // 点击列表跳转
     searchCallback(text){
+      this.setSearchInputVal(this.searchInputVal);
+      
       switch (text) {
-        case "还款管理":
-            console.log(1)
+        case "还款列表":
+            this.goPage("repayment")
           break;
-        case "垫款管理":
-            console.log(2)
+        case "逾期列表":
+            this.goPage("overdue")
+          break;
+        case "代偿列表":
+            this.goPage("compensatory")
+          break;
+        case "电话催收":
+            this.goPage("phone")
+          break;
+        case "业务催收":
+            this.goPage("business")
+          break;
+        case "外勤催收":
+            this.goPage("visit")
+          break;
+        case "全员催收":
+            this.goPage("all")
           break;
       }
     }
@@ -125,6 +192,7 @@ export default {
       color: @regular-text;
       position: relative;
       input{
+        position: absolute;
         width: 90%;
         margin-left: 8px;
         font-size: 15px;

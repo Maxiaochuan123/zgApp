@@ -44,8 +44,8 @@ export default {
   },
   methods: {
     customCallback() {
-      let { orderId, orderNo, periodsIndex } = { ...this.routeData };
-      this.apiMethods.saveCallback(this, "写跟进", this.api.addFollowUpRecord, { orderList:[{ orderId:orderId, orderNo:orderNo, periodsIndex:periodsIndex }] });
+      let { orderId, orderNo, periodsIndex, strategyState } = { ...this.routeData };
+      this.apiMethods.saveCallback(this, "写跟进", this.api.addFollowUpRecord, { orderList:[{ orderId:orderId, orderNo:orderNo, periodsIndex:periodsIndex, strategyState:strategyState }] });
     }
   }
 };

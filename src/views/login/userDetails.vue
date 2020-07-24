@@ -7,31 +7,37 @@
         <div class="header regular-describe">
           <div>头像</div>
           <mu-avatar size="48">
-            <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : loadImage('defaultHeadPortrait.png') " />
+            <img :src=" userInfo.headIcon ? userInfo.headIcon : loadImage('defaultHeadPortrait.png') " />
           </mu-avatar>
         </div>
         <div class="brief">
           <div class="regular-describe">简介</div>
-          <div>{{ loginInfo.remark | paramsError }}</div>
+          <div>{{ loginInfo.comment | paramsError }}</div>
         </div>
       </div>
       <div class="basic">
         <div class="basic-details-item">
           <div class="basic-details-item-left">
             <div class="title">真实姓名</div>
-            <div class="sub-title">{{ loginInfo.realname | paramsError  }}</div>
+            <div class="sub-title">{{ loginInfo.userName | paramsError  }}</div>
           </div>
         </div>
         <div class="basic-details-item">
           <div class="basic-details-item-left">
-            <div class="title">所在企业</div>
-            <div class="sub-title">{{ loginInfo.deptName | paramsError }}</div>
+            <div class="title">部门</div>
+            <div class="sub-title">{{ loginInfo.departments.map(val => val.name).join(",")  | paramsError }}</div>
           </div>
         </div>
         <div class="basic-details-item">
           <div class="basic-details-item-left">
             <div class="title">职位</div>
-            <div class="sub-title">{{ loginInfo.post  | paramsError }}</div>
+            <div class="sub-title">{{ loginInfo.duties.map(val => val.name).join(",")  | paramsError }}</div>
+          </div>
+        </div>
+        <div class="basic-details-item">
+          <div class="basic-details-item-left">
+            <div class="title">角色</div>
+            <div class="sub-title">{{ loginInfo.roles.map(val => val.name).join(",")  | paramsError }}</div>
           </div>
         </div>
         <div class="basic-details-item no-border-bottom">
@@ -56,19 +62,14 @@ export default {
   components: { AppBar },
   data () {
     return {
-      loginInfo:{
-        realname:'',
-        deptName:'',
-        post:'',
-        mobile:'',
-      }
+      loginInfo: this.storage.localGet("userInfo")
     }
   },
   methods: {
     loginOut() {
-      let storageList = ["token","userInfo","repaymentState","personLiable","strategy","control","projectState","company","lendingPlatform","followUp"]
+      // let storageList = ["token","userInfo","repaymentState","personLiable","strategy","control","collectionState","projectState","company","lendingPlatform","followUp"]
       this.api.loginOut().then(res => {
-        storageList.forEach(item => this.storage.localRemove(item))
+        // storageList.forEach(item => this.storage.localRemove(item))
         this.goPage("login");
       })
     }

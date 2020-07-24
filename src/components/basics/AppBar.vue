@@ -10,9 +10,10 @@
       <!-- 标题 -->
       <span class="title">{{ pageTitle }}</span>
 
-      <!-- 右侧筛选按钮 -->
-      <mu-button @click="drawerState = true" icon slot="right" v-if="guolv">
+      <!-- 右侧筛选按钮 -->  
+      <mu-button class="guolv" @click="drawerState = true" icon slot="right" v-if="guolv">
         <mu-icon size="24" value=":iconfont icon-guolv"></mu-icon>
+        <span class="existence" v-show="screenState">·</span>
       </mu-button>
       
 
@@ -51,7 +52,8 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import ios_fn from "@static/js/ios_fn"
+import { mapState, mapMutations } from "vuex";
 import Screen from "@components/basics/Screen";
 export default {
   name: "app-bar",
@@ -64,7 +66,7 @@ export default {
       type: Boolean,
       default: true
     },
-
+    
     closePage: {
       type: Boolean,
       default: false
@@ -131,14 +133,27 @@ export default {
       menuStatus: false
     };
   },
+  computed: {
+    ...mapState(["screenState"])
+  },
   methods: {
-    ...mapMutations(["setActiveBtn"]),
+    ...mapMutations(["setActiveBtn", "setScreenState"]),
 
     leftClick() {
-      if(!this.closePage){
+      let otherApp = this.tool.getUrlKey('otherApp') || false;
+      let listPages = ["repayment", "overdue", "compensatory", "phone", "business", "visit", "all", "collection"];
+      if(!otherApp){
         this.$router.go(-1);
+        this.setScreenState(false);
       }else{
-        this.$emit("closePage")
+        if(listPages.includes(this.$route.name)){
+          if (this.tool.getSystem() === "Android"){
+            bridge.navigation("homePage", true);
+          }else{
+            ios_fn.gobackClick();
+          }
+
+        }
       }
     },
     closeDrawer(){
@@ -165,6 +180,15 @@ export default {
 .app-bar {
   .title {
     font-size: 18px;
+  }
+  .guolv{
+    position: relative;
+    .existence{
+      color: #EC191F;
+      position: absolute;
+      top: -2px;
+      right: 8px;
+    }
   }
   .mu-drawer {
     width: 76%;

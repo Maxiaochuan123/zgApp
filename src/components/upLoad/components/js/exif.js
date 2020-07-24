@@ -37,7 +37,7 @@
         http.open("GET", url, true);
         http.responseType = "blob";
         http.onload = function(e) {
-            if (this.status == 200 || this.status === 0) {
+            if (this.status === 200 || this.status === 0) {
                 callback(this.response);
             }
         };
@@ -75,7 +75,7 @@
             } else {
                 var http = new XMLHttpRequest();
                 http.onload = function() {
-                    if (this.status == 200 || this.status === 0) {
+                    if (this.status === 200 || this.status === 0) {
                         handleBinaryFile(http.response);
                     } else {
                         throw "Could not load image";
@@ -125,7 +125,7 @@
             strPretty = "";
         for (a in data) {
             if (data.hasOwnProperty(a)) {
-                if (typeof data[a] == "object") {
+                if (typeof data[a] === "object") {
                     if (data[a] instanceof Number) {
                         strPretty += a + " : " + data[a] + " [" + data[a].numerator + "/" + data[a].denominator + "]\r\n";
                     } else {

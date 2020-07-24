@@ -21,39 +21,48 @@ function setupWebViewJavascriptBridge(callback) {
   }
 }
 
+
 export default{
-  //通用的call方法
-  callHandler(name, data, callback){
-      setupWebViewJavascriptBridge(function (bridge) {
-          bridge.callHandler(name,data, callback);
-      })
-  },
-  //通用的registerHandler方法
-  registerHandler(name, callback){
-      setupWebViewJavascriptBridge(function (bridge) {
-          bridge.registerHandler(name, function (data, responseCallback) {
-              callback(data, responseCallback)
-          })
-      })
-  },
-  //APP页面内部跳转
-  loadurlwithmobile(data, callback){
-      setupWebViewJavascriptBridge(function (bridge) {
-          bridge.callHandler("locationwithMB",data, callback);
-      })
-  },
-  //消息提示
-  showToast(data){
-      setupWebViewJavascriptBridge(function (bridge) {
-          bridge.callHandler("showToast",data);
-      })
-  },
-  //返回
-  ReturnVC(index,refresh){
-      setupWebViewJavascriptBridge(function (bridge) {
-          bridge.callHandler("ReturnVC",{"index":index,"refresh":refresh});
-      })
-  }
+    getStatusBarHeight(){
+        setupWebViewJavascriptBridge(function (bridge) {
+            console.log('bridge_1:', bridge)
+            bridge.getStatusBarHeight();
+        })
+    },
+
+    //通用的call方法
+    callHandler(name, data, callback){
+        setupWebViewJavascriptBridge(function (bridge) {
+            console.log('bridge_2:', bridge)
+            bridge.callHandler(name,data, callback);
+        })
+    },
+    //通用的registerHandler方法
+    registerHandler(name, callback){
+        setupWebViewJavascriptBridge(function (bridge) {
+            bridge.registerHandler(name, function (data, responseCallback) {
+                callback(data, responseCallback)
+            })
+        })
+    },
+    //APP页面内部跳转
+    loadurlwithmobile(data, callback){
+        setupWebViewJavascriptBridge(function (bridge) {
+            bridge.callHandler("locationwithMB",data, callback);
+        })
+    },
+    //消息提示
+    showToast(data){
+        setupWebViewJavascriptBridge(function (bridge) {
+            bridge.callHandler("showToast",data);
+        })
+    },
+    //返回
+    ReturnVC(index,refresh){
+        setupWebViewJavascriptBridge(function (bridge) {
+            bridge.callHandler("ReturnVC",{"index":index,"refresh":refresh});
+        })
+    }
 }
 
 let ua = navigator.userAgent.toLowerCase();

@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import ArrSingleOrMultiple from './ArrSingleOrMultiple';
 export default {
   props:{
@@ -57,15 +58,19 @@ export default {
   },
   data(){
     return{
+      resetState:false,
       submitDrawerList:{}
     }
   },
   methods:{
+    ...mapMutations(["setScreenState"]),
+
     arrSingleOrMultipleChange({type,value}) {
       this.drawerList[type] = {...this.drawerList[type],val:value,};
     },
     // 筛选 - 重置
     resetDrawerList(){
+      this.resetState = true;
       for(let item in this.drawerList){
         const onedata = this.drawerList[item];
         if(onedata.list){
@@ -79,6 +84,9 @@ export default {
     },
     //筛选 - 确认
     drawerSubmit(){
+      this.setScreenState(this.resetState ? false : true);
+      this.resetState = false;
+      
       this.getParams();
       this.$emit('getScreenParams', this.submitDrawerList);
     },
@@ -102,6 +110,7 @@ export default {
       // background-color: aquamarine;
       // height: 20%;
     }
+    
     .content{
       height: 200px;
       margin-top: 20px;

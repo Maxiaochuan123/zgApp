@@ -2,14 +2,7 @@
   <div class="image-preview-box" v-show="imagesView">
     <span class="switch-close" @click="closePreview"><i class="iconfont icon-cuo"></i></span>
     <div ref="pageDiv" class="imgBox" @touchmove="moveHandler($event)" @touchend="moveHanEnddler($event)">
-      <img ref="actionMgr" :src="currentPreviewSrc" :style="transform.template()" v-finger:pinch="pinchHandler" @touchstart="onmousedown($event)">
-      <div class="imgThumbnail">
-        <div v-for="(item,index) in imagesList" :key="index">
-          <div :id="`tag-${index}`" :class="[currentPreviewIndex === index ? 'activeBorder' : '']" v-show="imgType(item.attachmentType)">
-            <img :src="item.attachmentUrl" @click="setActiveImg(index)">
-          </div>
-        </div>
-      </div>
+      <img ref="actionMgr" :src="previewSrc" :style="transform.template()" v-finger:pinch="pinchHandler" @touchstart="onmousedown($event)">
     </div>
   </div>
 </template>
@@ -21,27 +14,13 @@ export default {
       type:Boolean,
       default:false
     },
-    imagesList:{ //图片列表
-      type:Array,
-      default: ()=> []
-    },
     previewSrc:{ //预览图 src
       type:String,
       default:''
-    },
-    previewIndex:{ //预览图 下标
-      type:Number,
-      default:0
-    },
-    testImgState:{ //是否检测图片上传状态
-      type:Boolean,
-      default:true
     }
   },
   data(){
     return{
-      currentPreviewSrc: this.previewSrc,
-      currentPreviewIndex: this.previewIndex,
       transform:{ //查看图片过渡效果
         state:true,
         scale:1, //缩放比例
@@ -60,28 +39,17 @@ export default {
   },
   watch:{
     imagesView(newVal,oldVal){
-      if(newVal){
-        this.$nextTick(()=>{
-          this.resetPosition();
-          document.querySelector(`#tag-${this.previewIndex}`).scrollIntoView(true);
-        })
-      }
+      setTimeout(() => {
+        this.resetPosition();
+      },10);
     },
     previewSrc(newVal,oldVal){
       this.currentPreviewSrc = newVal;
-    },
-    previewIndex(newVal,oldVal){
-      this.currentPreviewIndex = newVal;
     }
   },
   methods:{
     pinchHandler(e){
       this.getZoom(e)
-    },
-    setActiveImg(index){
-      this.currentPreviewSrc = this.imagesList[index].attachmentUrl || this.imagesList[index];
-      this.currentPreviewIndex = index;
-      this.resetPosition();
     },
     resetPosition(){
       this.$nextTick(()=>{
@@ -137,10 +105,6 @@ export default {
         /* 此处判断 拖拽按钮 如果超出 屏幕宽高 或者 小于  
            设置 屏幕最大 x=全局容器x y=全局容器y 否则 设置 为 x=0 y=0 
         */
-        // if (x > pageDivX - actionMgrX) x = pageDivX - actionMgrX;
-        // else if (x < 0) x = 0;
-        // if (y > pageDivY - actionMgrY) y = pageDivY - actionMgrY;
-        // else if (y < 0) y = 0;
         // 计算后坐标  设置 按钮位置
         actionMgrStyle.left = `${x}px`;
         actionMgrStyle.top = `${y}px`;
@@ -170,34 +134,11 @@ export default {
         this.transform.scale = parseFloat(tempNum.toFixed(1));
       }
     },
-    // 上一张图
-    arrowLeft(){
-      let arrowLeftIndex = this.currentPreviewIndex <= 0 ? 0 : --this.currentPreviewIndex;
-      this.currentPreviewSrc = this.imagesList[arrowLeftIndex].attachmentUrl;
-    },
-    // 下一张图
-    arrowRight(){
-      let arrowRightIndex = this.currentPreviewIndex >= this.imagesList.length-1 ? this.imagesList.length-1 : ++this.currentPreviewIndex;
-      this.currentPreviewSrc = this.imagesList[arrowRightIndex].attachmentUrl;
-    },
     // 关闭查看器
     closePreview(){
       this.resetPosition();
       this.$emit('closeImagesPreview', false);
       this.transform.init();
-    }
-  },
-  computed:{
-    isArrowLeft(){
-      return this.currentPreviewIndex > 0;
-    },
-    isArrowRight(){
-      return this.currentPreviewIndex !== this.imagesList.length - 1;
-    },
-    imgType(){
-      return (type) =>{
-        return type === "png" || type === "jpg" || type === "jpeg" ? true : false;
-      }
     }
   }
 }
@@ -225,39 +166,6 @@ export default {
       img{
         width: 100%;
         position: absolute;
-      }
-
-      .imgThumbnail{
-
-        width: 100%;
-        height: 60px;
-        background-color: rgba(0,0,0,.3);
-        position: absolute;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: scroll;
-
-        div div{
-          width: 52px;
-          height: 52px;
-          margin-right: 6px;
-          flex-shrink: 0;
-          border: 2px solid transparent;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          img{
-            width: 46px;
-            height: 46px;
-          }
-        }
-        .activeBorder{
-          border: 2px solid cornflowerblue;
-        }
-        
       }
     }
     

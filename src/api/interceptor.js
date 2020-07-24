@@ -1,20 +1,44 @@
-import axios from 'axios'
+// import axios from 'axios'
 import Qs from 'qs';
 import Toast from "muse-ui-toast";
 import store from "@/vuex/store";
 import tool from '@static/js/tool'
+import ios_fn from '@static/js/ios_fn'
+// import Vue from "vue";
+
+// import VConsole from "vConsole";
+// Vue.prototype.$VConsole = new VConsole()
 
 // 超时时间
 axios.defaults.timeout = 5000;
 const loginUrl = `http://${window.location.host}/#/login`;
-const apiPrefix = `${window.location.protocol}//${window.location.host}/api`;
+const apiPrefix = `/api`;
+
+// 携带 token
+let otherApp = tool.getUrlKey('otherApp') || false;
+let appToken = tool.getUrlKey('appToken') || "";
+
+// list 页面
+let listPages = ["repayment", "overdue", "compensatory", "phone", "business", "visit", "all", "collection"];
 
 /*----------------------请求拦截----------------------*/
 axios.interceptors.request.use(config => {
+  
   const contentType = config.headers["Content-Type"];
   const configUrl = `/${config.url.substring(config.url.lastIndexOf("/") + 1)}`;
 
-  if (configUrl !== '/login') store.commit('showLoading');
+  // 判断 如果是列表 不显示 loading
+  const listUrl = window.location.hash;
+  let listStr = listUrl.split("#/")[1];
+  listStr = listStr.indexOf('/') != -1 ? listStr.split("/")[1] : listStr;
+  let listUrlName = listStr.indexOf('?') != -1 ? listStr.split("?")[0] : listStr;
+
+  if (configUrl !== '/login'){
+    if (!listPages.includes(listUrlName)){
+      // console.log(listPages.includes(listUrlName), listUrlName)
+      store.commit('showLoading');
+    }
+  }
 
   // 参数序列化
   if (config.method === 'post' || config.method === 'put' || config.method === 'delete') {
@@ -27,11 +51,18 @@ axios.interceptors.request.use(config => {
     }
   };
 
-  // 携带 token
   let token = localStorage.getItem('token');
-  if (token && configUrl !== '/login') {
-    token = tool.decAse192(token, 'token');
-    config.headers.token = token;
+  let _appToken = appToken;
+  
+  if (otherApp){
+    if (_appToken && configUrl !== '/login') {
+      config.headers.Authorization = _appToken;
+    }
+  }else{
+    if (token && configUrl !== '/login') {
+      token = tool.decAse192(token, 'token');
+      config.headers.Authorization =  token;
+    }
   }
 
   return config;
@@ -47,7 +78,15 @@ axios.interceptors.response.use(response => {
   if (response.data.message !== "success") Toast.error({ message: response.data.message });
   switch (response.data.code) {
     case 9999:
-      window.location.href = loginUrl;
+      if (otherApp) { 
+        if (tool.getSystem() === "Android"){
+          bridge.navigation("login", true);
+        }else{
+          ios_fn.loginClick();
+        }
+      } else { 
+        window.location.href = loginUrl;
+      }
       break;
   }
   // console.log('response:', response)
@@ -60,7 +99,15 @@ axios.interceptors.response.use(response => {
     switch (error.response.status) {
       case 302:
         Toast.error({ message: "登陆失效, 请重新登陆" });
-        window.location.href = loginUrl;
+        if (otherApp) {
+          if (tool.getSystem === "Android") {
+            bridge.navigation("login", true);
+          } else {
+            ios_fn.loginClick();
+          }
+        } else {
+          window.location.href = loginUrl;
+        }
         break;
       case 403:
         Toast.warning({ message: "您无权访问此页面" });
@@ -95,7 +142,7 @@ export const post = ({ url, params, fileProgress, headers}) => {
   return axios.post(apiPrefix + url, params, { headers, 
     onUploadProgress: progressEvent => {
       let complete = ((progressEvent.loaded / progressEvent.total) * 100) | 0;
-      if (fileProgress) fileProgress.progress.progressNum = complete;
+      if (fileProgress) fileProgress.progress.progressNum = complete; 
     } }).then(res => res.data);
 }
 

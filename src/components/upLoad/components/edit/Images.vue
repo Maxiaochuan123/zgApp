@@ -18,8 +18,8 @@ export default {
       minSize: 1024 * 1024 * 3, //图片容量最小值
       maxSize: 1024 * 1024 * 10, //图片容量最大值
       limitedSize:false, //是否限制图片尺寸
-      // maxWidth:1000, //图片最大宽度
-      // maxHeight:1000, //图片最大高度
+      maxWidth:1000, //图片最大宽度
+      maxHeight:1000, //图片最大高度
 
       zipBeforeSize:0, //压缩前容量
       zipAfterSize:0, //压缩后容量
@@ -34,12 +34,12 @@ export default {
       item.progress.progressState = 0;
       item.progress.progressNum = 0;
 
-      if(item.progress.progressState == 0){
+      if(item.progress.progressState === 0){
         const fd = new FormData();
         fd.append('files', item.file);
 
         this.api.upLoad(fd, item).then(res => {
-          if(res.message == "success"){
+          if(res.message === "success"){
             item.progress.progressNum = 100; item.progress.progressState = 1; item.progress.isNew = false; item.progress.isProgress=false;
 
             // 把选择时处理的数据  + 上传成功后的数据 一起抛出

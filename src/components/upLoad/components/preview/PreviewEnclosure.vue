@@ -51,7 +51,7 @@ export default {
       this.$emit('closeEnclosurePreview', false);
     },
     download(){
-      let src = `${this.uploadPrefix}${this.previewItem.attachmentUrl}`;
+      let src = this.previewItem.attachmentUrl;
       if(this.systemt === 'Android'){
         if(!document.querySelector('#previewIframe')){
           let iframe = document.createElement('iframe');

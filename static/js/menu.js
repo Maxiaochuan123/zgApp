@@ -56,7 +56,7 @@ export const setMenu = pageControl => {
       disabled: false
     }, {
       title: "回款",
-      linkName: "collection",
+      linkName: "payment",
       linkParams: {},
       hidden: pageControl.returnMoney,
       disabled: false
@@ -77,7 +77,7 @@ export const setMenu = pageControl => {
       disabled: false
     }, {
       title: "回款",
-      linkName: "collection",
+      linkName: "payment",
       linkParams: {},
       hidden: pageControl.returnMoney,
       disabled: false
