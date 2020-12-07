@@ -2,7 +2,13 @@
   <div class="listBox">
     <div ref="listItem" class="listItem" v-for="(item,index) in list" :key="index">
       <div class="header">
-        <span>{{item.orderNo | paramsError}}</span> <span class="status primaryColor">{{item.repaymentStateName | paramsError}}</span>
+        <span>{{item.orderNo | paramsError}}</span> <span class="status primaryColor">
+          <!-- 非待办 -->
+          <span v-if="!todoWhiteList.includes(pageSource)">{{item.repaymentStateName | paramsError}}</span>
+          <!-- 待办中的列表处理 -->
+          <!-- 待催收 -->
+          <span v-else-if="pageSource === 'collection' ">{{item.collectionCount > 0 ? `已催收 (${item.collectionCount}次)` : "未催收" | paramsError}}</span>
+        </span>
       </div>
       <div class="content">
         <div class="itemBox">
@@ -16,8 +22,17 @@
         </div>
       </div>
       <div class="bottom">
-        <span class="updateTime">{{item.updateDate}} 更新</span>
-        <mu-button flat v-show="pageControl.searchBtn" @click="handler(item)">{{ listBtnText }}</mu-button>
+        <span class="updateTime">{{item.updateDate ? item.updateDate.split(" ")[0] : ''}} 更新</span>
+        <!-- 非待办 -->
+        <div v-if="!todoWhiteList.includes(pageSource)">
+          <mu-button flat v-show="pageControl.searchBtn" @click="handler(item)">{{ listBtnText }}</mu-button>
+        </div>
+        <!-- 待办中的列表处理 -->
+        <!-- 待催收 -->
+        <div v-else-if="pageSource === 'collection' ">
+          <mu-button flat @click="handler(item, '跟进记录')" v-show="pageControl.followupRecord">跟进记录</mu-button>
+          <mu-button flat @click="handler(item, '跟进')" v-show="pageControl.followUp">跟进</mu-button>
+        </div>
       </div>
     </div>
   </div>
@@ -36,15 +51,33 @@ export default {
     if(this.loanBox) this.setLoanBoxScrollTop("reset");
   },
   computed: {
-    ...mapState(["loanBox"])
+    ...mapState(["loanBox", "pageSource"])
   },
   methods: {
     ...mapMutations(["setCurrentMoreBoxScrollTop", "setLoanBoxScrollTop", "setActiveBtn"]),
 
-    handler(item){
+    handler(item, type){
       this.setCurrentMoreBoxScrollTop();
-      this.setActiveBtn("searchBtn");
-      this.goPage('plan',{orderId:item.orderId},{...item});
+
+      // 非待办
+      if(!this.todoWhiteList.includes(this.pageSource)){
+        this.setActiveBtn("searchBtn");
+        this.goPage('plan',{orderId:item.orderId},{...item});
+      
+      // 待办 - 待催收
+      }else if(this.pageSource === "collection"){
+        switch (type) {
+          case "跟进记录":
+            this.setActiveBtn("followupRecord");
+            this.goPage('plan',{orderId:item.orderId},{...item});
+            break;
+          case "跟进":
+            this.setActiveBtn("followup");
+            this.goPage('writeFollowup',{},{...item});
+            break;
+        }
+      }
+
     },
   }
 }

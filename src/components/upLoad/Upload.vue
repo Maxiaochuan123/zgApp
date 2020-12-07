@@ -24,13 +24,11 @@
     </div>
 
     <!-- 图片点击预览 -->
-    <PreviewImage
-      :imagesList="imgPreviewList"
-      :previewIndex="previewIndex"
-      :previewSrc="previewSrc"
+    <PreviewImageOne
       :imagesView="imagesView"
+      :previewSrc="previewSrc"
       @closeImagesPreview="closeImagesPreview"
-    ></PreviewImage>
+    ></PreviewImageOne>
 
     <!--上传预览 -->
     <div class="preview">
@@ -38,11 +36,11 @@
       <div class="imgPreview">
         <div :class="[isAlimatin ? 'animation-in' : '']" :key="index" class="imgList" v-for="(item, index) in imgPreviewList" >
           <!-- 图片展示 -->
-          <img :src="`${uploadPrefix}${item.successInfo.attachmentUrl}`" @click="openImagesPreview(item, index)" class="imgItem" />
+          <img :src="item.successInfo.attachmentUrl" @click="openImagesPreview(item, index)" class="imgItem" />
           <!-- 删除 -->
-          <img src="@static/images/delete.png" @click="deleteImage(item)" class="delete" v-if="isEdit" v-show="item.progress.progressState == 1" />
+          <img src="@static/images/delete.png" @click="deleteImage(item)" class="delete" v-if="isEdit" v-show="item.progress.progressState === 1" />
           <!-- 重传 -->
-          <div class="reUpload" v-show="item.progress.progressState == 2">
+          <div class="reUpload" v-show="item.progress.progressState === 2">
             <i @click="$refs.imageRef.uploadHahdle(item)" class="iconfont icon-shangchuan" ></i>
           </div>
           <!-- 进度 -->
@@ -60,7 +58,7 @@
         <div :class="[isAlimatin ? 'animation-in' : '']" :key="index" class="enclosureList" v-for="(listItem, index) in enclosureList" >
           <img :src="getEnclosurType(listItem.successInfo.attachmentType)" />
           <!-- 重传 -->
-          <div class="reUpload" v-show="listItem.progress.progressState == 2">
+          <div class="reUpload" v-show="listItem.progress.progressState === 2">
             <i @click="$refs.imageRef.uploadHahdle(listItem)" class="iconfont icon-shangchuan" ></i>
           </div>
           <!-- 进度 -->
@@ -92,11 +90,11 @@
 <script>
 import Images from "./components/edit/Images";
 import Enclosure from "./components/edit/Enclosure";
-import PreviewImage from "./components/preview/PreviewImage";
-import Axios from "axios";
+import PreviewImageOne from "./components/preview/PreviewImageOne";
+// import Axios from "axios";
 export default {
   name: "upLoad",
-  components: { Images, Enclosure, PreviewImage },
+  components: { Images, Enclosure, PreviewImageOne },
   props: {
     isEdit: { //编辑 or 查看
       type: Boolean,
@@ -106,15 +104,15 @@ export default {
       type: String,
       default: "附件"
     },
-    isEnclosure: { // 是否上传附件
+    isEnclosure: { //是否上传附件
       type: Boolean,
       default: true
     },
-    isImg: { // 是否上传
+    isImg: { //是否上传图片
       type: Boolean,
       default: true
     },
-    preview: { //预览模式 非编辑 非查看
+    preview: { //是否预览图片
       type: Boolean,
       default: false
     },
@@ -214,7 +212,6 @@ export default {
     openImagesPreview(item, index) {
       this.imagesView = true;
       this.previewSrc = item.src;
-      this.previewIndex = index;
     },
     // 关闭 图片预览 view
     closeImagesPreview(val) {

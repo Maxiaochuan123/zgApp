@@ -15,6 +15,7 @@
 
 <script>
 import tool from '@static/js/tool'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: "SearchInputBar",
   data() {
@@ -37,22 +38,37 @@ export default {
       default: ()=>[]
     }
   },
+  created () {
+    if(this.searchInputValue) this.value = this.searchInputValue;
+  },
+  watch:{
+    searchInputValue(newVal, oldVal){
+      if(!newVal) this.value = "";
+    }
+  },
+  computed: {
+    ...mapState(["searchInputValue"])
+  },
   methods: {
-
+    ...mapMutations(["setSearchInputVal"]),
     // 实时搜索
     // searchInput:tool.debounce(function(){
     //   this.resetListHandle();
-    //   this.$store.commit('setSearchInputVal',this.value);
+    //   this.setSearchInputVal(this.value);
     //   this.$emit("searchInputBarChange", this.value);
     // },1200),
 
     // 移动端点击搜索 || 前往
     searchGoods(event) { 
-      if (event.keyCode == 13) {
+      if (event.keyCode === 13) {
         event.preventDefault(); //禁止默认事件（默认是换行） 
         this.resetListHandle();
-        this.$store.commit('setSearchInputVal',this.value);
+        this.setSearchInputVal(this.value);
         this.$emit("searchInputBarChange", this.value);
+
+        // 搜索触发后, 清除输入框中的数据
+        // this.value = ''
+        // this.setSearchInputVal("");
 
         if(this.value) this.isShow = true;
         if(!this.isCandidate){
@@ -66,7 +82,7 @@ export default {
     // 清空
     close(){
       this.value = ''
-      this.$store.commit('setSearchInputVal',"");
+      this.setSearchInputVal("");
       this.$emit("searchClose")
     },
     searchFocus(){
@@ -78,12 +94,7 @@ export default {
   }
 };
 </script>
-<style lang="less">
-.query-input {
-  .mu-text-field-input {
-    height: auto !important;
-  }
-}
+<style lang="less" scoped>
 </style>
 <style lang='less' scoped>
 .search-input-bar {

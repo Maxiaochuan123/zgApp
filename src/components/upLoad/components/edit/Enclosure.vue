@@ -23,12 +23,12 @@ export default {
       item.progress.isProgress = true;
       item.progress.progressState = 0;
       item.progress.progressNum = 0;
-      if(item.progress.progressState == 0){
+      if(item.progress.progressState === 0){
         const fd = new FormData();
         fd.append('files', item.file);
 
         this.api.upLoad(fd, item).then(res => {
-          if(res.message == "success"){
+          if(res.message === "success"){
             item.progress.progressNum = 100; item.progress.progressState = 1; item.progress.isNew = false; item.progress.isProgress=false;
 
             // 把选择时处理的数据  + 上传成功后的数据 一起抛出

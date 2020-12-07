@@ -4,13 +4,12 @@
     <SearchInputBar placeholderText="搜索项目编号/客户姓名/手机号码" @searchInputBarChange="searchInputBarChange" @searchClose="searchClose"></SearchInputBar>
     <div class="contentBox">
       <div class="content-list" ref="moreBox">
-        <mu-load-more v-if="listData.length > 0 && !dataError" :refreshing="loadUpdate.refreshing" @refresh="refresh" :loading="loadUpdate.loading" @load="load" :loaded-all="loadUpdate.loadedAll">
-          <ListItem_0 v-if="listType == '0'" v-on="$listeners" :list="listData"></ListItem_0>
-          <ListItem_1 v-if="listType == '1'" v-on="$listeners" :list="listData"></ListItem_1>
+        <mu-load-more v-if="listData.length > 0" :refreshing="loadUpdate.refreshing" @refresh="refresh" :loading="loadUpdate.loading" @load="load" :loaded-all="loadUpdate.loadedAll">
+          <ListItem_0 v-if="listType === '0'" v-on="$listeners" :list="listData"></ListItem_0>
+          <ListItem_1 v-if="listType === '1'" v-on="$listeners" :list="listData"></ListItem_1>
         </mu-load-more>
-        <Nothing v-else></Nothing> 
-
         <Skeleton v-if="skeleton"></Skeleton>
+        <Nothing v-if="!skeleton && listData.length === 0"></Nothing>
       </div>
     </div>
   </div>
@@ -35,7 +34,11 @@ export default {
     }
   },
   created () {
-    this.apiMethods.getListCallback(this);
+    if(this.searchInputValue){
+      this.apiMethods.getListCallback(this,"search");
+    }else{
+      this.apiMethods.getListCallback(this);
+    }
   },
   mounted () {
     this.setMoreBox(this.$refs.moreBox);
@@ -44,7 +47,7 @@ export default {
     if(this.moreBox) this.setMoreBoxScrollTop();
   },
   computed: {
-    ...mapState(["moreBox"])
+    ...mapState(["moreBox", "searchInputValue"])
   },
   methods: {
     ...mapMutations(["setMoreBox", "setMoreBoxScrollTop"]),
@@ -53,6 +56,8 @@ export default {
       this.apiMethods.getListCallback(this,"search");
     },
     searchClose(){
+      this.paging.pageIndex = 1;
+      if(this.moreBox) this.setMoreBoxScrollTop();
       this.apiMethods.getListCallback(this,"search");
     },
     getScreenParams(data){

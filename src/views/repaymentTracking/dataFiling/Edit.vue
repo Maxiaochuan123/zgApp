@@ -98,16 +98,16 @@ export default {
   },
   computed: {
     secondaryTest(){
-      if(this.route.state == 'waitTransfer' || this.route.state == 'reject'){
+      if(this.route.state === 'waitTransfer' || this.route.state === 'reject'){
         return '取消';
-      }else if(this.route.state == 'waitFile'){
+      }else if(this.route.state === 'waitFile'){
         return '驳回';
       }
     },
     confirmTest(){
-      if(this.route.state == 'waitTransfer' || this.route.state == 'reject'){
+      if(this.route.state === 'waitTransfer' || this.route.state === 'reject'){
         return '确认移交';
-      }else if(this.route.state == 'waitFile'){
+      }else if(this.route.state === 'waitFile'){
         return '确认归档';
       }
     }
@@ -152,19 +152,19 @@ export default {
     },
     // 取消
     secondaryCallback(){
-      if(this.route.state == 'waitTransfer' || this.route.state == 'reject'){
+      if(this.route.state === 'waitTransfer' || this.route.state === 'reject'){
         console.log('取消')
         // this.goBack();
-      }else if(this.route.state == 'waitFile'){
+      }else if(this.route.state === 'waitFile'){
         console.log('驳回')
       }
     },
     // 确认移交
     confirmCallback(){
-      if(this.route.state == 'waitTransfer' || this.route.state == 'reject'){
+      if(this.route.state === 'waitTransfer' || this.route.state === 'reject'){
         console.log('确认移交')
         
-      }else if(this.route.state == 'waitFile'){
+      }else if(this.route.state === 'waitFile'){
         console.log('确认归档')
       }
     }

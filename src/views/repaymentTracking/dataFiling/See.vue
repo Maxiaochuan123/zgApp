@@ -86,12 +86,12 @@ export default {
       this.pickerTitle= title;
       this.detailedPickerIndex= index;
       
-      if(title == '是否有公正证书'){
+      if(title === '是否有公正证书'){
         this.pickerList = this.pickerList_0;
         this.pickerList.forEach((item,index)=>{
           this.pickerAnchor = [item.text === this.form.pickerVal ? index : 0];
         })
-      }else if(title == '档案类型'){
+      }else if(title === '档案类型'){
         this.pickerList = this.pickerList_1;
         this.detailed.forEach((item,i)=>{
           this.pickerAnchor = item.pickerVal ? [item.pickerVal === this.detailed[i].pickerVal ? index : 0] : [0];
@@ -100,10 +100,10 @@ export default {
     },
     // picker 确定
     pickerConfirm(value, column, text){
-      if(this.pickerTitle == '是否有公正证书'){
+      if(this.pickerTitle === '是否有公正证书'){
         this.form.pickerVal = text[0];
         this.pickerAnchor = [column];
-      }else if(this.pickerTitle == '档案类型'){
+      }else if(this.pickerTitle === '档案类型'){
         this.detailed[this.detailedPickerIndex].pickerVal = text[0];
       }
     },

@@ -3,7 +3,7 @@
     <mu-bottom-nav :value.sync="bottomNav" color="primary">
       <mu-bottom-nav-item value="home" title="首页" icon=":iconfont icon-shouye" to="/home"></mu-bottom-nav-item>
       <mu-bottom-nav-item value="mailList" title="通讯录" icon=":iconfont icon-tongxunlu" to="/mailList"></mu-bottom-nav-item>
-      <!-- <mu-bottom-nav-item value="todoList" title="待办" icon=":iconfont icon-daiban" to="/todoList"></mu-bottom-nav-item> -->
+      <mu-bottom-nav-item value="todoList" title="待办" icon=":iconfont icon-daiban" to="/todoList"></mu-bottom-nav-item>
       <mu-bottom-nav-item value="myInfo" title="我的" icon=":iconfont icon-wode" to="/myInfo"></mu-bottom-nav-item>
     </mu-bottom-nav>
   </div>
@@ -20,7 +20,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      if (to.path == "/home" || to.path == "/mailList" || to.path == "/todoList" || to.path == "/myInfo") {
+      if (to.path === "/home" || to.path === "/mailList" || to.path === "/todoList" || to.path === "/myInfo") {
         this.showBotNav = true;
         this.bottomNav = to.name;
         this.$router.push(to.name);

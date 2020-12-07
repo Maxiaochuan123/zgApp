@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 import List from '@components/list/List'
 export default {
   components: { List },
@@ -14,38 +15,46 @@ export default {
       drawerList:{}
     }
   },
+  computed: {
+    ...mapState(["lendingPlatformList", "companyList", "projectState"])
+  },
   created () {
-    this.drawerList = {
-      dateSwitch:{
-        fileTitle:'更新日期',
-        type:'date',
-        val:[]
-      },
-      lendingPlatform:{
-        fileTitle:'放款平台',
-        type:'select',
-        options:this.lendingPlatformList,
-        val:''
-      },
-      company:{
-        fileTitle:'所属公司',
-        type:'select',
-        options:this.companyList,
-        val:''
-      },
-      projectState:{
-        defaultValue:[],
-        fileTitle:'项目状态',
-        mode:'single',
-        valueField:'code',
-        labelField:'name',
-        list:this.projectState
-      },
-    }
     this.$store.commit('setPageSource',"repayment");
   },
   activated () {
     this.$store.commit('setPageSource',"repayment");
+  },
+  mounted () {
+    setTimeout(() => {
+      this.drawerList = {
+        dateSwitch:{
+          fileTitle:'更新日期',
+          type:'date',
+          val:[]
+        },
+        lendingPlatform:{
+          fileTitle:'放款平台',
+          type:'select',
+          options:this.lendingPlatformList,
+          val:''
+        },
+        company:{
+          fileTitle:'所属公司',
+          type:'select',
+          options:this.companyList,
+          val:''
+        },
+        projectState:{
+          defaultValue:[""],
+          fileTitle:'项目状态',
+          mode:'single',
+          valueField:'code',
+          labelField:'name',
+          list:this.projectState
+        },
+      }
+    }, 500);
+    
   }
 }
 </script>

@@ -1,12 +1,13 @@
 <template>
-  <div class="visitList">
-    <List pageTitle="外勤催收" :drawerList="drawerList" listType="0"></List>
+  <!-- 待催收列表 -->
+  <div class="collection">
+    <List pageTitle="待催收" listType="0" :drawerList="drawerList"></List>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex"
 import List from '@components/list/List'
+import { mapState } from "vuex"
 export default {
   components: { List },
   data() {
@@ -15,13 +16,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(["lendingPlatformList", "companyList", "personLiableList", "repaymentState"])
+    ...mapState(["lendingPlatformList", "companyList", "collectionStatus"])
   },
   created () {
-    this.$store.commit('setPageSource',"visit");
+    this.$store.commit('setPageSource',"collection");
   },
   activated () {
-    this.$store.commit('setPageSource',"visit");
+    this.$store.commit('setPageSource',"collection");
   },
   mounted () {
     setTimeout(() => {
@@ -43,19 +44,13 @@ export default {
           options:this.companyList,
           val:''
         },
-        personLiable:{
-          fileTitle:'责任人',
-          type:'select',
-          options:this.personLiableList,
-          val:''
-        },
-        repaymentState:{
-          defaultValue:[""],
-          fileTitle:'还款状态',
+        collectionStatus:{
+          defaultValue:["UNCOLLECTED"],
+          fileTitle:'催收状态',
           mode:'single',
           valueField:'code',
           labelField:'name',
-          list:this.repaymentState
+          list:this.collectionStatus
         },
       }
     }, 500);

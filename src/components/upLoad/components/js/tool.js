@@ -52,16 +52,16 @@ export default{
     ctx.fillStyle = '#fff'; //铺底色 防止 png 绘制时 丢失透明度变成黑色底
 
     if(Orientation){
-      if (Orientation == 3) {
+      if (Orientation === 3) {
         ctx.rotate(Math.PI);
         ctx.drawImage(img, -width, -height,  width, height);
-      }else if (Orientation == 6) {
+      }else if (Orientation === 6) {
         canvas.width = height;
         canvas.height = width;
         ctx.rotate(Math.PI / 2);
         // (0,-imgHeight) 从旋转原理图那里获得的起始点
         ctx.drawImage(img, 0,-height,  width, height  );
-      } else if (Orientation == 8) {
+      } else if (Orientation === 8) {
         canvas.width = height;
         canvas.height = width;
         ctx.rotate(3 * Math.PI / 2);

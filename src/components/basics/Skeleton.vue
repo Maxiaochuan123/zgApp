@@ -63,6 +63,8 @@ export default {
 
 <style lang="less" scoped>
   .skeleton{
+    margin-top: -48px;
+    
     .lightui1, .lightui2{
       margin-top: 12px;
       padding: 12px 20px;

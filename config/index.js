@@ -16,6 +16,13 @@ module.exports = {
         pathRewrite: {
           "^/api": ""
         }
+      },
+      "/file": {
+        target: "http://192.168.0.92:8899/file",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/file": ""
+        }
       }
     },
 
@@ -56,7 +63,7 @@ module.exports = {
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: "#cheap-module-eval-source-map",
 

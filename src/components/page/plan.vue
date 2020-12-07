@@ -3,16 +3,16 @@
   <div class="plan">
     <AppBar :pageTitle="pageTitle" :occupyBtn="getMenuList.length > 0 ? false : true" :shadow="pageSource === 'repayment'" :menuList="getMenuList" @menuChange="menuChange"></AppBar>
     <div class="contentBox">
-      <div ref="loanBox" :class="[pageSource !== 'repayment' ? tabsActive == 1 ? 'content-tabs followRecord' : 'content-tabs' : 'content-appBar']">
+      <div ref="loanBox" :class="[pageSource !== 'repayment' ? tabsActive === 1 ? 'content-tabs followRecord' : 'content-tabs' : 'content-appBar']">
         <mu-tabs v-if="pageSource !== 'repayment'" :value.sync="tabsActive" @change="tabsChange" inverse color="primary" indicator-color="primary" center>
           <mu-tab>基本信息</mu-tab>
           <mu-tab>跟进记录</mu-tab>
         </mu-tabs>
-        <div class="basicInfo" v-show="tabsActive==0">
+        <div class="basicInfo" v-show="tabsActive === 0">
           <Info :infoData="infoData"></Info>
           <Loan v-for="(item,index) in loanInfoList" :key="index" :item="item"></Loan>
         </div>
-        <div class="followUp" v-show="tabsActive==1">
+        <div class="followUp" v-show="tabsActive === 1">
           <FollowRecord :record="followUpRecord"></FollowRecord>
           <FootNav :writeFlag="pageControl.followUp"></FootNav>
         </div>
@@ -52,7 +52,9 @@ export default {
     }
   },
   created () {
-    this.menu = setMenu(this.pageControl)
+    this.menu = setMenu(this.pageControl);
+
+    if(this.todoWhiteList.includes(this.pageSource)) this.tabsActive = 1;
 
     // 获取借款人基础信息
     this.api.seeMainLoanPersonInfo({orderId:this.route.orderId}).then(res => {
@@ -103,7 +105,11 @@ export default {
       if(this.pageSource === "compensatory"){
         return "代偿明细";
       }else{
-        return "还款计划";
+        if(this.todoWhiteList.includes(this.pageSource)){
+          return "跟进记录"
+        }else{
+          return "还款计划";
+        }
       }
     },
 

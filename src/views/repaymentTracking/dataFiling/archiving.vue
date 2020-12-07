@@ -9,7 +9,7 @@
           <mu-tab>相关记录</mu-tab>
         </mu-tabs>
 
-        <div class="basicInfo" v-if="tabsActive==0">
+        <div class="basicInfo" v-if="tabsActive === 0">
           <!-- 基础信息 -->
           <Info></Info>
           <!-- 编辑 -->
@@ -17,7 +17,7 @@
           <!-- 查看 -->
           <See v-else></See>
         </div>
-        <div class="followUp" v-if="tabsActive==1">
+        <div class="followUp" v-if="tabsActive === 1">
           <h1>followUp</h1>
         </div>
 

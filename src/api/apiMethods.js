@@ -1,11 +1,18 @@
 import apiCallback from './api'
+
 import store from '../vuex/store'
+import storage from '@static/js/storage'
+
+let companyList = storage.localGet("company"); //公司
+let lendingPlatformList = storage.localGet("lendingPlatform"); // 放款平台
+let personLiableList = storage.localGet("personLiable"); // 责任人
+
 export default{
 
   /******************************  列表 ******************************/
   // 获取基础数据
   getApi(_this) {
-    let api, msg
+    let api, msg, data
     switch (store.state.pageSource) {
       case "repayment":
         api = apiCallback.repayment;
@@ -35,18 +42,25 @@ export default{
         api = apiCallback.all;
         msg = "全员催收列表";
         break;
+
+      // 待办事项
+      case "collection":
+        api = apiCallback.collection;
+        msg = "待催收列表";
+        data = { collectionStatus: "UNCOLLECTED" };
+        break;
         
     }
-    return { api, msg }
+    return { api, msg, data }
   },
 
-  // 获取下拉选择器 数据
+  // 返回筛选栏下拉选择器对应数据
   getId(list, fieldName, type) {
     for (let item of list) {
       if ((item.name || item.userName) === fieldName){
         switch (type) {
           case "放款平台":
-              return item.id;
+            return item.id;
           case "公司":
             return item.departmentId;
           case "责任人":
@@ -67,66 +81,65 @@ export default{
 
   // 获取筛选栏数据
   getScreenParams(_this){
-    let { dateSwitch, lendingPlatform, company, personLiable, repaymentState, projectState } = { ..._this.screenData };
+
+    let { dateSwitch, lendingPlatform, company, personLiable, repaymentState, collectionStatus, projectState } = { ..._this.screenData };
     let screenDataList = {};
 
     if (Object.keys(_this.screenData).length > 0) {
       screenDataList = {
         updateBeginTime: this.isFieldData(dateSwitch[0]) || "", //开始时间
         updateEndTime: this.isFieldData(dateSwitch[1]) || "", //开始时间
-        platformId: this.getId(_this.lendingPlatform, lendingPlatform, "放款平台"), //放款平台 id
-        organizationId: this.getId(_this.company, company, "公司") //公司 id
+        platformId: this.getId(lendingPlatformList, lendingPlatform, "放款平台"), //放款平台 id
+        organizationId: this.getId(companyList, company, "公司") //公司 id
       }
-
       let pageSource = store.state.pageSource;
 
       if (pageSource === "repayment"){
         screenDataList.projectState = this.isFieldData(projectState); //项目状态
       } else if (pageSource === "overdue" || pageSource === "phone" || pageSource === "business" || pageSource === "visit" || pageSource === "all"){
         screenDataList.repaymentState = this.isFieldData(repaymentState); //还款状态
-        screenDataList.userId = this.getId(_this.personLiable, personLiable, "责任人"); //责任人 id
+        screenDataList.userId = this.getId(personLiableList, personLiable, "责任人"); //责任人 id
+      } else if (pageSource === "collection"){
+        screenDataList.collectionStatus = this.isFieldData(collectionStatus); //催收状态
       }
 
     }
+
     return screenDataList;
   },
 
   getListCallback(_this, type = "default"){
-    _this.skeleton = true;
-    let { api, msg } = this.getApi(_this);
+
+    let { api, msg, data } = this.getApi(_this);
+
     let params = {};
 
-    if(type == "default"){
-      params = { ..._this.paging };
-    }else if(type == "screen"){
-      params = { ..._this.paging, ...this.getScreenParams(_this) };
-    }else if(type == "search"){
+    if(type === "default"){
+      params = { ..._this.paging, ...data };
+    }else if(type === "screen"){
+      params = { ..._this.paging, ...this.getScreenParams(_this), nameOrPhoneOrOrderNo: store.state.searchInputValue };
+    }else if(type === "search"){
       params = { ..._this.paging, nameOrPhoneOrOrderNo:store.state.searchInputValue };
     }
-
-    // console.log('params:', params)
 
     api(params).then(res => {
       if (res.message !== 'success') _this.$toast.warning(`${msg}获取失败!`);
 
       if (res.data){
         _this.skeleton = false;
-        _this.loadUpdate.loadedAll = res.data.results.length === 0 ? true : false;
 
+        _this.loadUpdate.loadedAll = res.data.results.length === 0 ? true : false;
         if (_this.loadUpdate.loadingState === 'default' || _this.loadUpdate.loadingState === 'refresh' || type == "search") {
           _this.listData = res.data.results; _this.loadUpdate.refreshing = false;
         } else {
           _this.listData.push(...res.data.results); _this.loadUpdate.loading = false;
         }
-      }else{
-        _this.dataError = true;
       }
     })
   },
 
   /******************************  保存 ******************************/
   getEnclosureIds(fieldName, form){
-    console.log(fieldName, form)
     if (Object.keys(form[fieldName]).length > 0) {
       form[fieldName].imgsID = form[fieldName].imgsID ? form[fieldName].imgsID : [];
       form[fieldName].enclosureID = form[fieldName].enclosureID ? form[fieldName].enclosureID : [];
@@ -139,7 +152,6 @@ export default{
   getSaveParams(_this, saveType, customerForm, data){
     let params = {};
     let form = { ...customerForm.form};
-    // console.log('form:', form)
     if(data) params = {...data};
     switch (saveType) {
       case "更改策略":
@@ -168,8 +180,6 @@ export default{
       if (result) {
         // 获取参数
         let params = this.getSaveParams(_this, saveType, customerForm, data);
-
-        console.log('params:', params)
         
         api(params).then(res => {
           if (res.message !== 'success') {

@@ -4,7 +4,6 @@ export default {
   login: params => post({ params, url: "/login" }),
   loginOut: params => post({ params, url: "/logout" }),
 
-
   /******************************  vuex ******************************/
   // 权限管理
   accessControl: params => get({ params, url: "/queryAuth" }),
@@ -16,6 +15,8 @@ export default {
   repaymentState: params => get({ params, url: "/manager/sys/dictionary/money/back" }),
   // 项目状态
   projectState: params => get({ params, url: "/manager/sys/dictionary/projectStatus" }),
+  // 催收状态
+  collectionStatus: params => get({ params, url: "/manager/sys/dictionary/collectionStatus" }),
   // 责任人
   personLiable: params => get({ params, url: "/systemUser/findSubordinate" }),
   // 策略
@@ -39,9 +40,11 @@ export default {
   visit: params => get({ params, url: "/manager/order/info/page/collection/visit" }),
   // 全员催收列表
   all: params => get({ params, url: "/manager/order/info/page/collection/all" }),
-  
+  // 待办-催收列表
+  collection: params => get({ params, url: "/manager/order/info/page/collection/wait" }),
 
   /******************************  查询 ******************************/
+  seeModulCount: params => get({ params, url: `/manager/order/info/modular/statistics` }),
   //主借人信息
   seeMainLoanPersonInfo: params => get({ params, url: `/manager/order/info/main/borrower/orderId` }),
   // 订单 ID 查询 还款期数及对应信息
@@ -62,18 +65,14 @@ export default {
   seesEnsurePeople: params => get({ params, url: `/manager/loan/relation/guarantee/personal/order` }),
   // 客户 ID 查询 紧急联系人
   seesEmergencyContact: params => get({ params, url: `/manager/loan/relation/contacts/customer` }),
-
   // 部门
   seeDepartment: params => post({ params, url: "/department/findDepartmentTree" }),
   // 部门 id 模糊搜索 联系人信息
   seeDepUserInfo: params => get({ params, url: "/systemUser/departmentUserPage" }),
-
   // 通讯录 模糊搜索 联系人信息
   seeUserInfo: params => get({ params, url: "/systemUser/userPage" }),
-
   // 获取部门下所有用户 (转派)
   seeAllUser: params => get({ params, url: "/systemUser/queryCurrentUserDeptUser" }),
-  
 
   /******************************  操作 ******************************/
   // 变更策略
@@ -81,7 +80,7 @@ export default {
   // 转派
   transfer: params => post({ params, url: "/manager/business/user/order/assign", headers: { "Content-Type": "application/json;charset=UTF-8" } }),
   // 回款
-  collection: params => post({ params, url: "/manager/business/repayment/log", headers: { "Content-Type": "application/json;charset=UTF-8" } }),
+  payment: params => post({ params, url: "/manager/business/repayment/log", headers: { "Content-Type": "application/json;charset=UTF-8" } }),
   // 添加跟进记录
   addFollowUpRecord: params => post({ params, url: `/manager/followup/log`, headers: { "Content-Type": "application/json;charset=UTF-8" } }),
   // 文件上传

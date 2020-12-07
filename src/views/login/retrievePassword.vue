@@ -1,7 +1,6 @@
 <template>
   <div class="retrievePassword">
-    <AppBar pageTitle="找回密码" customIconBtn customTitle="保存" :customFnc="save"></AppBar>
-
+    <AppBar pageTitle="找回密码" customTextBtn customText="保存" :customCallback="save"></AppBar>
     <div class="inputBox">
       <mu-form :model="form" class="mu-demo-form" ref="form">
         <mu-form-item :rules="rules.phone" class="phoneNumber" prop="phoneNumber" >
@@ -86,8 +85,12 @@ export default {
     },
     // 倒计时
     getCode(){
-      this.countDown = 59;
-      this.codeInterval();
+      if(this.form.phoneNumber){
+        this.countDown = 59;
+        this.codeInterval();
+      }else{
+        this.$toast.error("请输入手机号");
+      }
     },
     codeInterval(){
       let time = setInterval(()=>{

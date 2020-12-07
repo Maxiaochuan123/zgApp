@@ -2,14 +2,16 @@
   <div class="myInfo">
     <div class="back"></div>
     <div class="content">
-      <div class="header" @click="goPage('userDetails')">
+      <div class="header">
         <p>我的</p>
-        <div class="userInfo">
+        <div class="userInfo" @click="goPage('userDetails')">
           <div class="describe">
             <p>{{ userInfo.userName }}</p>
             <p>{{ userInfo.comment }}</p>
           </div>
-          <img :src=" userInfo.headIcon ? `${uploadPrefix}${userInfo.headIcon}` : loadImage('defaultHeadPortrait.png') " />
+          <div class="headerImg">
+            <img :src=" userInfo.headIcon ? userInfo.headIcon : loadImage('defaultHeadPortrait.png') " />
+          </div>
         </div>
       </div>
       <div class="functionalArea">
@@ -95,10 +97,15 @@ export default {
           font-size: @primary-size;
         }
       }
-      img{
+      .headerImg{
         width: 60px;
         height: 60px;
         border-radius: 50%;
+        img{
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+        }
       }
     }
     .functionalArea{

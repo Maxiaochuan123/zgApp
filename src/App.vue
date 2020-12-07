@@ -17,27 +17,63 @@ import Loading from '@components/basics/Loading'
 import BottomNav from "@components/basics/BottomNav";
 import Theme from "muse-ui/lib/theme";
 // import VConsole from "vConsole";
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
+// import axios from 'axios'
+import storage from '@static/js/storage';
 export default {
   components: {
     Loading, BottomNav
   },
-  created() {
-    // new VConsole();
+  methods: {
+    ...mapMutations(["setScreenList"]),
+  },
+  mounted() {
+    let otherApp = this.tool.getUrlKey('otherApp') || false;
+
+    if(otherApp){
+      let _this = this;
+
+      axios.all ([this.api.company(), this.api.lendingPlatform(), this.api.repaymentState(), this.api.projectState(), this.api.collectionStatus(), this.api.personLiable(), 
+      this.api.strategy(), this.api.followUp(), this.api.accessControl()])
+      .then(axios.spread(function (data1, data2, data3, data4, data5, data6, data7, data8, data9) {
+
+        // 设置  storage 数据
+        storage.localSet("company", data1.data); //公司
+        storage.localSet("lendingPlatform", data2.data); //放款平台
+        storage.localSet("personLiable", data6.data); //责任人
+        
+        storage.localSet("strategy", data7.data); //策略类型
+        storage.localSet("followUp", data8.data); //跟进类型
+        storage.localSet("control", data9.data); //权限
+        
+        // 设置 vuex 侧边筛选栏数据
+        _this.setScreenList({
+          company:data1.data, 
+          lendingPlatform:data2.data, 
+          personLiable:data6.data,
+          repaymentState:data3.data,
+          projectState:data4.data,
+          collectionStatus:data5.data,
+        })
+      }))
+    }
+
     // 设置主题色
-    Theme.add("theme_one", {primary: "#EC191F"}, "light");
-    Theme.use("theme_one");
+    Theme.add("theme", {primary: "#EC191F"}, "light");
+    Theme.use("theme");
   },
   computed: {
     ...mapState(["loading","moreBox"])
   },
   watch: {
     $route(to, from) {
-      if(to.path.indexOf("list") != -1 && from.name === "home"){
-        to.meta.keepAlive = false;
-      }
-      if(to.path.indexOf("list") != -1 && from.name === "plan"){
-        to.meta.keepAlive = true
+      if(to.path.includes("list")){
+        if(from.name === "home" || from.name === "todoList"){
+          to.meta.keepAlive = false;
+        }
+        if(from.name === "plan"){
+          to.meta.keepAlive = true;
+        }
       }
     }
   },

@@ -5,7 +5,7 @@
 
         <!-- 图片预览 -->
         <div class="imgList">
-          <img class="imgItem" v-for="(item, index) in previewList" :key="index" :src="`${uploadPrefix}${item.attachmentUrl}`" v-show="imgType(item.attachmentType)" @click="openImagesPreview(item, index)" />
+          <img class="imgItem" v-for="(item, index) in previewList" :key="index" :src="item.attachmentUrl" v-show="imgType(item.attachmentType)" @click="openImagesPreview(item, index)" />
         </div>
 
         <!-- 附件预览 -->

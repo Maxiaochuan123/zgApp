@@ -7,7 +7,7 @@
           <div class="item" v-for="(item,index) in supplementInfoList" :key="index">
             <span>{{`补充信息 ${index == 0 ? '' : index+1}`}}</span>
             <mu-text-field v-model="item.value" placeholder="请输入补充信息" multi-line :rows="1" :rows-max="6"></mu-text-field>
-            <mu-icon size="24" :value="`:iconfont ${item.icon}`" @click="item.icon == 'icon-tianjia' ? addSupplementInfo(index) : reduceSupplementInfo(index)"></mu-icon>
+            <mu-icon size="24" :value="`:iconfont ${item.icon}`" @click="item.icon === 'icon-tianjia' ? addSupplementInfo(index) : reduceSupplementInfo(index)"></mu-icon>
           </div>
         </div>
       </div>

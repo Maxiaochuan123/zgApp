@@ -86,8 +86,6 @@ export default {
           let data = res.data;
           data.forEach(item => item.state = false);
           this.listData = data;
-        }else{
-          this.dataError = true;
         }
       })
     }

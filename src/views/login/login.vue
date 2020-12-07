@@ -2,7 +2,7 @@
   <div class="login">
     <div class="headPortrait">
       <div class="photo">
-        <img src="@static/images/defaultHeadPortrait.png">
+        <img :src=" headerImg ? headerImg : loadImage('defaultHeadPortrait.png') " />
       </div>
       <span>欢迎回来!</span>
     </div>
@@ -33,9 +33,9 @@
         <img :src="remPwd ? loadImage('selected.png') : loadImage('forget.png')">
         <span>记住密码</span>
       </div>
-      <div class="forgetPassword" @click="retrievePassword">
+      <!-- <div class="forgetPassword" @click="retrievePassword">
         <span>忘记密码</span>
-      </div>
+      </div> -->
     </div>
     <div class="loginBtnBox">
       <mu-button color="primary" @click="login">登 录</mu-button>
@@ -44,13 +44,14 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from 'axios'
 import storage from '@static/js/storage';
+import { mapMutations } from "vuex";
 export default {
-  components: {},
   data() {
     return {
-      loc_loginInfo:{},
+      headerImg: this.storage.localGet("userInfo") ? this.storage.localGet("userInfo").headIcon : "", //上次登陆的头像
+      loc_loginInfo:{}, // 记住密码所需本地存储信息
       remPwd: this.storage.localGet("remPwd") || false, // 是否记住密码
       visibility: false, // 密码可见度
       form: {
@@ -64,19 +65,14 @@ export default {
     };
   },
   created(){
-    // if(localStorage.getItem("token") || storage.localGet("userInfo")){
-    //   storage.localRemove("token");
-    //   storage.localRemove("userInfo");
-    // }
-
     if(localStorage.getItem("loc_loginInfo")){
       this.loc_loginInfo = JSON.parse(this.tool.decAse192(localStorage.getItem("loc_loginInfo"),"loc_loginInfo"));
-    }
-
-    // 获取已记住的账号密码
-    if(this.loc_loginInfo.username) this.form.username = this.loc_loginInfo.username;
-    if(this.remPwd && this.loc_loginInfo.password){
-      this.form.password = this.loc_loginInfo.password;
+    
+      // 获取已记住的账号密码
+      if(this.loc_loginInfo.username) this.form.username = this.loc_loginInfo.username;
+      if(this.remPwd && this.loc_loginInfo.password){
+        this.form.password = this.loc_loginInfo.password;
+      }
     }
   },
   watch: {
@@ -88,12 +84,14 @@ export default {
     },
     "form.password":{
       handler(newVal,oldVal){
-        if(!newVal) this.remPwd = false; this.storage.localSet("remPwd", false);
+        if(!newVal) this.remPwd = false, this.storage.localSet("remPwd", false);
       },
       deep: true
     }
   },
   methods: {
+    ...mapMutations(["setScreenList"]),
+
     // 登录
     login() {
       this.$refs.form.validate().then(result => {
@@ -104,23 +102,40 @@ export default {
               this.loc_loginInfo.username = this.form.username;
               this.loc_loginInfo.password = this.form.password;
               this.storage.localSet("loc_loginInfo",this.tool.encAse192(JSON.stringify(this.loc_loginInfo),"loc_loginInfo"));
+
               // 存入登陆信息
               this.storage.localSet("token",this.tool.encAse192(res.data.token,"token"));
               this.storage.localSet("userInfo",res.data.user);
-              
-              // 设置公共数据
-              axios.all([this.api.company(), this.api.lendingPlatform(), this.api.repaymentState(), this.api.projectState(), this.api.personLiable(), this.api.strategy(), this.api.followUp(), this.api.accessControl()]).then(axios.spread(function (one, two, three, four, five, six, seven, eight) {
-                storage.localSet("company", one.data); //公司
-                storage.localSet("lendingPlatform", two.data); //放款平台
-                storage.localSet("repaymentState", three.data); //还款状态
-                storage.localSet("projectState", four.data); //项目状态
-                storage.localSet("personLiable", five.data); //责任人
-                storage.localSet("strategy", six.data); //策略
-                storage.localSet("followUp", seven.data); //跟进类型
-                storage.localSet("control", eight.data); //权限
-              })).then(res => {
-                this.goPage("home");
-              })
+
+              let _this = this;
+
+              axios.all ([this.api.company(), this.api.lendingPlatform(), this.api.repaymentState(), this.api.projectState(), this.api.collectionStatus(), this.api.personLiable(), 
+              this.api.strategy(), this.api.followUp(), this.api.accessControl()])
+              .then(axios.spread(function (data1, data2, data3, data4, data5, data6, data7, data8, data9) {
+
+                // 设置  storage 数据
+                storage.localSet("company", data1.data); //公司
+                storage.localSet("lendingPlatform", data2.data); //放款平台
+                storage.localSet("personLiable", data6.data); //责任人
+                
+                storage.localSet("strategy", data7.data); //策略类型
+                storage.localSet("followUp", data8.data); //跟进类型
+                storage.localSet("control", data9.data); //权限
+                
+                // 设置 vuex 侧边筛选栏数据
+                _this.setScreenList({
+                  company:data1.data, 
+                  lendingPlatform:data2.data, 
+                  personLiable:data6.data,
+                  repaymentState:data3.data,
+                  projectState:data4.data,
+                  collectionStatus:data5.data,
+                })
+
+                _this.goPage("home");
+
+              }))
+
             }else{
               this.form.password = "";
             }
@@ -135,7 +150,7 @@ export default {
         this.remPwd = !this.remPwd;
         this.storage.localSet("remPwd", this.remPwd);
       }else{
-        this.$toast.warning("请先输入密码, 再勾选!")
+        this.$toast.info("请先输入密码, 再勾选!")
       }
     },
 
@@ -166,6 +181,7 @@ export default {
         width: 100px;
         height: 100px;
         border: 0;
+        border-radius: 50%;
       }
     }
     span{

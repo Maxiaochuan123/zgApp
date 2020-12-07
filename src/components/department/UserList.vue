@@ -15,7 +15,7 @@
               <img :src="loadImage('defaultHeadPortrait.png')">
               <div class="describe">
                 <p>{{item.userName}}</p>
-                <!-- <p>{{item.roles.map(val=>val.name).join(", ")}}</p> -->
+                <p>{{item.roles.map(val=>val.name).join(", ")}}</p>
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@ export default {
     getUserList(type){
       
       if(!this.isSelectUser){
-        this.api.seeDepUserInfo({...this.paging, departmentId:this.departmentItem.id, param:this.$store.state.searchInputValue}).then(res => {
+        this.api.seeDepUserInfo({...this.paging, departmentId:this.departmentItem.id, param:this.searchInputValue}).then(res => {
           if (res.message !== 'success') this.$toast.warning("用户列表获取失败!");
 
           if (res.data){ 
@@ -130,8 +130,6 @@ export default {
               this.listData.push(...results); this.loadUpdate.loading = false;
             }
 
-          }else{
-            this.dataError = true;
           }
         })
       }else{
@@ -142,8 +140,6 @@ export default {
             data.forEach(item => item.state = false);
             // this.listData = data;
             console.log(data)
-          }else{
-            this.dataError = true;
           }
         })
       }
@@ -174,7 +170,8 @@ export default {
         text-align: center;
         padding: 0 12px;
         i{
-          display: inline-block;
+          width: 24px;
+          height: 40px;
           font-size: 24px;
         }
         span{

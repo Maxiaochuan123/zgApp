@@ -9,7 +9,7 @@
           <div class="itemBox">
             <div class="item"><span>身份证号</span> <span>{{ main.cardId | paramsError}}</span></div><div class="item"><span>手机号</span> <span>{{ main.phone | paramsError}}</span></div>
           </div>
-          <div v-if="carTitle == '还款明细'">
+          <div v-if="carTitle === '还款明细'">
             <div class="itemBox">
               <div class="item"><span>本期还款金额</span> <span>{{ order.periodsTotalAmount | paramsError("元")}}</span></div><div class="item"><span>应还款日期</span> <span>{{ order.periodsRepaymentDay | paramsError}}</span></div>
             </div>
@@ -17,7 +17,7 @@
               <div class="item"><span>放款平台</span> <span>{{ main.platformName | paramsError}}</span></div><div class="item"><span>还款方式</span> <span>{{ order.periodsRepaymentModel | paramsError}}</span></div>
             </div>
           </div>
-          <div v-else-if="carTitle == '回款明细'">
+          <div v-else-if="carTitle === '回款明细'">
             <div class="itemBox">
               <div class="item"><span>贷款金额</span> <span>{{ main.orderSourceAmount | paramsError("元")}}</span></div><div class="item"><span>应还总金额</span> <span>{{ order.periodsTotalAmount | paramsError("元")}}</span></div>
             </div>
@@ -33,8 +33,8 @@
           </div>
         </div>
 
-        <div v-if="carTitle == '还款明细'">
-          <div v-if="detailedType == '还款'">
+        <div v-if="carTitle === '还款明细'">
+          <div v-if="detailedType === '还款'">
             <div class="header"> <span>实还款信息</span> </div>
             <div class="middle">
               <div class="itemBox">
@@ -45,7 +45,7 @@
               </div>
             </div>
           </div>
-          <div v-else-if="detailedType == '回款'">
+          <div v-else-if="detailedType === '回款'">
             <section v-for="(item, index) in repayment" :key="index">
               <div class="header"> <span>实还款信息({{index+1}})</span> </div>
               <div class="middle">
@@ -86,7 +86,7 @@
           </div>
         </div>
 
-        <div v-else-if="carTitle =='回款明细'">
+        <div v-else-if="carTitle === '回款明细'">
           <div class="header"> <span>代偿放款</span> </div>
           <div class="middle">
             <div class="itemBox">

@@ -24,15 +24,10 @@
           <mu-text-field v-model.trim="form[item.field.key]" :prop="item.field.key" :placeholder="`请输入${item.label}`" multi-line :rows="1" :rows-max="6"></mu-text-field>
         </mu-form-item>
 
-        <!-- 日期 & 月份 -->
-        <mu-form-item class="basic date" :label="item.label" :prop="item.field.key" :rules="rules[item.field.key]" v-if="item.type === 'date' || item.type === 'month'">
+        <!-- 日期 & 月份 & 时间 -->
+        <mu-form-item class="basic date" :label="item.label" :prop="item.field.key" :rules="rules[item.field.key]" v-if="item.type === 'date' || item.type === 'month' || item.type === 'dateTime'">
           <span v-show="!form[item.field.key]">{{`请选择${item.label}`}}</span><mu-icon size="24" value=":iconfont icon-rightArrow"></mu-icon>
-          <mu-date-input v-model="form[item.field.key]" :type="item.type" :value-format="valueFormat(item.type)" :should-disable-date="afterToday" container="bottomSheet" label-float full-width></mu-date-input>
-        </mu-form-item>
-        <!-- 时间 -->
-        <mu-form-item class="basic date" :label="item.label" :prop="item.field.key" :rules="rules[item.field.key]" v-if="item.type === 'dateTime'">
-          <span v-show="!form[item.field.key]">{{`请选择${item.label}`}}</span><mu-icon size="24" value=":iconfont icon-rightArrow"></mu-icon>
-          <mu-date-input v-model="form[item.field.key]" :type="item.type" :value-format="'YYYY-MM-DD hh:mm'" :should-disable-date="beforeToday" container="bottomSheet" label-float full-width></mu-date-input>
+          <mu-date-input v-model="form[item.field.key]" :type="item.type" :value-format="valueFormat(item.type)" :should-disable-date="item.field.key === 'repaymentDate' ? beforeToday : afterToday " container="bottomSheet" label-float full-width></mu-date-input>
         </mu-form-item>
 
         <!-- 弹出 picker -->
@@ -128,10 +123,9 @@ export default {
       this.form[this.attachmentField].enclosureID = [...data];
     },
 
-
-    // 控制日期选择返回 date.getTime() < Date.now() - 8.64e7;(包含今天)
+    // 控制日期选择返回 - 8.64e7;(包含今天 || 不包含今天)
     afterToday(date){ //今天之后
-      return date.getTime() < Date.now(); //不包含今天
+      return date.getTime() < Date.now() - 8.64e7;
     },
     beforeToday(date){//今天之前
       return date.getTime() > Date.now();

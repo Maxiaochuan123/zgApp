@@ -13,19 +13,16 @@ export default {
   data() {
     return {
       // 用户信息
-      userInfo: storage.localGet("userInfo"),
+      userInfo: storage.localGet("userInfo") || {},
 
       // tabs 当前选中项
       tabsActive: 0,
 
       // 骨架屏
       skeleton: true,
-
+      
       // 列表数据
       listData: [],
-
-      // 数据获取失败
-      dataError: false,
 
       // paging 分页
       paging: {
@@ -43,14 +40,8 @@ export default {
 
       screenData: {}, //筛选数据
 
-      // uploadPrefix: `${window.location.protocol}//${window.location.host}/`, // 图片,附件 路径前缀 (线上部署替换)
-      uploadPrefix: 'http://192.168.0.92:8900/', // 图片,附件 路径前缀 (本地调试用)
-
-      company: this.storage.localGet("company"), //公司
-      lendingPlatform: this.storage.localGet("lendingPlatform"), //放款平台
-      repaymentState: this.storage.localGet("repaymentState"), //还款状态
-      projectState: this.storage.localGet("projectState"), //项目状态
-      personLiable: this.storage.localGet("personLiable"), //责任人
+      todoWhiteList: ["collection"], //待办列表白名单
+      
       strategy: this.storage.localGet("strategy"), //策略
       followUp: this.storage.localGet("followUp"), //跟进类型
     };
@@ -80,21 +71,21 @@ export default {
       }
     },
 
-    companyList() { //公司列表
-      return this.filterList(this.company, "name");
-    },
-    lendingPlatformList() { //放款平台列表
-      return this.filterList(this.lendingPlatform, "name");
-    },
-    personLiableList() { //责任人列表
-      return this.filterList(this.personLiable, "userName");
-    }
+    // companyList() { //公司列表
+    //   return this.filterList(this.company, "name");
+    // },
+    // lendingPlatformList() { //放款平台列表
+      // return this.filterList(this.lendingPlatform, "name");
+    // },
+    // personLiableList() { //责任人列表
+      // return this.filterList(this.personLiable, "userName");
+    // }
   },
   methods: {
-    ...mapMutations(["setRouteData","setMoreBoxScrollTop"]),
+    ...mapMutations(["setSearchInputVal", "setRouteData", "setMoreBoxScrollTop"]),
 
     // 过滤列表
-    filterList(data, field){
+    filterList(data=[], field){
       return data.map(item => {
         return item[field]
       })
@@ -106,6 +97,7 @@ export default {
       this.loadUpdate.refreshing = true;
       this.listData = [];
       this.loadUpdate.loadingState = "refresh";
+      this.setSearchInputVal("");
     },
 
     // 上拉加载 handle
