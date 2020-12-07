@@ -1,13 +1,17 @@
-// import axios from 'axios'
+import axios from 'axios'
 import Qs from 'qs';
 import Toast from "muse-ui-toast";
 import store from "@/vuex/store";
 import tool from '@static/js/tool'
 import ios_fn from '@static/js/ios_fn'
-// import Vue from "vue";
 
-// import VConsole from "vConsole";
-// Vue.prototype.$VConsole = new VConsole()
+console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === "development"){
+  import Vue from "vue";
+  import VConsole from "vConsole";
+  Vue.prototype.$VConsole = new VConsole()
+}
+
 
 // 超时时间
 axios.defaults.timeout = 5000;
