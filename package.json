@@ -43,7 +43,7 @@
     "html-webpack-plugin": "^2.30.1",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "muse-ui-message": "^0.2.1",
     "muse-ui-toast": "^0.3.0",
     "node-notifier": "^5.1.2",
